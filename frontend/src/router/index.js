@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import CallService from '@/components/CallService'
+import Index from '@/components/Index'
+import QuestionMaster from '@/components/QuestionMaster'
+import Details from '@/components/details/Details'
 import Bootstrap from '@/components/Bootstrap'
 
 Vue.use(Router)
@@ -10,13 +11,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'Index',
+      component: Index
     },
     {
-      path: '/callservice',
+      path: '/questions',
       name: 'Service',
-      component: CallService
+      component: QuestionMaster
+    },
+    {
+      path: '/details/:id',
+      name: 'Details',
+      component: Details
     },
     {
       path: '/bootstrap',
