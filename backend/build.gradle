@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.9
 
 repositories {
     mavenCentral()
@@ -21,4 +21,7 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
     compile 'org.springframework.boot:spring-boot-properties-migrator'
+
+    // needed for Java 9
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
 }
