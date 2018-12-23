@@ -15,3 +15,7 @@ spring:
     tomcat:
       validation-query: SELECT 1
       test-while-idle: true
+
+faustus:
+  heroes:
+    generate: false
