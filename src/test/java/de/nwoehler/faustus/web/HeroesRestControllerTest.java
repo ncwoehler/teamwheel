@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.boot.test.json.ObjectContent;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sql.DataSource;
@@ -24,8 +26,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(classes = {Application.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
+@TestPropertySource(locations = "classpath:application-test.yaml")
 public class HeroesRestControllerTest {
 
     @Value("${local.server.port}")
@@ -39,7 +41,7 @@ public class HeroesRestControllerTest {
     private JacksonTester<HeroesResponse> heroesResponse;
 
     @Before
-    public void init() throws Exception {
+    public void setup() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
@@ -61,9 +63,7 @@ public class HeroesRestControllerTest {
                     .extract()
                     .as(HeroesResponse.class);
 
-        String resourcePath = "expected-get-heroes-response.json";
-        HeroesResponse expectedDTO = heroesResponse.readObject(resourcePath);
-
+        HeroesResponse expectedDTO = heroesResponse.readObject("expected-get-heroes-response.json");
         assertThat(actualDTO).isEqualTo(expectedDTO);
     }
 }
