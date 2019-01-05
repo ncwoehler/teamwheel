@@ -1,7 +1,7 @@
 plugins {
+    id 'java'
     id 'io.franzbecker.gradle-lombok' version '1.14'
     id 'org.springframework.boot' version '2.1.1.RELEASE'
-    id 'java'
 }
 
 apply plugin: 'org.springframework.boot'
@@ -30,6 +30,8 @@ dependencies {
     implementation 'ma.glasnost.orika:orika-core:1.5.2'
     implementation group: 'com.github.javafaker', name: 'javafaker', version: '0.16'
     //implementation group: 'org.liquibase', name: 'liquibase-core'
+
+    implementation project(':frontend')
 
     runtimeOnly "com.h2database:h2"
 
