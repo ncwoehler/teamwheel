@@ -1,0 +1,15 @@
+plugins {
+  id 'java'
+  id "com.liferay.node" version "4.5.1"
+}
+
+node {
+  nodeVersion = "10.15.0"
+  npmVersion = "6.4.1"
+}
+
+//test.dependsOn 'npmRunLint', 'npmRunTest'
+jar.dependsOn 'npmRunBuild'
+jar {
+  from 'build/dist/' into 'static'
+}
