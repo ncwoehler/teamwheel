@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "faustus-ui": {
+    "teamwheel-ui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -23,7 +23,6 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -61,18 +60,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "faustus-ui:build"
+            "browserTarget": "teamwheel-ui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "faustus-ui:build:production"
+              "browserTarget": "teamwheel-ui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "faustus-ui:build"
+            "browserTarget": "teamwheel-ui:build"
           }
         },
         "test": {
@@ -87,7 +86,6 @@
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ]
           }
@@ -115,11 +113,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "faustus-ui:serve"
+            "devServerTarget": "teamwheel-ui:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "faustus-ui:serve:production"
+              "devServerTarget": "teamwheel-ui:serve:production"
             }
           }
         },
@@ -135,5 +133,5 @@
       }
     }
   },
-  "defaultProject": "faustus-ui"
+  "defaultProject": "teamwheel-ui"
 }

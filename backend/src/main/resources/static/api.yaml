@@ -1,7 +1,7 @@
 openapi: "3.0.1"
 info:
   version: 1.0.0
-  title: Faustus API
+  title: Teamwheel API
   contact:
     name: Nils Wöhler
   license:
