@@ -16,6 +16,6 @@ spring:
       validation-query: SELECT 1
       test-while-idle: true
 
-faustus:
+teamwheel:
   heroes:
     generate: false
