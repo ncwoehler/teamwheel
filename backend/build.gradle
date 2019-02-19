@@ -31,7 +31,7 @@ dependencies {
     implementation group: 'com.github.javafaker', name: 'javafaker', version: '0.16'
     //implementation group: 'org.liquibase', name: 'liquibase-core'
 
-    implementation project(':frontend')
+    //implementation project(':frontend')
 
     runtimeOnly "com.h2database:h2"
 
