@@ -1,0 +1,6 @@
+{
+  "appId": "de.nwoehler.teamwheel",
+  "appName": "TeamWheel",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
