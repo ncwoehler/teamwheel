@@ -13,11 +13,23 @@
     <ion-card class="welcome-card">
       <ion-img src="/assets/teamwheel.png"></ion-img>
       <ion-card-header>
-          <ion-card-title>Welcome to TeamWheel</ion-card-title>
+          <ion-card-title>Willkommen bei TeamWheel</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
+        <p>Mit TeamWheel kannst du ... TODO</p>
       </ion-card-content>
     </ion-card>
-
+    <ion-card class="recent-groups">
+        <ion-card-header>
+            <ion-card-title>Kürzliche Gruppen</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ul class="recent">
+                <li *ngFor="let group of recentGroups">
+                    <span class="badge">{{group.id}}</span> {{group.name}}
+                </li>
+            </ul>
+            <ion-button color="primary">Neue Gruppe erstellen</ion-button>
+        </ion-card-content>
+    </ion-card>
 </ion-content>
