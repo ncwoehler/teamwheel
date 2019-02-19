@@ -1,3 +1,4 @@
+<script src="../../../../test/tabs/src/app/tab1/tab1.module.ts"></script>
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -19,17 +20,20 @@
         <p>Mit TeamWheel kannst du ... TODO</p>
       </ion-card-content>
     </ion-card>
-    <ion-card class="recent-groups">
+    <ion-card >
         <ion-card-header>
             <ion-card-title>Kürzliche Gruppen</ion-card-title>
         </ion-card-header>
-        <ion-card-content>
-            <ul class="recent">
-                <li *ngFor="let group of recentGroups">
-                    <span class="badge">{{group.id}}</span> {{group.name}}
-                </li>
-            </ul>
-            <ion-button color="primary">Neue Gruppe erstellen</ion-button>
+        <ion-card-content >
+            <div *ngIf="!recentGroups">
+                <h2>Keine Gruppen vorhanden. Es ist Zeit deine erste Gruppe zu erstellen  <ion-icon name="happy"></ion-icon></h2>
+                <ion-button class="create-button" color="primary">Neue Gruppe erstellen</ion-button>
+            </div>
+            <ion-item *ngFor="let group of recentGroups" lines="none">
+                <ion-icon name="contacts" slot="start"></ion-icon>
+                <ion-label>{{group.name}}</ion-label>
+            </ion-item>
         </ion-card-content>
     </ion-card>
+
 </ion-content>
