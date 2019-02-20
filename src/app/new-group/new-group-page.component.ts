@@ -5,10 +5,10 @@ import { Router } from "@angular/router";
 
 @Component({
   selector: "app-newgroup",
-  templateUrl: "./newgroup.page.html",
-  styleUrls: ["./newgroup.page.scss"]
+  templateUrl: "./new-group-page.component.html",
+  styleUrls: ["./new-group-page.component.scss"]
 })
-export class NewgroupPage {
+export class NewGroupPage {
   constructor(
     private fb: FormBuilder,
     private groupService: GroupService,
