@@ -18,11 +18,11 @@ export class AllGroupsPage implements OnInit {
   }
 
   getAllGroups(): void {
-    this.groupService.getAllGroups().then(
-      data => {
+    this.groupService
+      .getAllGroups()
+      .then(data => {
         this.allGroups = data;
-      },
-      error => console.error(error) // TODO error handling
-    );
+      })
+      .catch(value => console.error(value)); // TODO error handling
   }
 }

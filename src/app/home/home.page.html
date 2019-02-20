@@ -29,12 +29,7 @@
             <ion-icon name="happy"></ion-icon>
           </h2>
         </ion-text>
-        <ion-button
-          class="create-button"
-          color="primary"
-          routerLink="/groups/new"
-          >Neue Gruppe erstellen</ion-button
-        >
+        <app-new-group-button></app-new-group-button>
       </div>
       <ion-list *ngIf="recentGroups">
         <ion-item *ngFor="let group of recentGroups">

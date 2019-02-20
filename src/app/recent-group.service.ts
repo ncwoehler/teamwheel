@@ -14,35 +14,25 @@ export class RecentGroupService {
     return this.storage.get(STORAGE_KEY);
   }
 
-  push(group: Group): void {
-    this.getRecentGroups().then(
-      result => {
-        if (result) {
-          const index = result.findIndex(g => g.id === group.id);
-          if (index > -1) {
-            result.splice(index, 1);
-          }
-          const newSize = result.push(group);
-          if (newSize > 5) {
-            result.shift();
-          }
-          this.storage.set(STORAGE_KEY, result);
-        } else {
-          this.storage.set(STORAGE_KEY, [group]);
-        }
-      },
-      value => console.error(value) // TODO error handling
-    );
+  async push(group: Group) {
+    const result = await this.getRecentGroups();
+    if (result) {
+      const index = result.findIndex(g => g.id === group.id);
+      if (index > -1) {
+        result.splice(index, 1);
+      }
+      const newSize = result.push(group);
+      if (newSize > 5) {
+        result.shift();
+      }
+      this.storage.set(STORAGE_KEY, result);
+    } else {
+      this.storage.set(STORAGE_KEY, [group]);
+    }
   }
 
-  getRecentGroupsInOrder(): Promise<Group[]> {
-    return new Promise<Group[]>((resolve, reject) => {
-      this.storage.get(STORAGE_KEY).then(
-        value => {
-          resolve(value.reverse());
-        },
-        value => reject(value)
-      );
-    });
+  async getRecentGroupsInOrder(): Promise<Group[]> {
+    const recentGroups = await this.getRecentGroups();
+    return recentGroups.reverse();
   }
 }
