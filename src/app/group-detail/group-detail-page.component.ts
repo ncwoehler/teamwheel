@@ -5,10 +5,10 @@ import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-group",
-  templateUrl: "./group.page.html",
-  styleUrls: ["./group.page.scss"]
+  templateUrl: "./group-detail-page.component.html",
+  styleUrls: ["./group-detail-page.component.scss"]
 })
-export class GroupPage implements OnInit {
+export class GroupDetailPage implements OnInit {
   private group: Group;
 
   constructor(
