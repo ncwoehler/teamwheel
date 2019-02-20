@@ -22,9 +22,9 @@ export class GroupPage implements OnInit {
 
   getGroup() {
     const groupId: string = this.route.snapshot.paramMap.get("groupId");
-    this.groupService.getGroupById(groupId).then(
-      value => (this.group = value),
-      value => console.error(value) // TODO error handling
-    );
+    this.groupService
+      .getGroupById(groupId)
+      .then(value => (this.group = value))
+      .catch(value => console.error(value));// TODO error handling
   }
 }

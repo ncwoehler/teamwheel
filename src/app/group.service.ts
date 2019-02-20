@@ -19,41 +19,29 @@ export class GroupService {
     return this.storage.get(STORAGE_KEY);
   }
 
-  addGroup(name: string): Promise<Group> {
-    return new Promise<Group>((resolve, reject) => {
-      const id = nanoid();
-      const newGroup = new Group(id, name);
-      this.getAllGroups().then(
-        result => {
-          if (result) {
-            result.push(newGroup);
-            result.sort((a, b) => a.name.localeCompare(b.name));
-            this.storage.set(STORAGE_KEY, result);
-          } else {
-            this.storage.set(STORAGE_KEY, [newGroup]);
-          }
-          this.recentGroupService.push(newGroup);
-          resolve(newGroup);
-        },
-        value => reject(value) // TODO error handling
-      );
-    });
+  async addGroup(name: string): Promise<Group> {
+    const id = nanoid();
+    const newGroup = new Group(id, name);
+    const result = await this.getAllGroups();
+    if (result) {
+      result.push(newGroup);
+      result.sort((a, b) => a.name.localeCompare(b.name));
+      this.storage.set(STORAGE_KEY, result);
+    } else {
+      this.storage.set(STORAGE_KEY, [newGroup]);
+    }
+    await this.recentGroupService.push(newGroup);
+    return newGroup;
   }
 
-  getGroupById(id: string): Promise<Group> {
-    return new Promise<Group>((resolve, reject) => {
-      this.getAllGroups().then(
-        value => {
-          const selectedGroup = value
-            ? value.find(group => group.id === id)
-            : undefined;
-          if (selectedGroup) {
-            this.recentGroupService.push(selectedGroup);
-          }
-          resolve(selectedGroup);
-        },
-        value => reject(value)
-      );
-    });
+  async getGroupById(id: string): Promise<Group> {
+    const result = await this.getAllGroups();
+    const selectedGroup = result
+      ? result.find(group => group.id === id)
+      : undefined;
+    if (selectedGroup) {
+      await this.recentGroupService.push(selectedGroup);
+    }
+    return selectedGroup;
   }
 }

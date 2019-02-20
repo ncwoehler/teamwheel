@@ -1,11 +1,14 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Alle Gruppen</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-button routerLink="/groups/new">Neue Gruppe erstellen</ion-button>
+ <app-new-group-button></app-new-group-button>
 
   <ion-list>
     <ion-item *ngFor="let group of allGroups">
@@ -19,7 +22,8 @@
         size="small"
         fill="outline"
         routerLink="/groups/details/{{group.id}}"
-        >Öffnen</ion-button
+      >
+        Öffnen</ion-button
       >
     </ion-item>
   </ion-list>

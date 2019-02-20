@@ -18,11 +18,11 @@ export class HomePage implements OnInit {
   }
 
   getRecentGroups(): void {
-    this.recentGroupService.getRecentGroupsInOrder().then(
-      data => {
+    this.recentGroupService
+      .getRecentGroupsInOrder()
+      .then(data => {
         this.recentGroups = data;
-      },
-      error => console.error(error) // TODO error handling
-    );
+      })
+      .catch(value => console.error(value)); // TODO error handling
   }
 }

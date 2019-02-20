@@ -20,8 +20,10 @@ export class NewgroupPage {
   });
 
   onSubmit() {
-    let newGroup = this.groupService.addGroup(this.newGroupForm.value.name);
-    newGroup.then(group => this.openGroupPage(group.id));
+    const newGroup = this.groupService.addGroup(this.newGroupForm.value.name);
+    newGroup
+      .then(group => this.openGroupPage(group.id))
+      .catch(value => console.error(value)); // TODO error handling
   }
 
   openGroupPage(id: string) {
