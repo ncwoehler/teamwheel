@@ -5,7 +5,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Home
+      Willkommen
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -26,8 +26,10 @@
         </ion-card-header>
         <ion-card-content >
             <div *ngIf="!recentGroups">
-                <h2>Keine Gruppen vorhanden. Es ist Zeit deine erste Gruppe zu erstellen  <ion-icon name="happy"></ion-icon></h2>
-                <ion-button class="create-button" color="primary">Neue Gruppe erstellen</ion-button>
+                <ion-text>
+                    <h2>Keine Gruppen vorhanden. Es ist Zeit deine erste Gruppe zu erstellen  <ion-icon name="happy"></ion-icon></h2>
+                </ion-text>
+                <ion-button class="create-button" color="primary" routerLink="/groups/new">Neue Gruppe erstellen</ion-button>
             </div>
             <ion-item *ngFor="let group of recentGroups" lines="none">
                 <ion-icon name="contacts" slot="start"></ion-icon>
