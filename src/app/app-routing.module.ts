@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: "groups/details/:groupId",
-    loadChildren: "./group/group.module#GroupPageModule"
+    loadChildren: "./group-detail/group-detail.module#GroupDetailPageModule"
   }
 ];
 
