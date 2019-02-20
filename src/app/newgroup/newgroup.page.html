@@ -5,16 +5,24 @@
 </ion-header>
 
 <ion-content padding>
-        <form [formGroup]="newGroupForm" (ngSubmit)="onSubmit()">
-            <ion-item>
-                <ion-label position="stacked">Gruppenname</ion-label>
-                <ion-input type="text" formControlName="name" autofocus required placeholder='Beispiel: Deutsch, 6c'></ion-input>
-            </ion-item>
+  <form [formGroup]="newGroupForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Gruppenname</ion-label>
+      <ion-input
+        type="text"
+        formControlName="name"
+        autofocus
+        required
+        placeholder="Beispiel: Deutsch, 6c"
+      ></ion-input>
+    </ion-item>
 
-            <ion-button
-                    type="submit"
-                    color="primary"
-                    expand="block"
-                    [disabled]="!newGroupForm.valid">Gruppe erstellen</ion-button>
-        </form>
+    <ion-button
+      type="submit"
+      color="primary"
+      expand="block"
+      [disabled]="!newGroupForm.valid"
+      >Gruppe erstellen</ion-button
+    >
+  </form>
 </ion-content>

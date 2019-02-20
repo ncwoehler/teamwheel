@@ -11,31 +11,47 @@
 </ion-header>
 
 <ion-content>
-    <ion-card class="welcome-card">
-      <ion-img src="/assets/teamwheel.png"></ion-img>
-      <ion-card-header>
-          <ion-card-title>Willkommen bei TeamWheel</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Mit TeamWheel kannst du ... TODO</p>
-      </ion-card-content>
-    </ion-card>
-    <ion-card >
-        <ion-card-header>
-            <ion-card-title>Kürzliche Gruppen</ion-card-title>
-        </ion-card-header>
-        <ion-card-content >
-            <div *ngIf="!recentGroups">
-                <ion-text>
-                    <h2>Keine Gruppen vorhanden. Es ist Zeit deine erste Gruppe zu erstellen  <ion-icon name="happy"></ion-icon></h2>
-                </ion-text>
-                <ion-button class="create-button" color="primary" routerLink="/groups/new">Neue Gruppe erstellen</ion-button>
-            </div>
-            <ion-item *ngFor="let group of recentGroups" lines="none">
-                <ion-icon name="contacts" slot="start"></ion-icon>
-                <ion-label>{{group.name}}</ion-label>
-            </ion-item>
-        </ion-card-content>
-    </ion-card>
-
+  <ion-card class="welcome-card">
+    <ion-img src="/assets/teamwheel.png"></ion-img>
+    <ion-card-header>
+      <ion-card-title>Willkommen bei TeamWheel</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Zuletzt genutzte Gruppen</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!recentGroups">
+        <ion-text>
+          <h2>
+            Keine Gruppen vorhanden. Es ist Zeit deine erste Gruppe zu erstellen
+            <ion-icon name="happy"></ion-icon>
+          </h2>
+        </ion-text>
+        <ion-button
+          class="create-button"
+          color="primary"
+          routerLink="/groups/new"
+          >Neue Gruppe erstellen</ion-button
+        >
+      </div>
+      <ion-list *ngIf="recentGroups">
+        <ion-item *ngFor="let group of recentGroups">
+          <ion-icon name="contacts" slot="start"></ion-icon>
+          <ion-label>
+            {{group.name}}
+          </ion-label>
+          <ion-button
+            shape="round"
+            color="primary"
+            size="small"
+            fill="outline"
+            routerLink="/groups/details/{{group.id}}"
+            >Öffnen</ion-button
+          >
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
