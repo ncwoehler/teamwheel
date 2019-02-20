@@ -1,61 +1,34 @@
 import {Injectable} from '@angular/core';
+import {RecentGroupService} from "./recent-group.service";
 import {Storage} from '@ionic/storage';
 import {Group} from "./Group";
-import {Observable, of} from 'rxjs';
 
-const STORAGE_KEY = 'recentGroups';
+const STORAGE_KEY = 'allGroups';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GroupService {
 
-    constructor() {
+    constructor(private storage: Storage, private recentGroupService: RecentGroupService) {}
+
+    getAllGroups(): Promise<Group[]> {
+        return this.storage.get(STORAGE_KEY);
     }
 
-    getRecentGroups(): Observable<Group[]> {
-        return of([
-            {id: 1, name: "6c"},
-            {id: 2, name: "6d"}
-        ]);
+    addGroup(name: string): void {
+        let newGroup = new Group(name);
+
+        this.getAllGroups().then(result => {
+            if (result) {
+                result.push(newGroup);
+                this.storage.set(STORAGE_KEY, result);
+            } else {
+                this.storage.set(STORAGE_KEY, [newGroup]);
+            }
+        });
+
+        this.recentGroupService.addRecentGroup(newGroup);
     }
-    /*
-        isFavorite(filmId) {
-            return this.getAllFavoriteFilms().then(result => {
-                return result && result.indexOf(filmId) !== -1;
-            });
-        }
 
-        favoriteFilm(filmId) {
-            return this.getAllFavoriteFilms().then(result => {
-                if (result) {
-                    result.push(filmId);
-                    return this.storage.set(STORAGE_KEY, result);
-                } else {
-                    return this.storage.set(STORAGE_KEY, [filmId]);
-                }
-            });
-        }
-
-        unfavoriteFilm(filmId) {
-            return this.getAllFavoriteFilms().then(result => {
-                if (result) {
-                    var index = result.indexOf(filmId);
-                    result.splice(index, 1);
-                    return this.storage.set(STORAGE_KEY, result);
-                }
-            });
-        }
-
-        getAllFavoriteFilms() {
-            return this.storage.get(STORAGE_KEY);
-        }
-
-        / set a key/value
-      storage.set('name', 'Max');
-
-      // Or to get a key/value pair
-      storage.get('age').then((val) => {
-      console.log('Your age is', val);
-    });*/
 }

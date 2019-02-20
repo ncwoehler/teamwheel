@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Group} from "../Group";
-import {GroupService} from "../group.service";
+import {RecentGroupService} from "../recent-group.service";
 
 @Component({
     selector: 'app-home',
@@ -12,15 +12,19 @@ export class HomePage implements OnInit {
 
     recentGroups: Group[];
 
-    constructor(private groupService: GroupService) {}
+    constructor(private recentGroupService: RecentGroupService) {}
 
     ngOnInit() {
         this.getRecentGroups();
     }
 
     getRecentGroups(): void {
-        this.groupService.getRecentGroups()
-            .subscribe(recent => this.recentGroups = recent);
+        this.recentGroupService.getRecentGroups()  .then(
+            data => {
+                this.recentGroups = data
+            },
+            error => console.error(error) // TODO error handling
+        );
     }
 
 }
