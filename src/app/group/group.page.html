@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="!group">
+    <h2>
+      <ion-text color="danger"
+        >Die ausgewählte Gruppe existiert nicht! :(</ion-text
+      >
+    </h2>
+    <ion-button routerLink="/home">Zurück</ion-button>
+  </div>
+  <ion-card *ngIf="group">
+    <ion-card-header>
+      <h1>{{group.name}}</h1>
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        <h2>Mitglieder</h2>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
