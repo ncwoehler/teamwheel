@@ -1,0 +1,15 @@
+<ion-item>
+  <ion-icon name="contacts" slot="start"></ion-icon>
+  <ion-label>
+    {{ group.name }}
+  </ion-label>
+  <ion-button
+    shape="round"
+    color="primary"
+    size="small"
+    fill="outline"
+    routerLink="/groups/details/{{ group.id }}"
+  >
+    <ion-text>Öffnen</ion-text>
+  </ion-button>
+</ion-item>

@@ -20,9 +20,7 @@ export class HomePage implements OnInit {
   getRecentGroups(): void {
     this.recentGroupService
       .getRecentGroupsInOrder()
-      .then(data => {
-        this.recentGroups = data;
-      })
+      .then(data => this.recentGroups = data)
       .catch(value => console.error(value)); // TODO error handling
   }
 }
