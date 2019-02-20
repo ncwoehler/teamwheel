@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Gruppen Details</ion-title>
+    <ion-title>Gruppendetails</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,29 +14,53 @@
         >Die ausgewählte Gruppe existiert nicht! :(</ion-text
       >
     </h2>
-    <ion-button routerLink="/home">Zurück zur Startseite</ion-button>
+    <ion-button routerLink="/groups/all">Zurück zur Übersicht</ion-button>
   </div>
-  <ion-card *ngIf="group">
-    <ion-card-header>
-      <h1>{{group.name}}</h1>
-    </ion-card-header>
-    <ion-card-content>
-      <div>
-        <h2>Mitglieder</h2>
-      </div>
-      <div *ngIf="!group.members">
-        Keine Mitglieder vorhanden
-      </div>
-      <ion-list>
-        <ion-item *ngFor="let member of group.members">
-          {{member.name}}
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-  <ion-fab vertical="bottom" horizontal="end">
-    <ion-fab-button>
-      <ion-icon name="play"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <div *ngIf="group">
+    <ion-button disabled routerLink="/groups/createTeam">
+      <ion-icon name="add"></ion-icon>
+      Neues Team
+    </ion-button>
+    <ion-button color="secondary" routerLink="/groups/edit/{{ group.id }}">
+      <ion-icon name="create"></ion-icon>
+      Gruppe editieren
+    </ion-button>
+    <ion-button color="danger" (click)="initDeletion();">
+      <ion-icon name="trash"></ion-icon>
+    </ion-button>
+    <ion-card>
+      <ion-card-content>
+        <div class="group-name">
+          {{ group.name }}
+        </div>
+
+        <div>
+          <div class="section-header">
+            Mitglieder
+          </div>
+          <div *ngIf="!group.members" class="no-members">
+            Keine Mitglieder vorhanden
+          </div>
+          <ion-list>
+            <ion-item *ngFor="let member of group.members">
+              {{ member.name }}
+            </ion-item>
+          </ion-list>
+        </div>
+        <div>
+          <div class="section-header">
+            Teams
+          </div>
+          <div *ngIf="!group.teams" class="no-members">
+            Keine Teams vorhanden
+          </div>
+          <ion-list>
+            <ion-item *ngFor="let team of group.teams">
+              {{ team.date }}
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

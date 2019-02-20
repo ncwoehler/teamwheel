@@ -10,10 +10,7 @@ const STORAGE_KEY = "allGroups";
   providedIn: "root"
 })
 export class GroupService {
-  constructor(
-    private storage: Storage,
-    private recentGroupService: RecentGroupService
-  ) {}
+  constructor(private storage: Storage) {}
 
   getAllGroups(): Promise<Group[]> {
     return this.storage.get(STORAGE_KEY);
@@ -22,26 +19,49 @@ export class GroupService {
   async addGroup(name: string): Promise<Group> {
     const id = nanoid();
     const newGroup = new Group(id, name);
+      this.updateLastUsed(newGroup);
     const result = await this.getAllGroups();
     if (result) {
       result.push(newGroup);
-      result.sort((a, b) => a.name.localeCompare(b.name));
-      this.storage.set(STORAGE_KEY, result);
+      this.storeGroups(result);
     } else {
-      this.storage.set(STORAGE_KEY, [newGroup]);
+      this.storeGroups([newGroup]);
     }
-    await this.recentGroupService.push(newGroup);
     return newGroup;
   }
 
   async getGroupById(id: string): Promise<Group> {
-    const result = await this.getAllGroups();
-    const selectedGroup = result
-      ? result.find(group => group.id === id)
-      : undefined;
-    if (selectedGroup) {
-      await this.recentGroupService.push(selectedGroup);
+    const result = await this.getAllGroups() as Group[];
+    const groupById: Group = result ? result.find(group => group.id === id) : undefined;
+    if(groupById) {
+        this.updateLastUsed(groupById);
+        this.storeGroups(result);
     }
-    return selectedGroup;
+    return groupById;
+  }
+
+  async deleteGroup(id: string) {
+    const result = await this.getAllGroups();
+    if (!result) {
+      return; // TODO error handling
+    }
+    const selectedGroupIndex = result
+      ? result.findIndex(group => group.id === id)
+      : -1;
+    if (selectedGroupIndex > -1) {
+      result.splice(selectedGroupIndex, 1);
+      this.storeGroups(result);
+    } else {
+      // TODO error handling
+    }
+  }
+
+  private updateLastUsed(group: Group) {
+    group.lastUsed = new Date().getTime();
+  }
+
+  private storeGroups(groups: Group[]) {
+    groups.sort((a, b) => a.name.localeCompare(b.name));
+    this.storage.set(STORAGE_KEY, groups);
   }
 }
