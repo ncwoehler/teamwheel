@@ -3,7 +3,7 @@ import { RecentGroupService } from "./recent-group.service";
 import { Storage } from "@ionic/storage";
 import { Group } from "./Group";
 import nanoid from "nanoid";
-import {Member} from "./Member";
+import { Member } from "./Member";
 
 const STORAGE_KEY = "allGroups";
 
@@ -11,6 +11,11 @@ const STORAGE_KEY = "allGroups";
   providedIn: "root"
 })
 export class GroupService {
+
+    private static updateLastUsed(group: Group) {
+        group.lastUsed = new Date().getTime();
+    }
+
   constructor(private storage: Storage) {}
 
   getAllGroups(): Promise<Group[]> {
@@ -20,7 +25,7 @@ export class GroupService {
   async addGroup(name: string, members: Member[]): Promise<Group> {
     const id = nanoid();
     const newGroup = new Group(id, name, members);
-    this.updateLastUsed(newGroup);
+    GroupService.updateLastUsed(newGroup);
     const result = await this.getAllGroups();
     if (result) {
       result.push(newGroup);
@@ -37,10 +42,24 @@ export class GroupService {
       ? result.find(group => group.id === id)
       : undefined;
     if (groupById) {
-      this.updateLastUsed(groupById);
+      GroupService.updateLastUsed(groupById);
       this.storeGroups(result);
     }
     return groupById;
+  }
+
+  async updateGroup(id: string, name: string, members: Member[]): Promise<Group> {
+      const result = (await this.getAllGroups()) as Group[];
+      const groupById: Group = result
+          ? result.find(group => group.id === id)
+          : undefined;
+      if (groupById) {
+          GroupService.updateLastUsed(groupById);
+          groupById.name = name;
+          groupById.members = members;
+          this.storeGroups(result);
+      }
+      return groupById;
   }
 
   async deleteGroup(id: string) {
@@ -57,10 +76,6 @@ export class GroupService {
     } else {
       // TODO error handling
     }
-  }
-
-  private updateLastUsed(group: Group) {
-    group.lastUsed = new Date().getTime();
   }
 
   private storeGroups(groups: Group[]) {
