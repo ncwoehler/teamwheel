@@ -7,16 +7,37 @@
     </ion-row>
     <ion-row>
       <ion-col>
+        <ion-label>Gruppenname:</ion-label>
         <ion-item>
-          <ion-label position="floating">Gruppenname</ion-label>
           <ion-input
             autocomplete="off"
             type="text"
             formControlName="name"
             maxlength="25"
+            placeholder="Beispiel: Deutsch, 6c"
             autofocus
             required
           ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>Icon:</ion-label>
+        <ion-item>
+          <ion-icon
+            *ngIf="groupForm.value"
+            [name]="groupForm.value.icon"
+          ></ion-icon>
+          <ion-select formControlName="icon">
+            <ion-select-option
+              *ngFor="let option of iconOptions"
+              [value]="option"
+              ><ion-icon [name]="option">{{
+                option
+              }}</ion-icon></ion-select-option
+            >
+          </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -27,8 +48,8 @@
     </ion-row>
     <ion-row class="add-member">
       <ion-col>
+        <ion-label>Mitglied hinzufügen:</ion-label>
         <ion-item>
-          <ion-label position="stacked">Mitglied hinzufügen</ion-label>
           <ion-input
             #memberInput
             placeholder="Beispiel: Amanda"

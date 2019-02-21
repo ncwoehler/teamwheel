@@ -16,7 +16,7 @@ export class NewGroupPage {
 
   handleSubmission(group: Group) {
     return this.groupService
-      .addGroup(group.name, group.members)
+      .addGroup(group.name, group.icon, group.members)
       .then(g => this.openGroupPage(g.id))
       .catch(value => console.error(value)); // TODO error handling
   }
