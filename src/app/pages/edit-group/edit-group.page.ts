@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Group } from "../Group";
-import { GroupService } from "../group.service";
+import { Group } from "../../domain/Group";
+import { GroupService } from "../../services/group.service";
 import { ActivatedRoute } from "@angular/router";
 import { NavController } from "@ionic/angular";
-import { Member } from "../Member";
+import { Member } from "../../domain/Member";
 
 @Component({
   selector: "app-edit-group",

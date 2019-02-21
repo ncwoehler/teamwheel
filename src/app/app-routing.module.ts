@@ -9,23 +9,23 @@ const routes: Routes = [
   },
   {
     path: "home",
-    loadChildren: "./home/home.module#HomePageModule"
+    loadChildren: "./pages/home/home.module#HomePageModule"
   },
   {
     path: "groups/new",
-    loadChildren: "./new-group/new-group.module#NewGroupPageModule"
+    loadChildren: "./pages/new-group/new-group.module#NewGroupPageModule"
   },
   {
     path: "groups/all",
-    loadChildren: "./all-groups/all-groups.module#AllGroupsPageModule"
+    loadChildren: "./pages/all-groups/all-groups.module#AllGroupsPageModule"
   },
   {
     path: "groups/details/:groupId",
-    loadChildren: "./group-detail/group-detail.module#GroupDetailPageModule"
+    loadChildren: "./pages/group-detail/group-detail.module#GroupDetailPageModule"
   },
   {
     path: "groups/edit/:groupId",
-    loadChildren: "./edit-group/edit-group.module#EditGroupPageModule"
+    loadChildren: "./pages/edit-group/edit-group.module#EditGroupPageModule"
   }
 ];
 

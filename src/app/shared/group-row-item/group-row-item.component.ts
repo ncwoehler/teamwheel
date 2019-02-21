@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Group } from "../../Group";
+import { Group } from "../../domain/Group";
 
 @Component({
   selector: "app-group-row-item",

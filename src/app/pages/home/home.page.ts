@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
-import { Group } from "../Group";
-import { RecentGroupService } from "../recent-group.service";
+import { Group } from "../../domain/Group";
+import { RecentGroupService } from "../../services/recent-group.service";
 
 @Component({
   selector: "app-home",
