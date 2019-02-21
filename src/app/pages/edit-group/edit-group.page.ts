@@ -20,7 +20,6 @@ export class EditGroupPage implements OnInit {
   ) {}
 
   ngOnInit() {
-      console.info("Getting group");
     this.getGroup();
   }
 
@@ -34,7 +33,7 @@ export class EditGroupPage implements OnInit {
 
   handleSubmit(group: Group) {
     return this.groupService
-      .updateGroup(this.group.id, group.name, group.members)
+      .updateGroup(this.group.id, group.name, group.icon, group.members)
       .then(g => this.openGroupPage(g.id))
       .catch(value => console.error(value)); // TODO error handling
   }

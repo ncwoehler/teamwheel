@@ -19,31 +19,45 @@ export class EditGroupFormComponent implements OnInit {
   @Input() groupInput: Group;
   @Input() buttonText: string;
   @Output() submitted: EventEmitter<Group> = new EventEmitter();
+
   groupForm;
   newMemberName: string;
+  iconOptions: string[] = [
+    "people",
+    "bonfire",
+    "contacts",
+    "heart",
+    "paw",
+    "rainy",
+    "rocket",
+    "ribbon",
+    "flask",
+    "book"
+  ];
 
   @ViewChild("memberInput") inputEl;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    console.info("Init form:" + this.groupInput);
+    let nameValue = "";
+    let iconValue = "people";
+    let membersValue = [];
     if (this.groupInput) {
-      this.groupForm = this.fb.group({
-        name: [this.groupInput.name, Validators.required],
-        members: this.fb.array(
-          this.groupInput.members.map(member =>
-            this.fb.control(member.name, Validators.required)
-          ),
-          Validators.minLength(1)
-        )
-      });
-    } else {
-      this.groupForm = this.fb.group({
-        name: ["", Validators.required],
-        members: this.fb.array([], Validators.minLength(1))
-      });
+      nameValue = this.groupInput.name;
+      iconValue = this.groupInput.icon;
+      membersValue = this.groupInput.members || [];
     }
+    this.groupForm = this.fb.group({
+      name: [nameValue, Validators.required],
+      icon: [iconValue],
+      members: this.fb.array(
+        membersValue.map(member =>
+          this.fb.control(member.name, Validators.required)
+        ),
+        Validators.minLength(1)
+      )
+    });
   }
 
   get members(): FormArray {
@@ -75,6 +89,7 @@ export class EditGroupFormComponent implements OnInit {
       new Group(
         null,
         this.groupForm.value.name,
+        this.groupForm.value.icon,
         this.members.controls.map(c => new Member(c.value))
       )
     );

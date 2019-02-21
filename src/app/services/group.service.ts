@@ -22,9 +22,9 @@ export class GroupService {
     return this.storage.get(STORAGE_KEY);
   }
 
-  async addGroup(name: string, members: Member[]): Promise<Group> {
+  async addGroup(name: string, icon: string, members: Member[]): Promise<Group> {
     const id = nanoid();
-    const newGroup = new Group(id, name, members);
+    const newGroup = new Group(id, name, icon, members);
     GroupService.updateLastUsed(newGroup);
     const result = await this.getAllGroups();
     if (result) {
@@ -48,7 +48,7 @@ export class GroupService {
     return groupById;
   }
 
-  async updateGroup(id: string, name: string, members: Member[]): Promise<Group> {
+  async updateGroup(id: string, name: string, icon: string, members: Member[]): Promise<Group> {
       const result = (await this.getAllGroups()) as Group[];
       const groupById: Group = result
           ? result.find(group => group.id === id)
@@ -57,6 +57,7 @@ export class GroupService {
           GroupService.updateLastUsed(groupById);
           groupById.name = name;
           groupById.members = members;
+          groupById.icon = icon;
           this.storeGroups(result);
       }
       return groupById;

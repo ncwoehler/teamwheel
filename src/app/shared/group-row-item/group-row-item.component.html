@@ -1,5 +1,5 @@
 <ion-item routerLink="/groups/details/{{ group.id }}" detail>
-  <ion-icon name="people" slot="start"></ion-icon>
+  <ion-icon [name]="group.icon" slot="start"></ion-icon>
   <ion-label>
     {{ group.name }}
   </ion-label>

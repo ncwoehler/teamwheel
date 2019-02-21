@@ -3,12 +3,14 @@ import { Member } from "./Member";
 export class Group {
   id: string;
   name: string;
+  icon: string;
   lastUsed: number;
   members: Member[];
 
-  constructor(id: string, name: string, members: Member[]) {
+  constructor(id: string, name: string, icon: string, members: Member[]) {
     this.id = id;
     this.name = name;
+    this.icon = icon;
     this.members = members;
   }
 
