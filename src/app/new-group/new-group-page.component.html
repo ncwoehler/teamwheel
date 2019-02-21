@@ -9,22 +9,71 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header>
-      <ion-card-title>Gruppendetails angeben</ion-card-title>
-    </ion-card-header>
     <ion-card-content>
       <form [formGroup]="newGroupForm" (ngSubmit)="onSubmit()">
-        <ion-item>
-          <ion-label position="stacked">Name</ion-label>
-          <ion-input
-            type="text"
-            formControlName="name"
-            autofocus
-            required
-            placeholder="Beispiel: Deutsch, 6c"
-          ></ion-input>
-        </ion-item>
-
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-text class="header-text">Details</ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Gruppenname</ion-label>
+                <ion-input
+                  autocomplete="off"
+                  type="text"
+                  formControlName="name"
+                  maxlength="25"
+                  autofocus
+                  required
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row justify-content-center align-items-center>
+            <ion-col size="6">
+              <ion-text class="header-text">Mitglieder</ion-text>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Neues Mitglied</ion-label>
+                <ion-input
+                  #memberInput
+                  name="newMember"
+                  [(ngModel)]="newMemberName"
+                  [ngModelOptions]="{ standalone: true }"
+                  autocomplete="off"
+                ></ion-input>
+                <ion-button
+                  type="button"
+                  (click)="addMember()"
+                  slot="end"
+                  [disabled]="!addMemberValid()"
+                  >Hinzufügen</ion-button
+                >
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="members">
+            <ion-col>
+              <div formArrayName="members">
+                <app-missing-data-text
+                  [data]="members.controls"
+                  text="Keine Mitglieder vorhanden!"
+                ></app-missing-data-text>
+                <ion-card *ngIf="members.controls.length > 0">
+                  <ion-card-content>
+                    <div *ngFor="let member of members.controls;  let i = index">
+                      <app-member [name]="member.value"></app-member>
+                    </div>
+                  </ion-card-content>
+                </ion-card>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
         <ion-button
           type="submit"
           color="primary"
