@@ -73,6 +73,9 @@ export class EditGroupFormComponent implements OnInit {
   }
 
   addMember() {
+    if (!this.addMemberValid()) {
+      return;
+    }
     this.members.push(this.fb.control(this.newMemberName, Validators.required));
     this.newMemberName = "";
     this.inputEl.setFocus();
