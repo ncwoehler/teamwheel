@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { GroupService } from "../group.service";
-import { Group } from "../Group";
+import { GroupService } from "../../services/group.service";
+import { Group } from "../../domain/Group";
 import { ActivatedRoute } from "@angular/router";
 import { AlertController, NavController } from "@ionic/angular";
 

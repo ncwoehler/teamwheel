@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Group } from "./Group";
+import { Group } from "../domain/Group";
 import { GroupService } from "./group.service";
 
 @Injectable({

@@ -8,12 +8,13 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">Gruppenname</ion-label>
+          <ion-label position="stacked">Gruppenname</ion-label>
           <ion-input
             autocomplete="off"
             type="text"
             formControlName="name"
             maxlength="25"
+            placeholder="Beispiel: Deutsch, 6c"
             autofocus
             required
           ></ion-input>
@@ -26,9 +27,10 @@
       </ion-col>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">Neues Mitglied</ion-label>
+          <ion-label position="stacked">Neues Mitglied</ion-label>
           <ion-input
             #memberInput
+            placeholder="Beispiel: Amanda"
             name="newMember"
             [(ngModel)]="newMemberName"
             [ngModelOptions]="{ standalone: true }"
@@ -51,13 +53,21 @@
             [data]="members.controls"
             text="Keine Mitglieder vorhanden!"
           ></app-missing-data-text>
-          <ion-card *ngIf="members.controls.length > 0">
-            <ion-card-content>
-              <div *ngFor="let member of members.controls; let i = index">
+          <ion-list *ngIf="members.controls.length > 0">
+            <ion-item-sliding
+              *ngFor="let member of members.controls; let i = index"
+            >
                 <app-member [name]="member.value"></app-member>
-              </div>
-            </ion-card-content>
-          </ion-card>
+              <ion-item-options side="end">
+                <ion-item-option (click)="favorite(item)"
+                  >Favorite</ion-item-option
+                >
+                <ion-item-option color="danger" (click)="share(item)"
+                  >Share</ion-item-option
+                >
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-list>
         </div>
       </ion-col>
     </ion-row>
@@ -70,6 +80,6 @@
     [disabled]="!groupForm.valid"
   >
     <ion-icon name="checkmark" slot="start"></ion-icon>
-    {{buttonText}}
+    {{ buttonText }}
   </ion-button>
 </form>

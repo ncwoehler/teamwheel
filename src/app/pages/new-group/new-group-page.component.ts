@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { GroupService } from "../group.service";
+import { GroupService } from "../../services/group.service";
 import { NavController } from "@ionic/angular";
-import {Group} from "../Group";
+import {Group} from "../../domain/Group";
 
 @Component({
   selector: "app-newgroup",

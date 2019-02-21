@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { RecentGroupService } from "./recent-group.service";
 import { Storage } from "@ionic/storage";
-import { Group } from "./Group";
+import { Group } from "../domain/Group";
 import nanoid from "nanoid";
-import { Member } from "./Member";
+import { Member } from "../domain/Member";
 
 const STORAGE_KEY = "allGroups";
 

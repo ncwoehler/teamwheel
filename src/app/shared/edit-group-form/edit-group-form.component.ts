@@ -7,8 +7,8 @@ import {
   ViewChild
 } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
-import { Group } from "../../Group";
-import { Member } from "../../Member";
+import { Group } from "../../domain/Group";
+import { Member } from "../../domain/Member";
 
 @Component({
   selector: "app-edit-group-form",

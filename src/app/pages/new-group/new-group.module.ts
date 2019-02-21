@@ -5,13 +5,13 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { IonicModule } from "@ionic/angular";
 
-import { AllGroupsPage } from "./all-groups.page";
-import { SharedModule } from "../shared/shared.module";
+import { NewGroupPage } from "./new-group-page.component";
+import { SharedModule } from "../../shared/shared.module";
 
 const routes: Routes = [
   {
     path: "",
-    component: AllGroupsPage
+    component: NewGroupPage
   }
 ];
 
@@ -23,6 +23,6 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AllGroupsPage]
+  declarations: [NewGroupPage]
 })
-export class AllGroupsPageModule {}
+export class NewGroupPageModule {}
