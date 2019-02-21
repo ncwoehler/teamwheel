@@ -15,7 +15,8 @@
       <ion-card-title>Alle Gruppen</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-list>
+        <app-missing-data-text [data]="allGroups" text="Keine Gruppen vorhanden"></app-missing-data-text>
+        <ion-list>
         <app-group-row-item
           *ngFor="let group of allGroups"
           [group]="group"

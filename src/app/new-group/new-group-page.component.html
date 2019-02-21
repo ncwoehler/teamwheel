@@ -8,27 +8,34 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="newGroupForm" (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-label position="stacked">Name</ion-label>
-      <ion-input
-        type="text"
-        formControlName="name"
-        autofocus
-        required
-        placeholder="Beispiel: Deutsch, 6c"
-      ></ion-input>
-    </ion-item>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Gruppendetails angeben</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="newGroupForm" (ngSubmit)="onSubmit()">
+        <ion-item>
+          <ion-label position="stacked">Name</ion-label>
+          <ion-input
+            type="text"
+            formControlName="name"
+            autofocus
+            required
+            placeholder="Beispiel: Deutsch, 6c"
+          ></ion-input>
+        </ion-item>
 
-    <ion-button
-      type="submit"
-      color="primary"
-      expand="block"
-      class="create-button"
-      [disabled]="!newGroupForm.valid"
-    >
-      <ion-icon name="checkmark" slot="start"></ion-icon>
-      Gruppe erstellen
-    </ion-button>
-  </form>
+        <ion-button
+          type="submit"
+          color="primary"
+          expand="block"
+          class="create-button"
+          [disabled]="!newGroupForm.valid"
+        >
+          <ion-icon name="checkmark" slot="start"></ion-icon>
+          Gruppe erstellen
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

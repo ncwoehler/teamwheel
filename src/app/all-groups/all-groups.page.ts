@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Group } from "../Group";
 import { RecentGroupService } from "../recent-group.service";
 import { GroupService } from "../group.service";
@@ -8,12 +8,12 @@ import { GroupService } from "../group.service";
   templateUrl: "./all-groups.page.html",
   styleUrls: ["./all-groups.page.scss"]
 })
-export class AllGroupsPage implements OnInit {
+export class AllGroupsPage {
   allGroups: Group[];
 
   constructor(private groupService: GroupService) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.getAllGroups();
   }
 

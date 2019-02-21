@@ -18,7 +18,7 @@ export class AppComponent {
     {
       title: "Alle Gruppen",
       url: "/groups/all",
-      icon: "contacts"
+      icon: "people"
     }
   ];
 
