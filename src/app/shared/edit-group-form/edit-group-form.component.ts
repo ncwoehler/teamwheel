@@ -51,13 +51,23 @@ export class EditGroupFormComponent implements OnInit {
   }
 
   addMemberValid() {
-    return this.newMemberName && this.newMemberName.length > 0;
+    return (
+      this.newMemberName &&
+      this.newMemberName.length > 0 &&
+      this.members.controls.findIndex(c => c.value === this.newMemberName) < 0
+    );
   }
 
   addMember() {
     this.members.push(this.fb.control(this.newMemberName, Validators.required));
     this.newMemberName = "";
     this.inputEl.setFocus();
+  }
+
+  removeMember(name: string) {
+    const index = this.members.controls.findIndex(c => c.value === name);
+    console.info("remove " + index);
+    this.members.removeAt(index);
   }
 
   onSubmit() {

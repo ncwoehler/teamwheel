@@ -1,4 +1,5 @@
-<ion-item>
+<ion-chip (click)="triggerDeleteEvent()">
     <ion-icon name="person"></ion-icon>
-    {{name}}
-</ion-item>
+    <ion-label>{{name}}</ion-label>
+    <ion-icon name="close" *ngIf="showDelete"></ion-icon>
+</ion-chip>
