@@ -6,12 +6,10 @@ export class Group {
   lastUsed: number;
   members: Member[];
 
-  constructor(id: string, name: string) {
+  constructor(id: string, name: string, members: Member[]) {
     this.id = id;
     this.name = name;
+    this.members = members;
   }
 
-  public addMember(name: string) {
-    this.members.push(new Member(name));
-  }
 }

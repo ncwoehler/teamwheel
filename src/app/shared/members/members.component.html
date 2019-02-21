@@ -1,0 +1,6 @@
+<app-missing-data-text [data]="members" text="Keine Mitglieder vorhanden"></app-missing-data-text>
+<ion-list>
+    <ion-item *ngFor="let member of members">
+        <app-member [name]="member.name"></app-member>
+    </ion-item>
+</ion-list>

@@ -30,7 +30,7 @@
     </ion-button>
     <ion-card>
       <ion-card-content>
-        <div class="group-name">
+        <div class="header-text">
           {{ group.name }}
         </div>
 
@@ -38,12 +38,8 @@
           <div class="section-header">
             Mitglieder
           </div>
-            <app-missing-data-text [data]="group.members" text="Keine Mitglieder vorhanden"></app-missing-data-text>
-          <ion-list>
-            <ion-item *ngFor="let member of group.members">
-              {{ member.name }}
-            </ion-item>
-          </ion-list>
+          <app-members [members]="group.members"></app-members>
+
         </div>
         <div>
           <div class="section-header">
