@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: "groups/details/:groupId",
     loadChildren: "./group-detail/group-detail.module#GroupDetailPageModule"
+  },
+  {
+    path: "groups/edit/:groupId",
+    loadChildren: "./edit-group/edit-group.module#EditGroupPageModule"
   }
 ];
 

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="groups/all"> </ion-back-button>
     </ion-buttons>
-    <ion-title>Neue Gruppe erstellen</ion-title>
+    <ion-title>Gruppe editieren</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,8 +11,10 @@
   <ion-card>
     <ion-card-content>
       <app-edit-group-form
-        (submitted)="handleSubmission($event)"
-        buttonText="Gruppe erstellen"
+        [groupInput]="group"
+        (submitted)="handleSubmit($event)"
+        buttonText="Änderungen speichern"
+        *ngIf="group"
       ></app-edit-group-form>
     </ion-card-content>
   </ion-card>
