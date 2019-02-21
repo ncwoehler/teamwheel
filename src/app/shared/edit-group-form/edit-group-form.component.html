@@ -8,29 +8,29 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="stacked">Gruppenname</ion-label>
+          <ion-label position="floating">Gruppenname</ion-label>
           <ion-input
             autocomplete="off"
             type="text"
             formControlName="name"
             maxlength="25"
-            placeholder="Beispiel: Deutsch, 6c"
             autofocus
             required
           ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row justify-content-center align-items-center>
-      <ion-col size="6">
+    <ion-row class="members">
+      <ion-col>
         <ion-text class="header-text">Mitglieder</ion-text>
       </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="stacked">Neues Mitglied</ion-label>
-          <ion-input
+            <ion-input
             #memberInput
-            placeholder="Beispiel: Amanda"
+            placeholder="Mitglied hinzufügen"
             name="newMember"
             [(ngModel)]="newMemberName"
             [ngModelOptions]="{ standalone: true }"
@@ -47,27 +47,18 @@
       </ion-col>
     </ion-row>
     <ion-row class="members">
-      <ion-col>
+      <ion-col size="9">
         <div formArrayName="members">
           <app-missing-data-text
             [data]="members.controls"
             text="Keine Mitglieder vorhanden!"
           ></app-missing-data-text>
-          <ion-list *ngIf="members.controls.length > 0">
-            <ion-item-sliding
-              *ngFor="let member of members.controls; let i = index"
-            >
-                <app-member [name]="member.value"></app-member>
-              <ion-item-options side="end">
-                <ion-item-option (click)="favorite(item)"
-                  >Favorite</ion-item-option
-                >
-                <ion-item-option color="danger" (click)="share(item)"
-                  >Share</ion-item-option
-                >
-              </ion-item-options>
-            </ion-item-sliding>
-          </ion-list>
+          <app-member
+            [name]="member.value"
+            showDelete="true"
+            (delete)="removeMember(member.value)"
+            *ngFor="let member of members.controls; let i = index"
+          ></app-member>
         </div>
       </ion-col>
     </ion-row>
