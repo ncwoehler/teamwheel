@@ -21,9 +21,9 @@
       <ion-icon name="add"></ion-icon>
       Neues Team
     </ion-button>
-    <ion-button color="secondary" routerLink="/groups/edit/{{ group.id }}">
+    <ion-button color="tertiary" routerLink="/groups/edit/{{ group.id }}">
       <ion-icon name="create"></ion-icon>
-      Gruppe editieren
+        Editieren
     </ion-button>
     <ion-button color="danger" (click)="initDeletion();">
       <ion-icon name="trash"></ion-icon>
@@ -38,9 +38,7 @@
           <div class="section-header">
             Mitglieder
           </div>
-          <div *ngIf="!group.members" class="no-members">
-            Keine Mitglieder vorhanden
-          </div>
+            <app-missing-data-text [data]="group.members" text="Keine Mitglieder vorhanden"></app-missing-data-text>
           <ion-list>
             <ion-item *ngFor="let member of group.members">
               {{ member.name }}
@@ -51,9 +49,7 @@
           <div class="section-header">
             Teams
           </div>
-          <div *ngIf="!group.teams" class="no-members">
-            Keine Teams vorhanden
-          </div>
+          <app-missing-data-text [data]="group.teams" text="Keine Teams vorhanden"></app-missing-data-text>
           <ion-list>
             <ion-item *ngFor="let team of group.teams">
               {{ team.date }}

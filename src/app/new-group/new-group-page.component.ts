@@ -1,7 +1,8 @@
-import { Component } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { GroupService } from "../group.service";
-import { Router } from "@angular/router";
+import {Component, NgZone} from "@angular/core";
+import {FormBuilder, Validators} from "@angular/forms";
+import {GroupService} from "../group.service";
+import {Router} from "@angular/router";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: "app-newgroup",
@@ -12,7 +13,7 @@ export class NewGroupPage {
   constructor(
     private fb: FormBuilder,
     private groupService: GroupService,
-    private router: Router
+    private navController: NavController
   ) {}
 
   newGroupForm = this.fb.group({
@@ -20,13 +21,12 @@ export class NewGroupPage {
   });
 
   onSubmit() {
-    const newGroup = this.groupService.addGroup(this.newGroupForm.value.name);
-    newGroup
-      .then(group => this.openGroupPage(group.id))
-      .catch(value => console.error(value)); // TODO error handling
+      return this.groupService.addGroup(this.newGroupForm.value.name)
+          .then(g => this.openGroupPage(g.id))
+          .catch(value => console.error(value)); // TODO error handling
   }
 
   openGroupPage(id: string) {
-    this.router.navigateByUrl(`/groups/details/${id}`);
+    this.navController.navigateRoot(['/groups', 'details', id]);
   }
 }
