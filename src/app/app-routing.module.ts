@@ -31,6 +31,15 @@ const routes: Routes = [
   {
     path: "settings",
     loadChildren: "./pages/settings/settings.module#SettingsPageModule"
+  },
+  {
+    path: "teams/new",
+    loadChildren: "./pages/teams/new-team/new-team.module#NewTeamPageModule"
+  },
+  {
+    path: "teams/created",
+    loadChildren:
+      "./pages/teams/team-created/team-created.module#TeamCreatedPageModule"
   }
 ];
 

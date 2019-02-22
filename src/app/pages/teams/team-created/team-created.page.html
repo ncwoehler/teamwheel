@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="groups/all"> </ion-back-button>
+    </ion-buttons>
+    <ion-title>Teams</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="!teams">
+    <h2>
+      <ion-text color="danger">Es wurde gerade kein Team erstellt! :(</ion-text>
+    </h2>
+    <ion-button routerLink="/groups/all">Zurück zur Übersicht</ion-button>
+  </div>
+  <div *ngIf="teams">
+    <ion-button class="actionButton" color="primary" disabled>
+      <ion-icon name="save" slot="start"></ion-icon>
+      Team speichern
+    </ion-button>
+    <ion-button
+      class="actionButton"
+      type="button"
+      color="secondary"
+      (click)="reshuffle()"
+    >
+      <ion-icon name="shuffle" slot="start"></ion-icon>
+      Erneut erstellen
+    </ion-button>
+
+    <ion-grid>
+      <ng-container *ngFor="let team of teams; let i = index">
+        <ion-row *ngIf="i % 2 ===0">
+          <ion-col>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>Team {{i + 1}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list>
+                  <ion-item *ngFor="let member of team.members">
+                    <app-member [name]="member.name"></app-member>
+                  </ion-item>
+                </ion-list>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col>
+            <ion-card *ngIf="i + 1 < teams.length">
+              <ion-card-header>
+                <ion-card-title>Team {{i + 2}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list>
+                  <ion-item *ngFor="let member of teams[i + 1].members">
+                    <app-member [name]="member.name"></app-member>
+                  </ion-item>
+                </ion-list>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ng-container>
+    </ion-grid>
+  </div>
+</ion-content>
