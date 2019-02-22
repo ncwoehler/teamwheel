@@ -8,16 +8,9 @@ import { Group } from "../../domain/Group";
 })
 export class MemberComponent implements OnInit {
   @Input() name: string;
-  @Input() showDelete: boolean = false;
-  @Output() delete: EventEmitter<Group> = new EventEmitter();
+  @Input() disabled: boolean = false;
 
   constructor() {}
 
   ngOnInit() {}
-
-  triggerDeleteEvent() {
-    if (this.showDelete) {
-      this.delete.emit(null);
-    }
-  }
 }

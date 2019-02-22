@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { RecentGroupService } from "./recent-group.service";
 import { Storage } from "@ionic/storage";
 import { Group } from "../domain/Group";
 import nanoid from "nanoid";

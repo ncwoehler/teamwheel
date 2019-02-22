@@ -2,6 +2,6 @@
   [data]="members"
   text="Keine Mitglieder vorhanden"
 ></app-missing-data-text>
-<div>
-  <app-member [name]="member.name" *ngFor="let member of members"></app-member>
-</div>
+<ion-list>
+  <app-member [name]="member.name" *ngFor="let member of members"> </app-member>
+</ion-list>
