@@ -11,7 +11,7 @@ import { Member } from "../../domain/Member";
   styleUrls: ["./edit-group.page.scss"]
 })
 export class EditGroupPage implements OnInit {
-  private group: Group;
+  group: Group;
 
   constructor(
     private groupService: GroupService,

@@ -10,7 +10,7 @@ import { AlertController, NavController } from "@ionic/angular";
   styleUrls: ["./group-detail-page.component.scss"]
 })
 export class GroupDetailPage {
-  private group: Group;
+  group: Group;
 
   constructor(
     private groupService: GroupService,

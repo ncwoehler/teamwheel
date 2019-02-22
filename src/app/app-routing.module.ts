@@ -21,11 +21,16 @@ const routes: Routes = [
   },
   {
     path: "groups/details/:groupId",
-    loadChildren: "./pages/group-detail/group-detail.module#GroupDetailPageModule"
+    loadChildren:
+      "./pages/group-detail/group-detail.module#GroupDetailPageModule"
   },
   {
     path: "groups/edit/:groupId",
     loadChildren: "./pages/edit-group/edit-group.module#EditGroupPageModule"
+  },
+  {
+    path: "settings",
+    loadChildren: "./pages/settings/settings.module#SettingsPageModule"
   }
 ];
 

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "staging": "teamwheel-6e93f"
+    "staging": "teamwheel-6e93f",
+    "default": "teamwheel-6e93f"
   }
 }
