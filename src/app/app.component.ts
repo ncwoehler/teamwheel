@@ -19,6 +19,11 @@ export class AppComponent {
       title: "Alle Gruppen",
       url: "/groups/all",
       icon: "people"
+    },
+    {
+      title: "Einstellungen",
+      url: "/settings",
+      icon: "settings"
     }
   ];
 
