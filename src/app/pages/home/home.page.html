@@ -28,13 +28,12 @@
         </ion-card>
     </ng-container>
     <ng-container *ngIf="recentGroups && recentGroups.length">
-        <ion-button routerLink="/groups/all">
-            <ion-icon name="people" slot="start"></ion-icon>
-            Zur Gruppenübersicht
-        </ion-button>
+
         <ion-card>
             <ion-card-header>
-                <ion-card-title>Zuletzt genutzte Gruppen</ion-card-title>
+                <app-card-header-title text="Zuletzt genutzte Gruppen">
+                    <ion-button routerLink="/groups/all">Zur Gruppenübersicht</ion-button>
+                </app-card-header-title>
             </ion-card-header>
             <ion-card-content>
 

@@ -10,6 +10,7 @@ import { MembersComponent } from "./members/members.component";
 import { EditGroupFormComponent } from "./edit-group-form/edit-group-form.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TeamCardComponent } from "./team-card/team-card.component";
+import { CardHeaderTitleComponent } from "./card-header-title/card-header-title.component";
 
 const routes: Routes = [];
 
@@ -21,7 +22,8 @@ const routes: Routes = [];
     MemberComponent,
     MembersComponent,
     EditGroupFormComponent,
-    TeamCardComponent
+    TeamCardComponent,
+    CardHeaderTitleComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ const routes: Routes = [];
     MemberComponent,
     MembersComponent,
     EditGroupFormComponent,
-    TeamCardComponent
+    TeamCardComponent,
+    CardHeaderTitleComponent
   ]
 })
 export class SharedModule {}

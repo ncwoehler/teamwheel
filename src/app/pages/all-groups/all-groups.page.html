@@ -1,27 +1,27 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Gruppenübersicht</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Gruppenübersicht</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <app-new-group-button></app-new-group-button>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Alle Gruppen</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-        <app-missing-data-text [data]="allGroups" text="Keine Gruppen vorhanden"></app-missing-data-text>
-        <ion-list>
-        <app-group-row-item
-          *ngFor="let group of allGroups"
-          [group]="group"
-        ></app-group-row-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+        <ion-card-header>
+            <app-card-header-title text="Alle Gruppen">
+                <app-new-group-button></app-new-group-button>
+            </app-card-header-title>
+        </ion-card-header>
+        <ion-card-content>
+            <app-missing-data-text [data]="allGroups" text="Keine Gruppen vorhanden"></app-missing-data-text>
+            <ion-list>
+                <app-group-row-item
+                        *ngFor="let group of allGroups"
+                        [group]="group"
+                ></app-group-row-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

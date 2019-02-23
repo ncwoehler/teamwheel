@@ -1,0 +1,9 @@
+<ion-card-title>
+    <ion-item lines="none">
+        <ion-icon [name]="icon" *ngIf="icon" style="margin-right: 5px;"></ion-icon>
+        <ion-text class="header-text">{{text}}</ion-text>
+        <div slot="end">
+            <ng-content></ng-content>
+        </div>
+    </ion-item>
+</ion-card-title>

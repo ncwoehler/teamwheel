@@ -72,13 +72,16 @@
                 </ion-list>
             </ion-card-content>
         </ion-card>
-        <ion-button
-                type="button"
-                color="primary"
-                expand="block"
-                (click)="drawTeams()">
-            <ion-icon name="shuffle" slot="start"></ion-icon>
-            Und los!
-        </ion-button>
     </div>
 </ion-content>
+
+<ion-footer padding>
+    <ion-button
+            type="button"
+            color="primary"
+            expand="block"
+            (click)="drawTeams()">
+        <ion-icon name="shuffle" slot="start"></ion-icon>
+        Und los!
+    </ion-button>
+</ion-footer>

@@ -1,101 +1,103 @@
 <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-text class="header-text">Details</ion-text>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-label>Gruppenname:</ion-label>
-        <ion-item>
-          <ion-input
-            autocomplete="off"
-            type="text"
-            formControlName="name"
-            maxlength="25"
-            placeholder="Beispiel: Deutsch, 6c"
-            autofocus
-            required
-          ></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-label>Icon:</ion-label>
-        <ion-item>
-          <ion-icon
-            *ngIf="groupForm.value"
-            [name]="groupForm.value.icon"
-          ></ion-icon>
-          <ion-select formControlName="icon">
-            <ion-select-option
-              *ngFor="let option of iconOptions"
-              [value]="option"
-              ><ion-icon [name]="option">{{
-                option
-              }}</ion-icon></ion-select-option
-            >
-          </ion-select>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row class="members">
-      <ion-col>
-        <ion-text class="header-text">Mitglieder</ion-text>
-      </ion-col>
-    </ion-row>
-    <ion-row class="add-member">
-      <ion-col>
-        <ion-label>Mitglied hinzufügen:</ion-label>
-        <ion-item>
-          <ion-input
-            #memberInput
-            placeholder="Beispiel: Amanda"
-            name="newMember"
-            (keyup.enter)="addMember()"
-            [(ngModel)]="newMemberName"
-            [ngModelOptions]="{ standalone: true }"
-            autocomplete="off"
-          ></ion-input>
-          <ion-button
-            type="button"
-            (click)="addMember()"
-            slot="end"
-            [disabled]="!addMemberValid()"
-            >Hinzufügen</ion-button
-          >
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="9">
-        <div formArrayName="members">
-          <app-missing-data-text
-            [data]="members.controls"
-            text="Keine Mitglieder vorhanden!"
-          ></app-missing-data-text>
-          <app-member
-            [name]="member.value"
-            *ngFor="let member of members.controls; let i = index"
-          >
-            <ion-button color="danger" (click)="removeMember(member.value)">
-              <ion-icon name="trash" slot="icon-only"></ion-icon>
-            </ion-button>
-          </app-member>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-button
-    type="submit"
-    color="primary"
-    expand="block"
-    class="create-button"
-    [disabled]="!groupForm.valid"
-  >
-    <ion-icon name="checkmark" slot="start"></ion-icon>
-    {{ buttonText }}
-  </ion-button>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-text class="header-text">Details</ion-text>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>Gruppenname:</ion-label>
+                <ion-item>
+                    <ion-input
+                            autocomplete="off"
+                            type="text"
+                            formControlName="name"
+                            maxlength="25"
+                            placeholder="Beispiel: Deutsch, 6c"
+                            autofocus
+                            required
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>Icon:</ion-label>
+                <ion-item>
+                    <ion-icon
+                            *ngIf="groupForm.value"
+                            [name]="groupForm.value.icon"
+                    ></ion-icon>
+                    <ion-select formControlName="icon">
+                        <ion-select-option
+                                *ngFor="let option of iconOptions"
+                                [value]="option"
+                        >
+                            <ion-icon [name]="option">{{
+                                option
+                                }}</ion-icon>
+                        </ion-select-option
+                        >
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="members">
+            <ion-col>
+                <ion-text class="header-text">Mitglieder</ion-text>
+            </ion-col>
+        </ion-row>
+        <ion-row class="add-member">
+            <ion-col>
+                <ion-label>Mitglied hinzufügen:</ion-label>
+                <ion-item>
+                    <ion-input
+                        #memberInput
+                        placeholder="Beispiel: Amanda"
+                        name="newMember"
+                        (keyup.enter)="addMember()"
+                        [(ngModel)]="newMemberName"
+                        [ngModelOptions]="{ standalone: true }"
+                        autocomplete="off"
+                    ></ion-input>
+                    <ion-button
+                            type="button"
+                            (click)="addMember()"
+                            slot="end"
+                            [disabled]="!addMemberValid()"
+                    >Hinzufügen
+                    </ion-button
+                    >
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="9">
+                <div formArrayName="members">
+                    <app-missing-data-text
+                            [data]="members.controls"
+                            text="Keine Mitglieder vorhanden!"
+                    ></app-missing-data-text>
+                    <app-member
+                            [name]="member.value"
+                            *ngFor="let member of members.controls; let i = index"
+                    >
+                        <ion-button color="danger" (click)="removeMember(member.value)">
+                            <ion-icon name="trash" slot="icon-only"></ion-icon>
+                        </ion-button>
+                    </app-member>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-button
+            type="submit"
+            color="primary"
+            expand="block"
+            class="create-button"
+            [disabled]="!groupForm.valid">
+        <ion-icon name="checkmark" slot="start"></ion-icon>
+        {{ buttonText }}
+    </ion-button>
 </form>
