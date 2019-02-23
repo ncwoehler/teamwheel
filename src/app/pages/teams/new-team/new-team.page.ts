@@ -6,6 +6,7 @@ import { Group } from "../../../domain/Group";
 import { Member } from "../../../domain/Member";
 import { TeamService } from "../../../services/team.service";
 import { NavController } from "@ionic/angular";
+import { Draw } from "../../../domain/Draw";
 
 const TEAMS = "teams";
 
@@ -22,6 +23,8 @@ export class NewTeamPage implements OnInit {
   maxSize: number;
 
   disabledMembers: Member[] = [];
+  fakeDrawResultTeams: number;
+  fakeDrawResultMembers: number[];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +37,7 @@ export class NewTeamPage implements OnInit {
 
   rangeChanged(event) {
     this.selectedSize = event.detail.value;
+    this.updateFakeResults();
   }
 
   ngOnInit() {
@@ -42,15 +46,9 @@ export class NewTeamPage implements OnInit {
       .subscribe(params => {
         this.getGroup(params.forGroup).then(() => {
           this.setDefaultSettingsForGroup();
+          this.updateFakeResults();
         });
       });
-  }
-
-  private setDefaultSettingsForGroup() {
-    if (this.group && this.group.members) {
-      this.maxSize = this.group.members.length;
-      this.selectedSize = Math.min(4, Math.round(this.maxSize / 2));
-    }
   }
 
   async getGroup(groupId: string) {
@@ -67,13 +65,39 @@ export class NewTeamPage implements OnInit {
     } else {
       this.disabledMembers.push(member);
     }
+    this.updateFakeResults();
+  }
+
+  segmentChanged($event) {
+    this.segmentSelection = $event.detail.value;
+    this.updateFakeResults();
+  }
+
+  async updateFakeResults() {
+    const fakeDraw = await this.teamService.drawTeam(
+      this.group.members,
+      this.disabledMembers,
+      this.selectedSize,
+      this.segmentSelection
+    );
+    this.fakeDrawResultTeams = fakeDraw.teams.length;
+    this.fakeDrawResultMembers = fakeDraw.teams
+      .map(t => t.members.length)
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .sort((a, b) => a - b);
+    if (this.fakeDrawResultMembers.length > 2) {
+      this.fakeDrawResultMembers.splice(
+        1,
+        this.fakeDrawResultMembers.length - 2
+      );
+    }
   }
 
   isDisabled(member: Member) {
     return this.findDisabledMember(member) > -1;
   }
 
-  async createTeam() {
+  async drawTeams() {
     await this.teamService.drawTeam(
       this.group.members,
       this.disabledMembers,
@@ -83,11 +107,14 @@ export class NewTeamPage implements OnInit {
     this.nav.navigateForward(["teams", "created"]);
   }
 
-  private findDisabledMember(member: Member) {
-    return this.disabledMembers.findIndex(m => m.name === member.name);
+  private setDefaultSettingsForGroup() {
+    if (this.group && this.group.members) {
+      this.maxSize = this.group.members.length;
+      this.selectedSize = Math.min(4, Math.round(this.maxSize / 2));
+    }
   }
 
-  segmentChanged($event) {
-    this.segmentSelection = $event.detail.value;
+  private findDisabledMember(member: Member) {
+    return this.disabledMembers.findIndex(m => m.name === member.name);
   }
 }
