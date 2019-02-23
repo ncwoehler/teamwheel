@@ -7,6 +7,8 @@ import { Member } from "../../../domain/Member";
 import { TeamService } from "../../../services/team.service";
 import { NavController } from "@ionic/angular";
 
+const TEAMS = "teams";
+
 @Component({
   selector: "app-new-team",
   templateUrl: "./new-team.page.html",
@@ -27,7 +29,7 @@ export class NewTeamPage implements OnInit {
     private teamService: TeamService,
     private nav: NavController
   ) {
-    this.segmentSelection = "teams";
+    this.segmentSelection = TEAMS;
   }
 
   rangeChanged(event) {
@@ -39,12 +41,16 @@ export class NewTeamPage implements OnInit {
       .pipe(filter(params => params.forGroup))
       .subscribe(params => {
         this.getGroup(params.forGroup).then(() => {
-          if (this.group && this.group.members) {
-            this.maxSize = this.group.members.length;
-            this.selectedSize = Math.round(this.maxSize / 2);
-          }
+          this.setDefaultSettingsForGroup();
         });
       });
+  }
+
+  private setDefaultSettingsForGroup() {
+    if (this.group && this.group.members) {
+      this.maxSize = this.group.members.length;
+      this.selectedSize = Math.min(4, Math.round(this.maxSize / 2));
+    }
   }
 
   async getGroup(groupId: string) {
@@ -68,7 +74,7 @@ export class NewTeamPage implements OnInit {
   }
 
   async createTeam() {
-    await this.teamService.createTeam(
+    await this.teamService.drawTeam(
       this.group.members,
       this.disabledMembers,
       this.selectedSize,
@@ -79,5 +85,9 @@ export class NewTeamPage implements OnInit {
 
   private findDisabledMember(member: Member) {
     return this.disabledMembers.findIndex(m => m.name === member.name);
+  }
+
+  segmentChanged($event) {
+    this.segmentSelection = $event.detail.value;
   }
 }

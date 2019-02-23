@@ -1,7 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { TeamService } from "../../../services/team.service";
-import { Team } from "../../../domain/Team";
-import { Member } from "../../../domain/Member";
+import { Draw } from "../../../domain/Draw";
 
 @Component({
   selector: "app-team-created",
@@ -9,16 +8,15 @@ import { Member } from "../../../domain/Member";
   styleUrls: ["./team-created.page.scss"]
 })
 export class TeamCreatedPage {
-
-  teams: Team[];
+  draw: Draw;
 
   constructor(private teamService: TeamService) {}
 
   ionViewWillEnter() {
-    this.teams = this.teamService.getLastCreatedTeams();
+    this.draw = this.teamService.getLastDraw();
   }
 
   reshuffle() {
-    this.teams = this.teamService.reshuffle();
+    this.teamService.reshuffle().then(draw => (this.draw = draw));
   }
 }

@@ -1,0 +1,12 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>{{team.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-list>
+            <ion-item *ngFor="let member of team.members">
+                <app-member [name]="member.name"></app-member>
+            </ion-item>
+        </ion-list>
+    </ion-card-content>
+</ion-card>

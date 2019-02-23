@@ -9,6 +9,7 @@ import { MemberComponent } from "./member/member.component";
 import { MembersComponent } from "./members/members.component";
 import { EditGroupFormComponent } from "./edit-group-form/edit-group-form.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TeamCardComponent } from "./team-card/team-card.component";
 
 const routes: Routes = [];
 
@@ -19,7 +20,8 @@ const routes: Routes = [];
     MissingDataTextComponent,
     MemberComponent,
     MembersComponent,
-    EditGroupFormComponent
+    EditGroupFormComponent,
+    TeamCardComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ const routes: Routes = [];
     MissingDataTextComponent,
     MemberComponent,
     MembersComponent,
-    EditGroupFormComponent
+    EditGroupFormComponent,
+    TeamCardComponent
   ]
 })
 export class SharedModule {}
