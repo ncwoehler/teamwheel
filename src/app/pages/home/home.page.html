@@ -1,35 +1,51 @@
 <script src="../../../../../test/tabs/src/app/tab1/tab1.module.ts"></script>
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Willkommen
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Willkommen
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <img src="/assets/teamwheel_alpha.svg" alt="TeamWheel Image" class="welcome-img" />
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Zuletzt genutzte Gruppen</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <div *ngIf="!recentGroups || !recentGroups.length">
-        <app-missing-data-text
-          [data]="recentGroups"
-          text="Keine Gruppen vorhanden. Es ist Zeit deine erste Gruppe zu erstellen "
-        ></app-missing-data-text>
-        <app-new-group-button></app-new-group-button>
-      </div>
-      <ion-list *ngIf="recentGroups">
-        <app-group-row-item
-          *ngFor="let group of recentGroups"
-          [group]="group"
-        ></app-group-row-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+<ion-content padding>
+    <img src="/assets/teamwheel_alpha.svg" alt="TeamWheel Image" class="welcome-img"/>
+    <ng-container *ngIf="!recentGroups || !recentGroups.length">
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Willkommen bei TeamWheel! <ion-icon name="happy"></ion-icon></ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-item lines="none">
+                    <ion-text slot="start">Erstelle jetzt deine erste Gruppe:</ion-text>
+                </ion-item>
+                <ion-item lines="none">
+                    <app-new-group-button></app-new-group-button>
+                </ion-item>
+            </ion-card-content>
+        </ion-card>
+    </ng-container>
+    <ng-container *ngIf="recentGroups && recentGroups.length">
+        <ion-button routerLink="/groups/all">
+            <ion-icon name="people" slot="start"></ion-icon>
+            Zur Gruppenübersicht
+        </ion-button>
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Zuletzt genutzte Gruppen</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+                <ion-list *ngIf="recentGroups">
+                    <app-group-row-item
+                            *ngFor="let group of recentGroups"
+                            [group]="group"
+                    ></app-group-row-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </ng-container>
+
 </ion-content>

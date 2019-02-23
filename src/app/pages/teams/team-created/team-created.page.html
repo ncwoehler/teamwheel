@@ -32,12 +32,16 @@
             <ng-container *ngFor="let team of draw.teams; let i = index">
                 <ion-row *ngIf="i % 2 ===0">
                     <ion-col>
-                        <app-team-card [team]="team"></app-team-card>
+                        <div class="animated fadeIn slower">
+                            <app-team-card [team]="team"></app-team-card>
+                        </div>
                     </ion-col>
                     <ion-col>
                         <ng-container *ngIf="i + 1 < draw.teams.length">
-                            <app-team-card [team]="draw.teams[i + 1]"
-                            ></app-team-card>
+                            <div class="animated fadeIn slower">
+                                <app-team-card [team]="draw.teams[i + 1]"
+                                ></app-team-card>
+                            </div>
                         </ng-container>
 
                     </ion-col>
