@@ -46,12 +46,19 @@
                             <ion-label slot="end">{{maxSize}}</ion-label>
                         </ion-range>
                     </ion-item>
+                    <ion-item>
+                        <ion-label class="setting-title" slot="start">Resultat</ion-label>
+                        <ion-text slot="start">{{fakeDrawResultTeams}} Teams mit {{fakeDrawResultMembers.join("-")}} Mitgliedern
+                        </ion-text>
+                    </ion-item>
                 </ion-list>
             </ion-card-content>
         </ion-card>
         <ion-card>
             <ion-card-header>
-                <ion-card-title>Mitglieder ({{group.members.length - disabledMembers.length}} verfügbar, {{disabledMembers.length}} abwesend)</ion-card-title>
+                <ion-card-title>Mitglieder ({{group.members.length - disabledMembers.length}}
+                    verfügbar, {{disabledMembers.length}} abwesend)
+                </ion-card-title>
             </ion-card-header>
             <ion-card-content>
                 <ion-list>
@@ -69,7 +76,7 @@
                 type="button"
                 color="primary"
                 expand="block"
-                (click)="createTeam()">
+                (click)="drawTeams()">
             <ion-icon name="shuffle" slot="start"></ion-icon>
             Und los!
         </ion-button>
