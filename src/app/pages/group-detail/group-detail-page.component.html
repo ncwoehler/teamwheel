@@ -21,8 +21,8 @@
                 routerLink="/teams/new"
                 [queryParams]="{ forGroup: group.id }"
                 [disabled]="group.members?.length < 1">
-            <ion-icon name="add"></ion-icon>
-            Teams erstellen
+            <ion-icon name="shuffle" slot="start"></ion-icon>
+            Ziehung starten
         </ion-button>
         <ion-button color="tertiary" routerLink="/groups/edit/{{ group.id }}">
             <ion-icon name="create" slot="icon-only"></ion-icon>

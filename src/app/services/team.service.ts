@@ -35,7 +35,7 @@ export class TeamService {
   ]);
 
   private lastSegmentOption: string = "teams";
-  private lastSelectedSize: number;
+  private lastSelectedSize: number = 4;
 
   constructor() {}
 

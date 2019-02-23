@@ -16,7 +16,7 @@ export class AppComponent {
       icon: "home"
     },
     {
-      title: "Alle Gruppen",
+      title: "Gruppenübersicht",
       url: "/groups/all",
       icon: "people"
     },
