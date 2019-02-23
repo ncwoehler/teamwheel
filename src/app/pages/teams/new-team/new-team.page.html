@@ -76,7 +76,7 @@
 </ion-content>
 
 <ion-footer padding>
-    <ion-button
+    <ion-button [disabled]="group.members.length - disabledMembers.length < 1"
             type="button"
             color="primary"
             expand="block"

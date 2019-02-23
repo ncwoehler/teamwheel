@@ -39,7 +39,7 @@
                 "input": "src/global.scss"
               },
               {
-                "input": "../node_modules/animate.css/animate.css"
+                "input": "src/theme/animate.css"
               }
             ],
             "scripts": []
