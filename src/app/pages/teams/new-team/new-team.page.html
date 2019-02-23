@@ -1,94 +1,77 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="groups/all"> </ion-back-button>
-    </ion-buttons>
-    <ion-title>Neues Team erstellen</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="groups/all"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Neue Teams erstellen</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="!group">
-    <h2>
-      <ion-text color="danger"
-        >Die ausgewählte Gruppe existiert nicht! :(</ion-text
-      >
-    </h2>
-    <ion-button routerLink="/groups/all">Zurück zur Übersicht</ion-button>
-  </div>
-  <div *ngIf="group">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Einstellungen</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list lines="none">
-          <ion-item>
-            <ion-text class="setting-title">Modus</ion-text>
-            <ion-segment [value]="segmentSelection">
-              <ion-segment-button value="teams">
-                <ion-label>Anzahl Teams</ion-label>
-              </ion-segment-button>
-              <ion-segment-button value="players" disabled>
-                <ion-label>Anzahl Mitglieder</ion-label>
-              </ion-segment-button>
-            </ion-segment>
-          </ion-item>
-          <ion-item>
-            <ion-label class="setting-title">Anzahl</ion-label>
-            <ion-range
-              (ionChange)="rangeChanged($event)"
-              color="danger"
-              pin="true"
-              [value]="selectedSize"
-              min="1"
-              [max]="maxSize"
-            >
-              <ion-label slot="start">1</ion-label>
-              <ion-label slot="end">{{maxSize}}</ion-label>
-            </ion-range>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Mitglieder</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list>
-          <app-member
-            [name]="member.name"
-            *ngFor="let member of group.members"
-            [disabled]="isDisabled(member)"
-          >
-            <ion-button
-              [color]="isDisabled(member) ? 'success' : 'danger'"
-              (click)="toggleDisable(member)"
-            >
-              <ion-icon
-                name="add-circle"
-                slot="icon-only"
-                *ngIf="isDisabled(member)"
-              ></ion-icon>
-              <ion-icon
-                *ngIf="!isDisabled(member)"
-                name="remove-circle-outline"
-                slot="icon-only"
-              ></ion-icon>
-            </ion-button>
-          </app-member>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-    <ion-button
-      type="button"
-      color="primary"
-      expand="block"
-      (click)="createTeam()"
-    >
-      <ion-icon name="shuffle" slot="start"></ion-icon>
-      Teams erstellen
-    </ion-button>
-  </div>
+    <div *ngIf="!group">
+        <h2>
+            <ion-text color="danger">Die ausgewählte Gruppe existiert nicht! :(
+            </ion-text>
+        </h2>
+        <ion-button routerLink="/groups/all">Zurück zur Übersicht</ion-button>
+    </div>
+    <div *ngIf="group">
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Einstellungen</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list lines="none">
+                    <ion-item>
+                        <ion-text class="setting-title">Modus</ion-text>
+                        <ion-segment [value]="segmentSelection" (ionChange)="segmentChanged($event)">
+                            <ion-segment-button value="teams">
+                                <ion-label>Anzahl Teams</ion-label>
+                            </ion-segment-button>
+                            <ion-segment-button value="players">
+                                <ion-label>Anzahl Mitglieder</ion-label>
+                            </ion-segment-button>
+                        </ion-segment>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="setting-title">Anzahl</ion-label>
+                        <ion-range
+                                (ionChange)="rangeChanged($event)"
+                                color="danger"
+                                pin="true"
+                                [value]="selectedSize"
+                                min="1"
+                                [max]="maxSize">
+                            <ion-label slot="start">1</ion-label>
+                            <ion-label slot="end">{{maxSize}}</ion-label>
+                        </ion-range>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Mitglieder ({{group.members.length - disabledMembers.length}} verfügbar, {{disabledMembers.length}} abwesend)</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list>
+                    <app-member
+                            [name]="member.name"
+                            *ngFor="let member of group.members"
+                            [disabled]="isDisabled(member)">
+                        <ion-toggle [checked]="!isDisabled(member)"
+                                    (ionChange)="toggleDisable(member)"></ion-toggle>
+                    </app-member>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+        <ion-button
+                type="button"
+                color="primary"
+                expand="block"
+                (click)="createTeam()">
+            <ion-icon name="shuffle" slot="start"></ion-icon>
+            Und los!
+        </ion-button>
+    </div>
 </ion-content>

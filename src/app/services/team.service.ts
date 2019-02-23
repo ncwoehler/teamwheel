@@ -3,46 +3,51 @@ import { Group } from "../domain/Group";
 import { Member } from "../domain/Member";
 import nanoid from "nanoid";
 import { Team } from "../domain/Team";
+import { Draw } from "../domain/Draw";
 
 @Injectable({
   providedIn: "root"
 })
 export class TeamService {
-  //private lastCreatedTeams: Team[];
+  private lastDraw: Draw = new Draw("1", "Draw 1", [
+    new Team("1", "Superhelden", [
+      new Member("Spiderman"),
+      new Member("Ironman"),
+      new Member("Wonder Woman"),
+      new Member("Ultron")
+    ]),
+    new Team("2", "Dichter", [
+      new Member("Goethe"),
+      new Member("Mozart"),
+      new Member("Bach")
+    ]),
+    new Team("3", "BBT", [
+      new Member("Howard"),
+      new Member("Sheldon"),
+      new Member("Rajid"),
+      new Member("Lennard")
+    ]),
+    new Team("4", "Friends", [
+      new Member("Ross"),
+      new Member("Rachel"),
+      new Member("Phoebe")
+    ])
+  ]);
 
-    lastCreatedTeams: Team[] = [
-        new Team("1", new Date().getTime(), [
-            new Member("Spiderman"),
-            new Member("Ironman"),
-            new Member("Wonder Woman"),
-            new Member("Ultron")
-        ]),
-        new Team("2", new Date().getTime(), [
-            new Member("Goethe"),
-            new Member("Mozart"),
-            new Member("Bach"),
-        ]),
-        new Team("3", new Date().getTime(), [
-            new Member("Howard"),
-            new Member("Sheldon"),
-            new Member("Rajid"),
-            new Member("Lennard")
-        ]),
-        new Team("4", new Date().getTime(), [
-            new Member("Ross"),
-            new Member("Rachel"),
-            new Member("Phoebe"),
-        ])
-    ];
+  private lastSegmentOption: string = "teams";
+  private lastSelectedSize: number;
 
   constructor() {}
 
-  async createTeam(
+  async drawTeam(
     members: Member[],
     disabledMembers: Member[],
     selectedSize: number,
     segmentSelection: string
-  ) {
+  ): Promise<Draw> {
+    this.lastSegmentOption = segmentSelection;
+    this.lastSelectedSize = selectedSize;
+
     const availableMembers = members.filter(
       m => disabledMembers.findIndex(d => d.name == m.name) < 0
     );
@@ -50,36 +55,56 @@ export class TeamService {
     // shuffle members
     availableMembers.sort(() => Math.random() - 0.5);
 
-    const createdTeams: Team[] = [];
     if (!segmentSelection || segmentSelection === "teams") {
-      for (var _i = 0; _i < selectedSize; _i++) {
-        const id = nanoid();
-        const teamMembers = [];
-        var newTeam: Team = new Team(id, new Date().getTime(), teamMembers);
-        createdTeams.push(newTeam);
-      }
-
-      availableMembers.forEach((member, index) => {
-        createdTeams[index % selectedSize].members.push(member);
-      });
+      return this.drawByNumberOfTeams(selectedSize, availableMembers);
+    } else {
+      return this.drawByNumberOfMembers(selectedSize, availableMembers);
     }
-
-    // filter all teams without a member
-    this.lastCreatedTeams = createdTeams.filter(
-      team => team.members.length > 0
-    );
   }
 
-  getLastCreatedTeams(): Team[] {
-    return this.lastCreatedTeams;
+  getLastDraw(): Draw {
+    return this.lastDraw;
   }
 
-  reshuffle(): Team[] {
-    const members: Member[] = this.lastCreatedTeams
+  async reshuffle(): Promise<Draw> {
+    const members: Member[] = this.lastDraw.teams
       .map(team => team.members)
       .reduce((prev, curr) => prev.concat(curr));
 
-    this.createTeam(members, [], this.lastCreatedTeams.length, undefined);
-    return this.getLastCreatedTeams();
+    return await this.drawTeam(
+      members,
+      [],
+      this.lastSelectedSize,
+      this.lastSegmentOption
+    );
+  }
+
+  private drawByNumberOfTeams(numberOfTeams: number, availableMembers) {
+    // create # of teams
+    const createdTeams: Team[] = [];
+    for (var _i = 0; _i < numberOfTeams; _i++) {
+      const id = nanoid();
+      const teamMembers = [];
+      var newTeam: Team = new Team(id, `Team ${_i + 1}`, teamMembers);
+      createdTeams.push(newTeam);
+    }
+
+    // add available members to teams
+    availableMembers.forEach((member, index) => {
+      createdTeams[index % numberOfTeams].members.push(member);
+    });
+
+    // filter all teams without a member and create a new draw
+    this.lastDraw = new Draw(
+      nanoid(),
+      new Date().toString(),
+      createdTeams.filter(team => team.members.length > 0)
+    );
+    return this.lastDraw;
+  }
+
+  private drawByNumberOfMembers(selectedSize: number, availableMembers) {
+    const numberOfTeams = Math.round(availableMembers.length / selectedSize);
+    return this.drawByNumberOfTeams(numberOfTeams, availableMembers);
   }
 }
