@@ -1,19 +1,15 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="groups/all"> </ion-back-button>
-    </ion-buttons>
-    <ion-title>Gruppe erstellen</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="groups/all"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Gruppe erstellen</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-content>
-      <app-edit-group-form
-        (submitted)="handleSubmission($event)"
-        buttonText="Gruppe erstellen"
-      ></app-edit-group-form>
-    </ion-card-content>
-  </ion-card>
+    <app-edit-group-form
+            (submitted)="handleSubmission($event)"
+            buttonText="Gruppe erstellen">
+    </app-edit-group-form>
 </ion-content>
