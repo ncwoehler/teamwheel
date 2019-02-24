@@ -9,14 +9,20 @@
 
 <ion-content padding>
     <ion-card>
-        <ion-card-header>
-            <app-card-header-title text="Alle Gruppen">
-                <app-new-group-button></app-new-group-button>
-            </app-card-header-title>
-        </ion-card-header>
         <ion-card-content>
+            <ion-toolbar>
+                <ion-buttons slot="primary">
+                    <ion-button routerLink="/groups/new" fill="solid" color="primary">
+                        <ion-icon name="add" slot="start"></ion-icon>
+                        Gruppe erstellen
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
             <app-missing-data-text [data]="allGroups" text="Keine Gruppen vorhanden"></app-missing-data-text>
             <ion-list>
+                <ion-list-header>
+                    Alle Gruppen
+                </ion-list-header>
                 <app-group-row-item
                         *ngFor="let group of allGroups"
                         [group]="group"

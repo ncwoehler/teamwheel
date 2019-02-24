@@ -15,29 +15,36 @@
     <ng-container *ngIf="!recentGroups || !recentGroups.length">
         <ion-card>
             <ion-card-header>
-                <ion-card-title>Willkommen bei TeamWheel! <ion-icon name="happy"></ion-icon></ion-card-title>
+                <ion-card-title>Willkommen bei TeamWheel
+                </ion-card-title>
             </ion-card-header>
             <ion-card-content>
                 <ion-item lines="none">
                     <ion-text slot="start">Erstelle jetzt deine erste Gruppe:</ion-text>
                 </ion-item>
                 <ion-item lines="none">
-                    <app-new-group-button></app-new-group-button>
+                    <ion-button routerLink="/groups/new">
+                        <ion-icon name="add" slot="start"></ion-icon>
+                        Erste Gruppe erstellen
+                    </ion-button>
                 </ion-item>
             </ion-card-content>
         </ion-card>
     </ng-container>
     <ng-container *ngIf="recentGroups && recentGroups.length">
-
         <ion-card>
-            <ion-card-header>
-                <app-card-header-title text="Zuletzt genutzte Gruppen">
-                    <ion-button routerLink="/groups/all">Zur Gruppenübersicht</ion-button>
-                </app-card-header-title>
-            </ion-card-header>
             <ion-card-content>
-
+                <ion-toolbar>
+                    <ion-buttons slot="primary">
+                        <ion-button color="primary" routerLink="/groups/all">
+                            Zur Gruppenübersicht
+                        </ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
                 <ion-list *ngIf="recentGroups">
+                    <ion-list-header>
+                        Letzte Gruppen
+                    </ion-list-header>
                     <app-group-row-item
                             *ngFor="let group of recentGroups"
                             [group]="group"

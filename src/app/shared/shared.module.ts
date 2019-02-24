@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { NewGroupButtonComponent } from "./new-group-button/new-group-button.component";
 import { IonicModule } from "@ionic/angular";
 import { RouterModule, Routes } from "@angular/router";
 import { GroupRowItemComponent } from "./group-row-item/group-row-item.component";
@@ -16,7 +15,6 @@ const routes: Routes = [];
 
 @NgModule({
   declarations: [
-    NewGroupButtonComponent,
     GroupRowItemComponent,
     MissingDataTextComponent,
     MemberComponent,
@@ -33,7 +31,6 @@ const routes: Routes = [];
     RouterModule.forChild(routes)
   ],
   exports: [
-    NewGroupButtonComponent,
     GroupRowItemComponent,
     MissingDataTextComponent,
     MemberComponent,
