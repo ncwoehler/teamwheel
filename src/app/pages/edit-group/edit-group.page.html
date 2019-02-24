@@ -1,21 +1,17 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="groups/all"> </ion-back-button>
-    </ion-buttons>
-    <ion-title>Gruppe bearbeiten</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="groups/all"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Gruppe bearbeiten</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-content>
-      <app-edit-group-form
-        [groupInput]="group"
-        (submitted)="handleSubmit($event)"
-        buttonText="Änderungen speichern"
-        *ngIf="group"
-      ></app-edit-group-form>
-    </ion-card-content>
-  </ion-card>
+    <app-edit-group-form
+            [groupInput]="group"
+            (submitted)="handleSubmit($event)"
+            buttonText="Änderungen speichern"
+            *ngIf="group"
+    ></app-edit-group-form>
 </ion-content>

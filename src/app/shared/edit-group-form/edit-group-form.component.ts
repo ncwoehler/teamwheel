@@ -18,6 +18,7 @@ import { Member } from "../../domain/Member";
 export class EditGroupFormComponent implements OnInit {
   @Input() groupInput: Group;
   @Input() buttonText: string;
+  @Input() content: ViewChild;
   @Output() submitted: EventEmitter<Group> = new EventEmitter();
 
   groupForm;
@@ -79,11 +80,14 @@ export class EditGroupFormComponent implements OnInit {
     this.members.push(this.fb.control(this.newMemberName, Validators.required));
     this.newMemberName = "";
     this.inputEl.setFocus();
+    if (this.content) {
+      let dimensions = this.content.getContentDimensions();
+      this.content.scrollTo(0, dimensions.scrollBottom, 0);
+    }
   }
 
   removeMember(name: string) {
     const index = this.members.controls.findIndex(c => c.value === name);
-    console.info("remove " + index);
     this.members.removeAt(index);
   }
 
