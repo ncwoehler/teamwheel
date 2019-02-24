@@ -29,16 +29,21 @@ export class SettingsPage implements OnInit {
         },
         {
           text: "Alles löschen",
-          handler: () => {
-            this.groupService.getAllGroups().then(groups => {
-              groups.forEach(group => this.groupService.deleteGroup(group.id));
-              this.nav.navigateRoot("home");
-            });
-          }
+          handler: () => this.deleteAllGroups()
         }
       ]
     });
 
     await alert.present();
+  }
+
+  private async deleteAllGroups() {
+    const allGroups = await this.groupService.getAllGroups();
+
+    for (let group of allGroups) {
+      await this.groupService.deleteGroup(group.id);
+    }
+
+    this.nav.navigateRoot("home");
   }
 }
