@@ -1,0 +1,2 @@
+PWA:
+ionic build --prod --service-worker
