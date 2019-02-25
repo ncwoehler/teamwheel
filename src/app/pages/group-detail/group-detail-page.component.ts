@@ -3,6 +3,7 @@ import { GroupService } from "../../services/group.service";
 import { Group } from "../../domain/Group";
 import { ActivatedRoute } from "@angular/router";
 import {
+  ActionSheetController,
   AlertController,
   LoadingController,
   NavController
@@ -24,7 +25,8 @@ export class GroupDetailPage {
     private alertController: AlertController,
     private navController: NavController,
     private translateService: TranslateService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public actionSheetController: ActionSheetController
   ) {}
 
   ionViewWillEnter() {
@@ -53,6 +55,23 @@ export class GroupDetailPage {
         this.loadingController.dismiss();
         this.loading = false;
       });
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [
+        {
+          text: "Delete",
+          role: "destructive",
+          icon: "trash",
+          handler: () => {
+            this.actionSheetController.dismiss();
+            this.initDeletion();
+          }
+        }
+      ]
+    });
+    await actionSheet.present();
   }
 
   async initDeletion() {
