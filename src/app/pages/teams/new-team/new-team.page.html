@@ -56,8 +56,8 @@
         </ion-card>
         <ion-card>
             <ion-card-header>
-                <ion-card-title>Mitglieder ({{group.members.length - disabledMembers.length}}
-                    verfügbar, {{disabledMembers.length}} abwesend)
+                <ion-card-title>Mitglieder ({{group?.members?.length - disabledMembers?.length}}
+                    verfügbar, {{disabledMembers?.length}} abwesend)
                 </ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -76,7 +76,7 @@
 </ion-content>
 
 <ion-footer padding>
-    <ion-button [disabled]="group.members.length - disabledMembers.length < 1"
+    <ion-button [disabled]="group?.members?.length - disabledMembers?.length < 1"
             type="button"
             color="primary"
             expand="block"

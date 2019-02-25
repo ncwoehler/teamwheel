@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Group } from "../domain/Group";
 import { Member } from "../domain/Member";
 import nanoid from "nanoid";
 import { Team } from "../domain/Team";
