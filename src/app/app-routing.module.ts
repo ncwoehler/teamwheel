@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: "groups/new",
-    loadChildren: "./pages/new-group/new-group.module#NewGroupPageModule"
+    loadChildren: "./pages/edit-group/edit-group.module#EditGroupPageModule"
   },
   {
     path: "groups/all",

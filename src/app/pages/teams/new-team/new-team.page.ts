@@ -6,7 +6,6 @@ import { Group } from "../../../domain/Group";
 import { Member } from "../../../domain/Member";
 import { TeamService } from "../../../services/team.service";
 import { NavController } from "@ionic/angular";
-import { Draw } from "../../../domain/Draw";
 
 const TEAMS = "teams";
 
