@@ -1,4 +1,5 @@
 import { Member } from "./Member";
+import { Draw } from "./Draw";
 
 export class Group {
   id: string;
@@ -6,6 +7,7 @@ export class Group {
   icon: string;
   lastUsed: number;
   members: Member[];
+  draws: Draw[];
 
   constructor(id: string, name: string, icon: string, members: Member[]) {
     this.id = id;
@@ -13,5 +15,4 @@ export class Group {
     this.icon = icon;
     this.members = members;
   }
-
 }

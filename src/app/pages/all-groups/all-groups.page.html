@@ -3,11 +3,6 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-buttons slot="primary">
-            <ion-button routerLink="/groups/new" color="primary">
-                <ion-icon name="add" slot="icon-only"></ion-icon>
-            </ion-button>
-        </ion-buttons>
         <ion-title>{{'groupOverview.header' | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
@@ -23,4 +18,10 @@
         <app-missing-data-text [data]="allGroups"
                                text="{{'groupOverview.noGroups' | translate}}"></app-missing-data-text>
     </ion-list>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" margin>
+        <ion-fab-button
+                routerLink="/groups/new">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

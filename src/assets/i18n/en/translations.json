@@ -40,7 +40,8 @@
     "members": "Members",
     "addMember": "Add member",
     "addMemberPlaceholder": "Example: Ironman",
-    "noMembers": "No members yet"
+    "noMembers": "No members yet",
+    "save": "Save"
   },
   "groupDetails": {
     "header": "Group details",
@@ -50,7 +51,9 @@
     "deleteHeader": "Delete group",
     "deleteMsg": "<b style='color: #dc3545'>WARNING:</b><br/> This CANNOT be reverted.",
     "deleteCancel": "Cancel",
-    "deleteConfirm": "Delete group"
+    "deleteConfirm": "Delete group",
+    "draws": "Teams",
+    "noDraws": "No teams saved yet."
   },
   "configureDraw": {
     "header": "Configure draw",

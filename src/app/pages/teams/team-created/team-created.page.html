@@ -10,19 +10,6 @@
 <ion-content padding>
     <app-no-group [group]="draw"></app-no-group>
     <div *ngIf="draw">
-        <ion-button class="actionButton" color="primary" disabled>
-            <ion-icon name="save" slot="start"></ion-icon>
-            {{'generatedTeams.saveDraw' | translate}}
-        </ion-button>
-        <ion-button
-                class="actionButton"
-                type="button"
-                color="secondary"
-                (click)="reshuffle()">
-            <ion-icon name="shuffle" slot="start"></ion-icon>
-            {{'generatedTeams.reshuffle' | translate}}
-        </ion-button>
-
         <ion-grid>
             <ng-container *ngFor="let team of draw.teams; let i = index">
                 <ion-row *ngIf="i % 2 ===0">
@@ -44,4 +31,13 @@
             </ng-container>
         </ion-grid>
     </div>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" margin *ngIf="draw">
+        <ion-fab-button color="secondary"
+                        (click)="reshuffle()" margin>
+            <ion-icon name="refresh"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button color="primary" margin disabled>
+            <ion-icon name="save"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
