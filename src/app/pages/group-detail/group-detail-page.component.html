@@ -18,7 +18,7 @@
 </ion-header>
 
 <ion-content padding>
-    <app-no-group [group]="group"></app-no-group>
+    <app-no-group [group]="group" [loading]="loading"></app-no-group>
     <ng-container *ngIf="group">
         <h1>
             <ion-text>
@@ -38,14 +38,12 @@
             <app-member [name]="member.name" *ngFor="let member of group.members"></app-member>
         </ion-list>
     </ng-container>
-</ion-content>
-
-<ion-footer padding *ngIf="group">
-    <ion-button expand="block"
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" padding *ngIf="group">
+        <ion-fab-button
                 routerLink="/teams/new"
                 [queryParams]="{ forGroup: group.id }"
                 [disabled]="group.members?.length < 1">
-        <ion-icon name="shuffle" slot="start"></ion-icon>
-        {{'groupDetails.generateTeams' | translate}}
-    </ion-button>
-</ion-footer>
+            <ion-icon name="shuffle"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

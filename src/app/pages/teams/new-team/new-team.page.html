@@ -35,18 +35,6 @@
                     <ion-label slot="end">{{maxSize}}</ion-label>
                 </ion-range>
             </ion-item>
-            <ion-item lines="none">
-                <ion-label>
-                    <ion-note>
-                        {{
-                        'configureDraw.preview' | translate: {
-                            teams: fakeDrawResultTeams,
-                            mem: fakeDrawResultMembers.join("-") || '0'
-                        }
-                        }}
-                    </ion-note>
-                </ion-label>
-            </ion-item>
             <ion-item-divider color="none">
                 <ion-label>
                     <h2>{{'configureDraw.members' | translate}}</h2>
@@ -72,6 +60,18 @@
 </ion-content>
 
 <ion-footer padding>
+    <ion-item lines="none">
+        <ion-label>
+            <ion-note>
+                {{
+                'configureDraw.preview' | translate: {
+                    teams: fakeDrawResultTeams,
+                    mem: fakeDrawResultMembers.join("-") || '0'
+                }
+                }}
+            </ion-note>
+        </ion-label>
+    </ion-item>
     <ion-button [disabled]="group?.members?.length - disabledMembers?.length < 1"
                 type="button"
                 color="primary"

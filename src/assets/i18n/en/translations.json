@@ -3,6 +3,7 @@
   "menuHome": "Home",
   "menuGroups": "Groups",
   "menuSettings": "Settings",
+  "loading": "Loading...",
   "home": {
     "header": "Welcome",
     "welcomeTitle": "Welcome to TeamWheel!",
