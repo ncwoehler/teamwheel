@@ -5,7 +5,7 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>
-            Willkommen
+            {{"home.header" | translate}}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -13,29 +13,28 @@
 <ion-content padding>
     <img src="/assets/teamwheel_alpha.svg" alt="TeamWheel Image" class="welcome-img"/>
     <ng-container *ngIf="!recentGroups || !recentGroups.length">
-        <h1>Willkommen bei TeamWheel</h1>
+        <h1>{{"home.welcomeTitle" | translate}}</h1>
         <ion-item lines="none">
-            <ion-text>Erstelle jetzt deine erste Gruppe:</ion-text>
+            <ion-text>{{'home.createFirstText' | translate}}</ion-text>
         </ion-item>
         <ion-button routerLink="/groups/new">
             <ion-icon name="add" slot="start"></ion-icon>
-            Gruppe erstellen
+            {{'home.createGroup' | translate}}
         </ion-button>
     </ng-container>
     <ng-container *ngIf="recentGroups && recentGroups.length">
         <ion-list>
             <ion-list-header>
-                {{'RECENT_GROUPS' | translate}}
+                {{'home.recentGroups' | translate}}
             </ion-list-header>
             <app-group-row-item
                     *ngFor="let group of recentGroups"
-                    [group]="group"
-            ></app-group-row-item>
+                    [group]="group"></app-group-row-item>
         </ion-list>
         <ion-toolbar>
             <ion-buttons slot="primary">
                 <ion-button color="primary" routerLink="/groups/all">
-                    Zur Gruppenübersicht
+                    {{'home.toGroupOverview' | translate}}
                 </ion-button>
             </ion-buttons>
         </ion-toolbar>
