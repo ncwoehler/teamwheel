@@ -26,7 +26,15 @@
                 {{group.name}}
             </ion-text>
         </h1>
-
+        <ion-list>
+            <ion-list-header>
+                {{'groupDetails.draws' | translate}}
+            </ion-list-header>
+            <app-missing-data-text
+                    [data]="group.draws"
+                    text="{{'groupDetails.noDraws' | translate}}">
+            </app-missing-data-text>
+        </ion-list>
         <ion-list>
             <ion-list-header>
                 {{'groupDetails.members' | translate}} ({{group.members.length}})
@@ -38,7 +46,7 @@
             <app-member [name]="member.name" *ngFor="let member of group.members"></app-member>
         </ion-list>
     </ng-container>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed" padding *ngIf="group">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" margin *ngIf="group">
         <ion-fab-button
                 routerLink="/teams/new"
                 [queryParams]="{ forGroup: group.id }"

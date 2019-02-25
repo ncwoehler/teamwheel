@@ -40,7 +40,8 @@
     "members": "Mitglieder",
     "addMember": "Mitglied hinzufügen",
     "addMemberPlaceholder": "Beispiel: Anna",
-    "noMembers": "Keine Mitglieder vorhanden"
+    "noMembers": "Keine Mitglieder vorhanden",
+    "save": "Speichern"
   },
   "groupDetails": {
     "header": "Gruppendetails",
@@ -50,7 +51,9 @@
     "deleteHeader": "Gruppe löschen",
     "deleteMsg": "<b style='color: #dc3545'>WARNUNG:</b><br/> Dieser Schritt kann NICHT rückgängig gemacht werden.",
     "deleteCancel": "Abbrechen",
-    "deleteConfirm": "Gruppe löschen"
+    "deleteConfirm": "Gruppe löschen",
+    "draws": "Teams",
+    "noDraws": "Noch keine Teams gespeichert."
   },
   "configureDraw": {
     "header": "Ziehung konfigurieren",
@@ -61,7 +64,7 @@
     "preview": "Resultiert in {{teams}} Teams mit {{mem}} Mitgliedern",
     "members": "Mitglieder",
     "membersNote": "{{avbl}} verfügbar, {{unvbl}} abwesend",
-    "shuffle": "Und los!"
+    "shuffle": "Teams generieren"
   },
   "generatedTeams" : {
     "header": "Ergebnis",
