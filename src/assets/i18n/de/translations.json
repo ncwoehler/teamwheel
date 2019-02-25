@@ -47,7 +47,7 @@
     "header": "Gruppendetails",
     "members": "Mitglieder",
     "noMembers": "Keine Mitglieder vorhanden",
-    "generateTeams": "Teams generieren",
+    "generateTeams": "Teams erzeugen",
     "deleteHeader": "Gruppe löschen",
     "deleteMsg": "<b style='color: #dc3545'>WARNUNG:</b><br/> Dieser Schritt kann NICHT rückgängig gemacht werden.",
     "deleteCancel": "Abbrechen",
@@ -56,7 +56,7 @@
     "noDraws": "Noch keine Teams gespeichert."
   },
   "configureDraw": {
-    "header": "Ziehung konfigurieren",
+    "header": "Teams konfigurieren",
     "mode": "Modus",
     "modeTeams": "Teams",
     "modeMembers": "Mitglieder",

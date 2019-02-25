@@ -14,7 +14,7 @@
             <ng-container *ngFor="let team of draw.teams; let i = index">
                 <ion-row *ngIf="i % 2 ===0">
                     <ion-col>
-                        <div class="animated fadeIn slower">
+                        <div class="animated fadeIn">
                             <app-team-card [team]="team"></app-team-card>
                         </div>
                     </ion-col>
@@ -36,8 +36,17 @@
                         (click)="reshuffle()" margin>
             <ion-icon name="refresh"></ion-icon>
         </ion-fab-button>
-        <ion-fab-button color="primary" margin disabled>
-            <ion-icon name="save"></ion-icon>
-        </ion-fab-button>
     </ion-fab>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-button
+                color="primary"
+                expand="full"
+                (click)="saveDraw()" [disabled]="!draw?.groupId">
+            <ion-icon name="save" slot="start"></ion-icon>
+            {{'editGroup.save' | translate}}
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

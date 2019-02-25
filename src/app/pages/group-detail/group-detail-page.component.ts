@@ -8,6 +8,8 @@ import {
   NavController
 } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
+import { Draw } from "../../domain/Draw";
+import { DrawService } from "../../services/draw.service";
 
 @Component({
   selector: "app-group",
@@ -16,10 +18,12 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class GroupDetailPage {
   group: Group;
+  draws: Draw[];
   loading: boolean;
 
   constructor(
     private groupService: GroupService,
+    private drawService: DrawService,
     private route: ActivatedRoute,
     private alertController: AlertController,
     private navController: NavController,
@@ -36,23 +40,20 @@ export class GroupDetailPage {
         })
         .then(l => {
           l.present();
-          this.getGroup();
+          this.loadData()
+            .catch(value => console.error(value)) // TODO error handling
+            .finally(() => {
+              this.loadingController.dismiss();
+              this.loading = false;
+            });
         });
     });
   }
 
-  getGroup() {
+  async loadData() {
     const groupId: string = this.route.snapshot.paramMap.get("groupId");
-    this.groupService
-      .getGroupById(groupId)
-      .then(value => {
-        this.group = value;
-      })
-      .catch(value => console.error(value)) // TODO error handling
-      .finally(() => {
-        this.loadingController.dismiss();
-        this.loading = false;
-      });
+    this.group = await this.groupService.getGroupById(groupId);
+    this.draws = await this.drawService.loadAllDrawsByGroupId(groupId);
   }
 
   async initDeletion() {
@@ -81,6 +82,6 @@ export class GroupDetailPage {
   }
 
   openGroupsOverview() {
-    this.navController.navigateRoot(["/groups", "all"]);
+    this.navController.navigateRoot(["groups", "all"]);
   }
 }

@@ -10,6 +10,12 @@
 <ion-content padding>
     <app-no-group [group]="group"></app-no-group>
     <div *ngIf="group">
+        <h1>
+            <ion-text>
+                <ion-icon [name]="group.icon"></ion-icon>
+                {{group.name}}
+            </ion-text>
+        </h1>
         <ion-list lines="none">
             <ion-item>
                 <ion-text class="setting-title">{{'configureDraw.mode' | translate}}</ion-text>
@@ -66,7 +72,7 @@
                 {{
                 'configureDraw.preview' | translate: {
                     teams: fakeDrawResultTeams,
-                    mem: fakeDrawResultMembers.join("-") || '0'
+                    mem: fakeDrawResultMembers?.join("-") || '0'
                 }
                 }}
             </ion-note>

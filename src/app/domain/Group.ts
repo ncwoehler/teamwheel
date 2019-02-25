@@ -7,7 +7,6 @@ export class Group {
   icon: string;
   lastUsed: number;
   members: Member[];
-  draws: Draw[];
 
   constructor(id: string, name: string, icon: string, members: Member[]) {
     this.id = id;

@@ -4,7 +4,11 @@
     </ion-card-header>
     <ion-card-content>
         <ion-list>
-            <app-member [name]="member.name" *ngFor="let member of team.members"></app-member>
+            <div class="animated flipInX slow" *ngFor="let member of team.members">
+                <app-member [name]="member.name">
+                </app-member>
+            </div>
+
         </ion-list>
     </ion-card-content>
 </ion-card>

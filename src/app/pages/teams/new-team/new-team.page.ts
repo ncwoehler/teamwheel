@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { filter } from "rxjs/operators";
+import { filter, last } from "rxjs/operators";
 import { GroupService } from "../../../services/group.service";
 import { Group } from "../../../domain/Group";
 import { Member } from "../../../domain/Member";
-import { TeamService } from "../../../services/team.service";
+import { DrawService } from "../../../services/draw.service";
 import { NavController } from "@ionic/angular";
 
 const TEAMS = "teams";
@@ -28,26 +28,23 @@ export class NewTeamPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private groupService: GroupService,
-    private teamService: TeamService,
+    private drawService: DrawService,
     private nav: NavController
   ) {
     this.segmentSelection = TEAMS;
   }
 
+  ngOnInit() {
+    const groupId: string = this.route.snapshot.paramMap.get("groupId");
+    this.getGroup(groupId).then(() => {
+      this.setDefaultSettingsForGroup();
+      this.updateFakeResults();
+    });
+  }
+
   rangeChanged(event) {
     this.selectedSize = event.detail.value;
     this.updateFakeResults();
-  }
-
-  ngOnInit() {
-    this.route.queryParams
-      .pipe(filter(params => params.forGroup))
-      .subscribe(params => {
-        this.getGroup(params.forGroup).then(() => {
-          this.setDefaultSettingsForGroup();
-          this.updateFakeResults();
-        });
-      });
   }
 
   async getGroup(groupId: string) {
@@ -73,7 +70,8 @@ export class NewTeamPage implements OnInit {
   }
 
   async updateFakeResults() {
-    const fakeDraw = await this.teamService.drawTeam(
+    const fakeDraw = await this.drawService.drawTeam(
+      null,
       this.group.members,
       this.disabledMembers,
       this.selectedSize,
@@ -97,13 +95,15 @@ export class NewTeamPage implements OnInit {
   }
 
   async drawTeams() {
-    await this.teamService.drawTeam(
+    const lastDraw = await this.drawService.drawTeam(
+      this.group.id,
       this.group.members,
       this.disabledMembers,
       this.selectedSize,
       this.segmentSelection
     );
-    this.nav.navigateForward(["teams", "created"]);
+    this.drawService.setLastDraw(lastDraw);
+    this.nav.navigateForward(["draws", "preview"]);
   }
 
   private setDefaultSettingsForGroup() {
