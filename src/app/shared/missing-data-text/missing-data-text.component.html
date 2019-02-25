@@ -1,3 +1,1 @@
-<div *ngIf="!data || data.length === 0" class="missing-data">
-    <ion-item lines="none">{{text}}</ion-item>
-</div>
+<ion-item lines="none" *ngIf="!data || data.length === 0" class="missing-data">{{text}}</ion-item>

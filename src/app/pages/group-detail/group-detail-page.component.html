@@ -31,13 +31,17 @@
                 {{group.name}}
             </ion-text>
         </h1>
-        <div>
-            <div class="section-header">
-                Mitglieder ({{group.members.length}})
-            </div>
-            <app-members [members]="group.members"></app-members>
-        </div>
 
+        <ion-list>
+            <ion-list-header>
+                Mitglieder ({{group.members.length}})
+            </ion-list-header>
+            <app-missing-data-text
+                    [data]="group.members"
+                    text="Keine Mitglieder vorhanden">
+            </app-missing-data-text>
+            <app-member [name]="member.name" *ngFor="let member of group.members"></app-member>
+        </ion-list>
     </div>
 </ion-content>
 

@@ -4,9 +4,7 @@
     </ion-card-header>
     <ion-card-content>
         <ion-list>
-            <ion-item *ngFor="let member of team.members">
-                <app-member [name]="member.name"></app-member>
-            </ion-item>
+            <app-member [name]="member.name" *ngFor="let member of team.members"></app-member>
         </ion-list>
     </ion-card-content>
 </ion-card>
