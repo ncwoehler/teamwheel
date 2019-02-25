@@ -1,3 +1,12 @@
 {
-  "RECENT_GROUPS": "Recent groups"
+  "RECENT_GROUPS": "Recent groups",
+  "settings": {
+    "header": "Settings",
+    "general": "General",
+    "lang": "Language",
+    "german": "German",
+    "english": "English",
+    "dangerZone": "Danger Zone",
+    "deleteAll": "Delete all data"
+  }
 }

@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { Routes, RouterModule } from "@angular/router";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { SettingsPage } from './settings.page';
-import {SharedModule} from "../../shared/shared.module";
+import { SettingsPage } from "./settings.page";
+import { TranslateModule } from "@ngx-translate/core";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: SettingsPage
   }
 ];
@@ -20,6 +20,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule.forChild(),
     RouterModule.forChild(routes)
   ],
   declarations: [SettingsPage]
