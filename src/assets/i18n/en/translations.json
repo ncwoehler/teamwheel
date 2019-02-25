@@ -1,5 +1,12 @@
 {
-  "RECENT_GROUPS": "Recent groups",
+  "home": {
+    "header": "Welcome",
+    "welcomeTitle": "Welcome to TeamWheel!",
+    "createFirstText": "Create your first group now:",
+    "createGroup": "Create group",
+    "recentGroups": "Recent groups",
+    "toGroupOverview": "Open group overview"
+  },
   "settings": {
     "header": "Settings",
     "general": "General",
