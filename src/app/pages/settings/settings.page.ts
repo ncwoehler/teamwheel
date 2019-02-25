@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { GroupService } from "../../services/group.service";
 import { AlertController, NavController } from "@ionic/angular";
+import { SettingsService } from "../../services/settings.service";
+import { Settings } from "../../domain/Settings";
+import set = Reflect.set;
 
 @Component({
   selector: "app-settings",
@@ -8,13 +11,20 @@ import { AlertController, NavController } from "@ionic/angular";
   styleUrls: ["./settings.page.scss"]
 })
 export class SettingsPage implements OnInit {
+  settings: Settings;
+
   constructor(
+    private settingsService: SettingsService,
     private groupService: GroupService,
     private nav: NavController,
     private alertController: AlertController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.settingsService.loadSettings().then(settings => {
+      this.settings = settings;
+    });
+  }
 
   async deleteAllData() {
     const alert = await this.alertController.create({
@@ -45,5 +55,10 @@ export class SettingsPage implements OnInit {
     }
 
     this.nav.navigateRoot("home");
+  }
+
+  languageChanged($event) {
+    this.settings.language = $event.detail.value;
+    this.settingsService.changeLanguage(this.settings.language);
   }
 }
