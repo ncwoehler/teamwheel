@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Einstellungen</ion-title>
+        <ion-title>{{"settings.header" | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -11,33 +11,33 @@
     <ion-grid>
         <ion-row>
             <ion-col>
-                <h2>Allgemein</h2>
+                <h2>{{"settings.general" | translate}}</h2>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
-               <ion-list>
-                   <ion-item>
-                       <ion-icon name="globe" slot="start"></ion-icon>
-                       <ion-label>Sprache</ion-label>
-                       <ion-select [value]="settings?.language" (ionChange)="languageChanged($event)">
-                           <ion-select-option value="de">Deutsch</ion-select-option>
-                           <ion-select-option value="en">English</ion-select-option>
-                       </ion-select>
-                   </ion-item>
-               </ion-list>
+                <ion-list>
+                    <ion-item>
+                        <ion-icon name="globe" slot="start"></ion-icon>
+                        <ion-label>{{"settings.lang" | translate}}</ion-label>
+                        <ion-select [value]="settings?.language" (ionChange)="languageChanged($event)">
+                            <ion-select-option value="de">{{"settings.german" | translate}}</ion-select-option>
+                            <ion-select-option value="en">{{"settings.english" | translate}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
-                <h2>Gefahrenzone</h2>
+                <h2>{{"settings.dangerZone" | translate}}</h2>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
                 <ion-button color="danger" (click)="deleteAllData()">
                     <ion-icon name="trash" slot="start"></ion-icon>
-                    <ion-label>Alle Daten löschen</ion-label>
+                    <ion-label>{{"settings.deleteAll" | translate}}</ion-label>
                 </ion-button>
             </ion-col>
         </ion-row>
