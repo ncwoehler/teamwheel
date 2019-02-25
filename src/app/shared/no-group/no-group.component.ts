@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from "@angular/core";
 })
 export class NoGroupComponent implements OnInit {
   @Input() group;
+  @Input() loading: boolean = false;
   constructor() {}
 
   ngOnInit() {}

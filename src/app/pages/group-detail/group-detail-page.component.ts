@@ -2,7 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { GroupService } from "../../services/group.service";
 import { Group } from "../../domain/Group";
 import { ActivatedRoute } from "@angular/router";
-import { AlertController, NavController } from "@ionic/angular";
+import {
+  AlertController,
+  LoadingController,
+  NavController
+} from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 
 @Component({
@@ -12,25 +16,43 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class GroupDetailPage {
   group: Group;
+  loading: boolean;
 
   constructor(
     private groupService: GroupService,
     private route: ActivatedRoute,
     private alertController: AlertController,
     private navController: NavController,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public loadingController: LoadingController
   ) {}
 
   ionViewWillEnter() {
-    this.getGroup();
+    this.loading = true;
+    this.translateService.get("loading").subscribe(translation => {
+      this.loadingController
+        .create({
+          message: translation
+        })
+        .then(l => {
+          l.present();
+          this.getGroup();
+        });
+    });
   }
 
   getGroup() {
     const groupId: string = this.route.snapshot.paramMap.get("groupId");
     this.groupService
       .getGroupById(groupId)
-      .then(value => (this.group = value))
-      .catch(value => console.error(value)); // TODO error handling
+      .then(value => {
+        this.group = value;
+      })
+      .catch(value => console.error(value)) // TODO error handling
+      .finally(() => {
+        this.loadingController.dismiss();
+        this.loading = false;
+      });
   }
 
   async initDeletion() {
