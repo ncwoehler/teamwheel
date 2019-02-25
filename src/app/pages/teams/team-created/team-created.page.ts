@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
-import { TeamService } from "../../../services/team.service";
+import { DrawService } from "../../../services/draw.service";
 import { Draw } from "../../../domain/Draw";
+import { NavController } from "@ionic/angular";
 
 @Component({
   selector: "app-team-created",
@@ -10,13 +11,24 @@ import { Draw } from "../../../domain/Draw";
 export class TeamCreatedPage {
   draw: Draw;
 
-  constructor(private teamService: TeamService) {}
+  constructor(private drawService: DrawService, private nav: NavController) {}
 
   ionViewWillEnter() {
-    this.draw = this.teamService.getLastDraw();
+    this.draw = this.drawService.getLastDraw();
   }
 
   reshuffle() {
-    this.teamService.reshuffle().then(draw => (this.draw = draw));
+    this.drawService.reshuffle().then(draw => {
+      this.drawService.setLastDraw(draw);
+      this.draw = draw;
+    });
+  }
+
+  saveDraw() {
+    this.drawService.saveDraw(this.draw).then(draw =>
+      this.nav.navigateRoot(["groups", this.draw.groupId], {
+        animated: true
+      })
+    );
   }
 }

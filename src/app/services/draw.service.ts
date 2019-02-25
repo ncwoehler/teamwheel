@@ -3,12 +3,15 @@ import { Member } from "../domain/Member";
 import nanoid from "nanoid";
 import { Team } from "../domain/Team";
 import { Draw } from "../domain/Draw";
+import { Storage } from "@ionic/storage";
+
+const STORAGE_KEY = "drawKey";
 
 @Injectable({
   providedIn: "root"
 })
-export class TeamService {
-  private lastDraw: Draw = new Draw("1", "Draw 1", [
+export class DrawService {
+  private lastDraw: Draw = new Draw("1", null, "Example Draw Result", [
     new Team("1", "Superhelden", [
       new Member("Spiderman"),
       new Member("Ironman"),
@@ -36,9 +39,10 @@ export class TeamService {
   private lastSegmentOption: string = "teams";
   private lastSelectedSize: number = 4;
 
-  constructor() {}
+  constructor(private storage: Storage) {}
 
   async drawTeam(
+    groupId: string,
     members: Member[],
     disabledMembers: Member[],
     selectedSize: number,
@@ -54,11 +58,18 @@ export class TeamService {
     // shuffle members
     availableMembers.sort(() => Math.random() - 0.5);
 
+    let drawResult: Draw;
     if (!segmentSelection || segmentSelection === "teams") {
-      return this.drawByNumberOfTeams(selectedSize, availableMembers);
+      drawResult = this.drawByNumberOfTeams(selectedSize, availableMembers);
     } else {
-      return this.drawByNumberOfMembers(selectedSize, availableMembers);
+      drawResult = this.drawByNumberOfMembers(selectedSize, availableMembers);
     }
+    drawResult.groupId = groupId;
+    return drawResult;
+  }
+
+  setLastDraw(lastDraw: Draw) {
+    this.lastDraw = lastDraw;
   }
 
   getLastDraw(): Draw {
@@ -71,11 +82,32 @@ export class TeamService {
       .reduce((prev, curr) => prev.concat(curr));
 
     return await this.drawTeam(
+      this.lastDraw.groupId,
       members,
       [],
       this.lastSelectedSize,
       this.lastSegmentOption
     );
+  }
+
+  async loadAllDrawsByGroupId(groupId: string): Promise<Draw[]> {
+    const allDraws = await this.loadAllDraws();
+    console.info(allDraws);
+    return allDraws.filter(draw => draw.groupId === groupId);
+  }
+
+  async loadAllDraws() {
+    const allDraws = await this.storage.get(STORAGE_KEY);
+    if (!allDraws) {
+      return [];
+    }
+    return allDraws;
+  }
+
+  async saveDraw(newDraw: Draw) {
+    const allDraws = await this.loadAllDraws();
+    allDraws.push(newDraw);
+    return this.storage.set(STORAGE_KEY, allDraws);
   }
 
   private drawByNumberOfTeams(numberOfTeams: number, availableMembers) {
@@ -94,12 +126,12 @@ export class TeamService {
     });
 
     // filter all teams without a member and create a new draw
-    this.lastDraw = new Draw(
+    return new Draw(
       nanoid(),
-      new Date().toString(),
+      null,
+      new Date().toISOString().substring(0, 10),
       createdTeams.filter(team => team.members.length > 0)
     );
-    return this.lastDraw;
   }
 
   private drawByNumberOfMembers(selectedSize: number, availableMembers) {

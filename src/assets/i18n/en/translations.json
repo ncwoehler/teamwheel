@@ -56,7 +56,7 @@
     "noDraws": "No teams saved yet."
   },
   "configureDraw": {
-    "header": "Configure draw",
+    "header": "Configure teams",
     "mode": "Mode",
     "modeTeams": "Teams",
     "modeMembers": "Members",

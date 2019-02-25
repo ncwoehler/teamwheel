@@ -122,9 +122,9 @@ export class EditGroupPage implements OnInit {
 
   openGroupPage(id: string) {
     if (this.groupId) {
-      this.navController.navigateBack(["/groups", "details", id]);
+      this.navController.navigateBack(["groups", id]);
     } else {
-      this.navController.navigateRoot(["/groups", "details", id], {
+      this.navController.navigateRoot(["groups", id], {
         animated: true
       });
     }

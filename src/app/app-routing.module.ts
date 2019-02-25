@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: "./pages/home/home.module#HomePageModule"
   },
   {
+    path: "settings",
+    loadChildren: "./pages/settings/settings.module#SettingsPageModule"
+  },
+  {
     path: "groups/new",
     loadChildren: "./pages/edit-group/edit-group.module#EditGroupPageModule"
   },
@@ -20,24 +24,20 @@ const routes: Routes = [
     loadChildren: "./pages/all-groups/all-groups.module#AllGroupsPageModule"
   },
   {
-    path: "groups/details/:groupId",
+    path: "groups/:groupId",
     loadChildren:
       "./pages/group-detail/group-detail.module#GroupDetailPageModule"
   },
   {
-    path: "groups/edit/:groupId",
+    path: "groups/:groupId/edit",
     loadChildren: "./pages/edit-group/edit-group.module#EditGroupPageModule"
   },
   {
-    path: "settings",
-    loadChildren: "./pages/settings/settings.module#SettingsPageModule"
-  },
-  {
-    path: "teams/new",
+    path: "groups/:groupId/draw",
     loadChildren: "./pages/teams/new-team/new-team.module#NewTeamPageModule"
   },
   {
-    path: "teams/created",
+    path: "draws/preview",
     loadChildren:
       "./pages/teams/team-created/team-created.module#TeamCreatedPageModule"
   }
