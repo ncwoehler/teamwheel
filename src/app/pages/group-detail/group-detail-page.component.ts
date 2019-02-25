@@ -3,6 +3,7 @@ import { GroupService } from "../../services/group.service";
 import { Group } from "../../domain/Group";
 import { ActivatedRoute } from "@angular/router";
 import { AlertController, NavController } from "@ionic/angular";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-group",
@@ -16,7 +17,8 @@ export class GroupDetailPage {
     private groupService: GroupService,
     private route: ActivatedRoute,
     private alertController: AlertController,
-    private navController: NavController
+    private navController: NavController,
+    private translateService: TranslateService
   ) {}
 
   ionViewWillEnter() {
@@ -33,17 +35,16 @@ export class GroupDetailPage {
 
   async initDeletion() {
     const alert = await this.alertController.create({
-      header: `Gruppe '${this.group.name}' löschen`,
-      message:
-        "<b style='color: #dc3545'>WARNUNG:</b><br/> Dieser Schritt kann NICHT rückgängig gemacht werden.",
+      header: this.translateService.instant("groupDetails.deleteHeader"),
+      message: this.translateService.instant("groupDetails.deleteMsg"),
       buttons: [
         {
-          text: "Abbrechen",
+          text: this.translateService.instant("groupDetails.deleteCancel"),
           role: "cancel",
           cssClass: "cancel"
         },
         {
-          text: "Löschen",
+          text: this.translateService.instant("groupDetails.deleteConfirm"),
           handler: () => {
             this.groupService
               .deleteGroup(this.group.id)

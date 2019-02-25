@@ -4,6 +4,7 @@ import { AlertController, NavController } from "@ionic/angular";
 import { SettingsService } from "../../services/settings.service";
 import { Settings } from "../../domain/Settings";
 import set = Reflect.set;
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-settings",
@@ -17,7 +18,8 @@ export class SettingsPage implements OnInit {
     private settingsService: SettingsService,
     private groupService: GroupService,
     private nav: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -28,18 +30,17 @@ export class SettingsPage implements OnInit {
 
   async deleteAllData() {
     const alert = await this.alertController.create({
-      header: `Alle Daten löschen`,
-      message:
-        "<b style='color: #dc3545'>WARNUNG:</b><br/> Dieser Schritt kann NICHT rückgängig gemacht werden.",
+      header: this.translateService.instant("settings.deleteAllHeader"),
+      message: this.translateService.instant("settings.deleteAllMsg"),
       buttons: [
         {
-          text: "Abbrechen",
+          text: this.translateService.instant("settings.deleteCancel"),
           role: "cancel",
           cssClass: "cancel"
         },
         {
-          text: "Alles löschen",
-          handler: () => this.deleteAllGroups()
+          text: this.translateService.instant("settings.deleteConfirm"),
+          handler: () => this.deleteAll()
         }
       ]
     });
@@ -47,13 +48,14 @@ export class SettingsPage implements OnInit {
     await alert.present();
   }
 
-  private async deleteAllGroups() {
+  private async deleteAll() {
     const allGroups = await this.groupService.getAllGroups();
 
     for (let group of allGroups) {
       await this.groupService.deleteGroup(group.id);
     }
 
+    await this.settingsService.deleteSettings();
     this.nav.navigateRoot("home");
   }
 

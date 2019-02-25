@@ -7,6 +7,7 @@ import { IonicModule } from "@ionic/angular";
 
 import { GroupDetailPage } from "./group-detail-page.component";
 import { SharedModule } from "../../shared/shared.module";
+import { TranslateModule } from "@ngx-translate/core";
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     SharedModule,
+    TranslateModule.forChild(),
     RouterModule.forChild(routes)
   ],
   declarations: [GroupDetailPage]

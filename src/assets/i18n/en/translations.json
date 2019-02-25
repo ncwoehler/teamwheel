@@ -1,4 +1,8 @@
 {
+  "menu": "Menu",
+  "menuHome": "Home",
+  "menuGroups": "Groups",
+  "menuSettings": "Settings",
   "home": {
     "header": "Welcome",
     "welcomeTitle": "Welcome to TeamWheel!",
@@ -14,6 +18,53 @@
     "german": "German",
     "english": "English",
     "dangerZone": "Danger Zone",
-    "deleteAll": "Delete all data"
+    "deleteAll": "Delete all data",
+    "deleteAllHeader": "Delete all data",
+    "deleteAllMsg": "<b style='color: #dc3545'>WARNING:</b><br/> This CANNOT be reverted.",
+    "deleteCancel": "Cancel",
+    "deleteConfirm": "Delete"
+  },
+  "groupOverview": {
+    "header": "Groups",
+    "allGroups": "All groups",
+    "noGroups": "No groups created yet"
+  },
+  "editGroup": {
+    "headerCreate": "Create Group",
+    "headerEdit": "Edit Group",
+    "details": "Details",
+    "icon": "Icon",
+    "name": "Name",
+    "groupNamePlaceholder": "Example: Heroes",
+    "members": "Members",
+    "addMember": "Add member",
+    "addMemberPlaceholder": "Example: Ironman",
+    "noMembers": "No members yet"
+  },
+  "groupDetails": {
+    "header": "Group details",
+    "members": "Members",
+    "noMembers": "No members available",
+    "generateTeams": "Generate teams",
+    "deleteHeader": "Delete group",
+    "deleteMsg": "<b style='color: #dc3545'>WARNING:</b><br/> This CANNOT be reverted.",
+    "deleteCancel": "Cancel",
+    "deleteConfirm": "Delete group"
+  },
+  "configureDraw": {
+    "header": "Configure draw",
+    "mode": "Mode",
+    "modeTeams": "Teams",
+    "modeMembers": "Members",
+    "count": "Count",
+    "preview": "Results in {{teams}} teams with {{mem}} members",
+    "members": "Members",
+    "membersNote": "{{avbl}} available, {{unvbl}} absent",
+    "shuffle": "Draw teams"
+  },
+  "generatedTeams": {
+    "header": "Result",
+    "saveDraw": "Save",
+    "reshuffle": "Reshuffle"
   }
 }

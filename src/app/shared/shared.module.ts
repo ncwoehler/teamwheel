@@ -5,10 +5,11 @@ import { RouterModule, Routes } from "@angular/router";
 import { GroupRowItemComponent } from "./group-row-item/group-row-item.component";
 import { MissingDataTextComponent } from "./missing-data-text/missing-data-text.component";
 import { MemberComponent } from "./member/member.component";
-import { MembersComponent } from "./members/members.component";
 import { FormsModule } from "@angular/forms";
 import { TeamCardComponent } from "./team-card/team-card.component";
 import { CardHeaderTitleComponent } from "./card-header-title/card-header-title.component";
+import { TranslateModule } from "@ngx-translate/core";
+import { NoGroupComponent } from "./no-group/no-group.component";
 
 const routes: Routes = [];
 
@@ -17,23 +18,24 @@ const routes: Routes = [];
     GroupRowItemComponent,
     MissingDataTextComponent,
     MemberComponent,
-    MembersComponent,
     TeamCardComponent,
-    CardHeaderTitleComponent
+    CardHeaderTitleComponent,
+    NoGroupComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule.forChild(),
     RouterModule.forChild(routes)
   ],
   exports: [
     GroupRowItemComponent,
     MissingDataTextComponent,
     MemberComponent,
-    MembersComponent,
     TeamCardComponent,
-    CardHeaderTitleComponent
+    CardHeaderTitleComponent,
+    NoGroupComponent
   ]
 })
 export class SharedModule {}
