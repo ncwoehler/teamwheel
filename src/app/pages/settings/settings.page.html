@@ -1,30 +1,45 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Einstellungen</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Einstellungen</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-content>
-      <ion-grid>
+    <ion-grid>
         <ion-row>
-          <ion-col>
-            <h1>Danger Zone</h1>
-          </ion-col>
+            <ion-col>
+                <h2>Allgemein</h2>
+            </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-            <ion-button color="danger" (click)="deleteAllData()">
-              <ion-icon name="trash" slot="start"></ion-icon>
-              <ion-label>Alle Daten löschen</ion-label>
-            </ion-button>
-          </ion-col>
+            <ion-col>
+               <ion-list>
+                   <ion-item>
+                       <ion-icon name="globe" slot="start"></ion-icon>
+                       <ion-label>Sprache</ion-label>
+                       <ion-select [value]="settings?.language" (ionChange)="languageChanged($event)">
+                           <ion-select-option value="de">Deutsch</ion-select-option>
+                           <ion-select-option value="en">English</ion-select-option>
+                       </ion-select>
+                   </ion-item>
+               </ion-list>
+            </ion-col>
         </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+        <ion-row>
+            <ion-col>
+                <h2>Gefahrenzone</h2>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button color="danger" (click)="deleteAllData()">
+                    <ion-icon name="trash" slot="start"></ion-icon>
+                    <ion-label>Alle Daten löschen</ion-label>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

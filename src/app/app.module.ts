@@ -7,8 +7,12 @@ import { IonicStorageModule } from "@ionic/storage";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +21,14 @@ import { AppRoutingModule } from "./app-routing.module";
     BrowserModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
     AppRoutingModule
   ],
   providers: [
@@ -27,3 +39,7 @@ import { AppRoutingModule } from "./app-routing.module";
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", "/translations.json");
+}

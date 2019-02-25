@@ -25,7 +25,7 @@
     <ng-container *ngIf="recentGroups && recentGroups.length">
         <ion-list>
             <ion-list-header>
-                Letzte Gruppen
+                {{'RECENT_GROUPS' | translate}}
             </ion-list-header>
             <app-group-row-item
                     *ngFor="let group of recentGroups"
