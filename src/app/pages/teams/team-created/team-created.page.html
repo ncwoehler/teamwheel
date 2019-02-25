@@ -3,21 +3,16 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="groups/all"></ion-back-button>
         </ion-buttons>
-        <ion-title>Erzeugte Teams</ion-title>
+        <ion-title>{{'generatedTeams.header' | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <div *ngIf="!draw?.teams">
-        <h2>
-            <ion-text color="danger">Es wurde gerade kein Team erstellt! :(</ion-text>
-        </h2>
-        <ion-button routerLink="/groups/all">Zurück zur Übersicht</ion-button>
-    </div>
+    <app-no-group [group]="draw"></app-no-group>
     <div *ngIf="draw">
         <ion-button class="actionButton" color="primary" disabled>
             <ion-icon name="save" slot="start"></ion-icon>
-            Ziehung speichern
+            {{'generatedTeams.saveDraw' | translate}}
         </ion-button>
         <ion-button
                 class="actionButton"
@@ -25,7 +20,7 @@
                 color="secondary"
                 (click)="reshuffle()">
             <ion-icon name="shuffle" slot="start"></ion-icon>
-            Erneut ziehen
+            {{'generatedTeams.reshuffle' | translate}}
         </ion-button>
 
         <ion-grid>

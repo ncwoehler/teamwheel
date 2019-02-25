@@ -7,6 +7,7 @@ import { IonicModule } from "@ionic/angular";
 
 import { EditGroupPage } from "./edit-group.page";
 import { SharedModule } from "../../shared/shared.module";
+import { TranslateModule } from "@ngx-translate/core";
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
     IonicModule,
     SharedModule,
     ReactiveFormsModule,
+    TranslateModule.forChild(),
     RouterModule.forChild(routes)
   ],
   declarations: [EditGroupPage]

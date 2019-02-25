@@ -1,4 +1,8 @@
 {
+  "menu": "Menü",
+  "menuHome": "Home",
+  "menuGroups": "Gruppenübersicht",
+  "menuSettings": "Einstellungen",
   "home": {
     "header": "Willkommen",
     "welcomeTitle": "Willkommen bei TeamWheel",
@@ -14,6 +18,53 @@
     "german": "Deutsch",
     "english": "Englisch",
     "dangerZone": "Gefahrenbereich",
-    "deleteAll": "Alle Daten löschen"
+    "deleteAll": "Alle Daten zurücksetzen",
+    "deleteAllHeader": "Alle Daten löschen",
+    "deleteAllMsg": "<b style='color: #dc3545'>WARNUNG:</b><br/> Dieser Schritt kann NICHT rückgängig gemacht werden.",
+    "deleteCancel": "Abbrechen",
+    "deleteConfirm": "Alles löschen"
+  },
+  "groupOverview": {
+    "header": "Gruppenübersicht",
+    "allGroups": "Alle Gruppen",
+    "noGroups": "Keine Gruppen vorhanden"
+  },
+  "editGroup": {
+    "headerCreate": "Gruppe erstellen",
+    "headerEdit": "Gruppe bearbeiten",
+    "details": "Details",
+    "icon": "Icon",
+    "name": "Name",
+    "groupNamePlaceholder": "Beispiel: Deutsch, 6c",
+    "members": "Mitglieder",
+    "addMember": "Mitglied hinzufügen",
+    "addMemberPlaceholder": "Beispiel: Anna",
+    "noMembers": "Keine Mitglieder vorhanden"
+  },
+  "groupDetails": {
+    "header": "Gruppendetails",
+    "members": "Mitglieder",
+    "noMembers": "Keine Mitglieder vorhanden",
+    "generateTeams": "Teams generieren",
+    "deleteHeader": "Gruppe löschen",
+    "deleteMsg": "<b style='color: #dc3545'>WARNUNG:</b><br/> Dieser Schritt kann NICHT rückgängig gemacht werden.",
+    "deleteCancel": "Abbrechen",
+    "deleteConfirm": "Gruppe löschen"
+  },
+  "configureDraw": {
+    "header": "Ziehung konfigurieren",
+    "mode": "Modus",
+    "modeTeams": "Teams",
+    "modeMembers": "Mitglieder",
+    "count": "Anzahl",
+    "preview": "Resultiert in {{teams}} Teams mit {{mem}} Mitgliedern",
+    "members": "Mitglieder",
+    "membersNote": "{{avbl}} verfügbar, {{unvbl}} abwesend",
+    "shuffle": "Und los!"
+  },
+  "generatedTeams" : {
+    "header": "Ergebnis",
+    "saveDraw": "Speichern",
+    "reshuffle": "Erneuten ziehen"
   }
 }

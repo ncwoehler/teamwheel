@@ -8,18 +8,19 @@
                 <ion-icon name="add" slot="icon-only"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>Gruppenübersicht</ion-title>
+        <ion-title>{{'groupOverview.header' | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
     <ion-list>
         <ion-list-header>
-            Alle Gruppen
+            {{'groupOverview.allGroups' | translate}}
         </ion-list-header>
         <app-group-row-item
                 *ngFor="let group of allGroups"
                 [group]="group"></app-group-row-item>
-        <app-missing-data-text [data]="allGroups" text="Keine Gruppen vorhanden"></app-missing-data-text>
+        <app-missing-data-text [data]="allGroups"
+                               text="{{'groupOverview.noGroups' | translate}}"></app-missing-data-text>
     </ion-list>
 </ion-content>
