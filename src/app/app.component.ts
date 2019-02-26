@@ -5,6 +5,9 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { SettingsService } from "./services/settings.service";
 import { TranslateService } from "@ngx-translate/core";
+import { environment } from "../environments/environment";
+
+declare var Appsee: any;
 
 @Component({
   selector: "app-root",
@@ -27,6 +30,11 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      if (environment.production) {
+        Appsee.start("0348edf890704229a089c62fc9e9083e");
+      } else {
+        Appsee.start("e0be93f64d1d419ea0df7491e783032c");
+      }
     });
     this.settingsService.initialize();
     this.loadAppPages();
