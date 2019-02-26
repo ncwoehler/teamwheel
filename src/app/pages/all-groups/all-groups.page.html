@@ -10,7 +10,11 @@
 <ion-content padding>
     <ion-list>
         <ion-list-header>
-            {{'groupOverview.allGroups' | translate}}
+            <ion-label>
+                <h1>
+                    {{'groupOverview.allGroups' | translate}}
+                </h1>
+            </ion-label>
         </ion-list-header>
         <app-group-row-item
                 *ngFor="let group of allGroups"

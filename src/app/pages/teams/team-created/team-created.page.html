@@ -13,13 +13,13 @@
         <ion-grid>
             <ng-container *ngFor="let team of draw.teams; let i = index">
                 <ion-row *ngIf="i % 2 ===0">
-                    <ion-col>
+                    <ion-col size="6" sizeXs>
                         <div class="animated fadeIn">
                             <app-team-card [team]="team"></app-team-card>
                         </div>
                     </ion-col>
                     <ng-container *ngIf="i + 1 < draw.teams.length">
-                        <ion-col>
+                        <ion-col size="6" sizeXs>
 
                             <div class="animated fadeIn slower">
                                 <app-team-card [team]="draw.teams[i + 1]"
