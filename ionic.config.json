@@ -1,7 +1,7 @@
 {
-  "name": "frontend-ionic",
+  "name": "TeamWheel",
   "integrations": {
-    "cordova": {}
+    "capacitor": {}
   },
   "type": "angular",
   "id": "3c41743f"

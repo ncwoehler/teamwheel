@@ -1,2 +1,8 @@
 PWA:
-ionic build --prod --service-worker
+* ionic build --prod --service-worker
+
+Android:
+* ionic build
+* ionic capacitor run android
+* ionic capacitor copy android
+
