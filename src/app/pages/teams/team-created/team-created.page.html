@@ -18,15 +18,15 @@
                             <app-team-card [team]="team"></app-team-card>
                         </div>
                     </ion-col>
-                    <ion-col>
-                        <ng-container *ngIf="i + 1 < draw.teams.length">
+                    <ng-container *ngIf="i + 1 < draw.teams.length">
+                        <ion-col>
+
                             <div class="animated fadeIn slower">
                                 <app-team-card [team]="draw.teams[i + 1]"
                                 ></app-team-card>
                             </div>
-                        </ng-container>
-
-                    </ion-col>
+                        </ion-col>
+                    </ng-container>
                 </ion-row>
             </ng-container>
         </ion-grid>

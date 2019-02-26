@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Group } from "../../domain/Group";
 import { GroupService } from "../../services/group.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { NavController } from "@ionic/angular";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Member } from "../../domain/Member";
@@ -91,7 +91,7 @@ export class EditGroupPage implements OnInit {
     }
   }
 
-  removeMember(name: string) {
+  async removeMember(name: string) {
     const index = this.members.controls.findIndex(c => c.value === name);
     this.members.removeAt(index);
   }
@@ -128,5 +128,12 @@ export class EditGroupPage implements OnInit {
         animated: true
       });
     }
+  }
+
+  reorder($event) {
+    const movedMember = this.members.at($event.detail.from);
+    this.members.removeAt($event.detail.from);
+    this.members.insert($event.detail.to, movedMember);
+    $event.detail.complete();
   }
 }

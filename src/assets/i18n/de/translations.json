@@ -64,7 +64,7 @@
     "preview": "Resultiert in {{teams}} Teams mit {{mem}} Mitgliedern",
     "members": "Mitglieder",
     "membersNote": "{{avbl}} verfügbar, {{unvbl}} abwesend",
-    "shuffle": "Teams generieren"
+    "shuffle": "Teams erzeugen"
   },
   "generatedTeams" : {
     "header": "Ergebnis",
