@@ -20,16 +20,20 @@
 <ion-content padding>
     <app-no-group [group]="group" [loading]="loading"></app-no-group>
     <ng-container *ngIf="group">
-        <h1>
-            <ion-text>
-                <ion-icon [name]="group.icon"></ion-icon>
-                {{group.name}}
-            </ion-text>
-        </h1>
+
+        <ion-item lines="none">
+            <ion-icon [name]="group.icon" slot="start"></ion-icon>
+            <ion-label>
+                <h1>{{group.name}}</h1>
+            </ion-label>
+        </ion-item>
+
         <ion-list>
-            <ion-list-header>
-                {{'groupDetails.draws' | translate}}
-            </ion-list-header>
+            <ion-item-divider>
+                <h2>
+                    {{'groupDetails.draws' | translate}}
+                </h2>
+            </ion-item-divider>
             <app-missing-data-text
                     [data]="draws"
                     text="{{'groupDetails.noDraws' | translate}}">
@@ -37,11 +41,11 @@
             <ion-item *ngFor="let draw of draws">
                 {{draw.name}}
             </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-list-header>
-                {{'groupDetails.members' | translate}} ({{group.members.length}})
-            </ion-list-header>
+            <ion-item-divider sticky margin-top>
+                <h2>
+                    {{'groupDetails.members' | translate}} ({{group.members.length}})
+                </h2>
+            </ion-item-divider>
             <app-missing-data-text
                     [data]="group.members"
                     text="{{'groupDetails.noMembers' | translate}}">

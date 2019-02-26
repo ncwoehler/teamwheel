@@ -10,12 +10,12 @@
 <ion-content padding>
     <app-no-group [group]="group"></app-no-group>
     <div *ngIf="group">
-        <h1>
-            <ion-text>
-                <ion-icon [name]="group.icon"></ion-icon>
-                {{group.name}}
-            </ion-text>
-        </h1>
+        <ion-item lines="none">
+            <ion-icon [name]="group.icon" slot="start"></ion-icon>
+            <ion-label>
+                <h1>{{group.name}}</h1>
+            </ion-label>
+        </ion-item>
         <ion-list lines="none">
             <ion-item>
                 <ion-text class="setting-title">{{'configureDraw.mode' | translate}}</ion-text>
