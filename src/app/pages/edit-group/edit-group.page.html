@@ -16,7 +16,9 @@
     <form [formGroup]="groupForm">
         <ion-list>
             <ion-list-header>
-                {{'editGroup.details' | translate}}
+                <ion-label>
+                    {{'editGroup.details' | translate}}
+                </ion-label>
             </ion-list-header>
             <ion-item>
                 <ion-label position="floating">{{'editGroup.name' | translate}}</ion-label>
@@ -46,19 +48,21 @@
         </ion-list>
         <ion-list>
             <ion-list-header>
-                {{'editGroup.members' | translate}} ({{members.controls?.length}})
+                <ion-label>
+                    {{'editGroup.members' | translate}} ({{members.controls?.length}})
+                </ion-label>
             </ion-list-header>
-            <ion-item-divider sticky color="light">
-                <ion-item lines="none" color="light">
+            <ion-item-divider sticky>
+                <ion-item lines="none" margin-top>
                     <ion-label position="stacked">{{'editGroup.addMember' | translate}}</ion-label>
-                    <ion-input
-                        #memberInput
-                        placeholder="{{'editGroup.addMemberPlaceholder' | translate}}"
-                        name="newMember"
-                        (keyup.enter)="addMember()"
-                        [(ngModel)]="newMemberName"
-                        [ngModelOptions]="{ standalone: true }"
-                        autocomplete="off"></ion-input>
+                    <ion-input style="min-width: 20vw;"
+                               #memberInput
+                               placeholder="{{'editGroup.addMemberPlaceholder' | translate}}"
+                               name="newMember"
+                               (keyup.enter)="addMember()"
+                               [(ngModel)]="newMemberName"
+                               [ngModelOptions]="{ standalone: true }"
+                               autocomplete="off"></ion-input>
                     <ion-button
                             type="button"
                             (click)="addMember()"
@@ -72,13 +76,15 @@
                     [data]="members.controls"
                     text="{{'editGroup.noMembers' | translate}}">
             </app-missing-data-text>
-            <app-member
-                    [name]="member.value"
-                    *ngFor="let member of members.controls; let i = index">
-                <ion-button color="danger" (click)="removeMember(member.value)">
-                    <ion-icon name="trash" slot="icon-only"></ion-icon>
-                </ion-button>
-            </app-member>
+            <ion-reorder-group [disabled]="!members.controls?.length" (ionItemReorder)="reorder($event)">
+                <ion-reorder *ngFor="let member of members.controls; let i = index;">
+                    <app-member [name]="member.value">
+                        <ion-button color="danger" expand (click)="removeMember(member.value)">
+                            <ion-icon name="trash"></ion-icon>
+                        </ion-button>
+                    </app-member>
+                </ion-reorder>
+            </ion-reorder-group>
         </ion-list>
     </form>
 </ion-content>
@@ -86,9 +92,8 @@
 <ion-footer>
     <ion-toolbar>
         <ion-button
-                type="submit"
-                color="primary"
                 expand="full"
+                color="primary"
                 [disabled]="!groupForm.valid"
                 (click)="groupForm.valid && onSubmit()">
             <ion-icon name="save" slot="start"></ion-icon>
