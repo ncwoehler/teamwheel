@@ -86,13 +86,16 @@
                     text="{{'editGroup.noMembers' | translate}}">
             </app-missing-data-text>
             <ion-reorder-group [disabled]="!members.controls?.length" (ionItemReorder)="reorder($event)">
-                <ion-reorder *ngFor="let member of members.controls; let i = index;">
+                <div *ngFor="let member of members.controls; let i = index;">
                     <app-member [name]="member.value">
+                        <ion-reorder start></ion-reorder>
                         <ion-button color="danger" expand (click)="removeMember(member.value)">
                             <ion-icon name="trash"></ion-icon>
                         </ion-button>
                     </app-member>
-                </ion-reorder>
+                </div>
+
+
             </ion-reorder-group>
         </ion-list>
     </form>
