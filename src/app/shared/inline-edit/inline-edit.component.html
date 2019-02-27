@@ -1,0 +1,33 @@
+<ion-grid no-padding fixed>
+    <ion-row class="align-left-center">
+        <ng-container *ngIf="!editMode">
+            <ion-col size="auto">
+                <ion-text>{{value}}</ion-text>
+            </ion-col>
+            <ion-col>
+                <ion-button (click)="enterEditMode()" fill="clear" size="small">
+                    <ion-icon name="create" slot="icon-only"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ng-container>
+        <ng-container *ngIf="editMode">
+            <ion-col size="auto">
+                <div>
+                    <ion-input [(ngModel)]="editValue" #editInput class="inputStyle"
+                               (keyup.enter)="saveValue()" required>
+                    </ion-input>
+                </div>
+            </ion-col>
+            <ion-col>
+                <ion-button (click)="saveValue()" fill="clear" size="small" style="padding: 0;margin: 0;">
+                    <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+                </ion-button>
+                <ion-button (click)="cancelEdit()" fill="clear" size="small">
+                    <ion-icon name="close" slot="icon-only"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ng-container>
+    </ion-row>
+</ion-grid>
+
+

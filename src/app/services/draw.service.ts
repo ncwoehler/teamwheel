@@ -146,10 +146,11 @@ export class DrawService {
     });
 
     // filter all teams without a member and create a new draw
+    let newDate = new Date().toLocaleString();
     return new Draw(
       nanoid(),
       null,
-      new Date().toISOString().substring(0, 10),
+      newDate,
       createdTeams.filter(team => team.members.length > 0)
     );
   }

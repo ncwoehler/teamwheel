@@ -7,8 +7,13 @@ import { Component, Input, OnInit } from "@angular/core";
 })
 export class TeamCardComponent implements OnInit {
   @Input() team;
+  @Input() allowEdit;
 
   constructor() {}
 
   ngOnInit() {}
+
+  setTeamName($event: string) {
+    this.team.name = $event;
+  }
 }
