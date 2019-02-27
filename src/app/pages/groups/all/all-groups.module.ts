@@ -1,18 +1,18 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { Routes, RouterModule } from "@angular/router";
 
 import { IonicModule } from "@ionic/angular";
 
-import { EditGroupPage } from "./edit-group.page";
-import { SharedModule } from "../../shared/shared.module";
+import { AllGroupsPage } from "./all-groups.page";
+import { SharedModule } from "../../../shared/shared.module";
 import { TranslateModule } from "@ngx-translate/core";
 
 const routes: Routes = [
   {
     path: "",
-    component: EditGroupPage
+    component: AllGroupsPage
   }
 ];
 
@@ -22,10 +22,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     SharedModule,
-    ReactiveFormsModule,
     TranslateModule.forChild(),
     RouterModule.forChild(routes)
   ],
-  declarations: [EditGroupPage]
+  declarations: [AllGroupsPage]
 })
-export class EditGroupPageModule {}
+export class AllGroupsPageModule {}

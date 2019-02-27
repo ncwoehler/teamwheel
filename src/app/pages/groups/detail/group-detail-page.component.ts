@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { GroupService } from "../../services/group.service";
-import { Group } from "../../domain/Group";
+import { GroupService } from "../../../services/group.service";
+import { Group } from "../../../domain/Group";
 import { ActivatedRoute } from "@angular/router";
 import {
   AlertController,
@@ -8,8 +8,8 @@ import {
   NavController
 } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
-import { Draw } from "../../domain/Draw";
-import { DrawService } from "../../services/draw.service";
+import { Draw } from "../../../domain/Draw";
+import { DrawService } from "../../../services/draw.service";
 
 @Component({
   selector: "app-group",

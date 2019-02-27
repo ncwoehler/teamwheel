@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Group } from "../../domain/Group";
-import { GroupService } from "../../services/group.service";
+import { Group } from "../../../domain/Group";
+import { GroupService } from "../../../services/group.service";
 import { ActivatedRoute } from "@angular/router";
 import { NavController } from "@ionic/angular";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
-import { Member } from "../../domain/Member";
+import { Member } from "../../../domain/Member";
 
 @Component({
   selector: "app-edit-group",
