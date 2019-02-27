@@ -9,6 +9,7 @@ import { FormsModule } from "@angular/forms";
 import { TeamCardComponent } from "./team-card/team-card.component";
 import { TranslateModule } from "@ngx-translate/core";
 import { NoGroupComponent } from "./no-group/no-group.component";
+import { InlineEditComponent } from "./inline-edit/inline-edit.component";
 
 const routes: Routes = [];
 
@@ -18,7 +19,8 @@ const routes: Routes = [];
     MissingDataTextComponent,
     MemberComponent,
     TeamCardComponent,
-    NoGroupComponent
+    NoGroupComponent,
+    InlineEditComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ const routes: Routes = [];
     MissingDataTextComponent,
     MemberComponent,
     TeamCardComponent,
-    NoGroupComponent
+    NoGroupComponent,
+    InlineEditComponent
   ]
 })
 export class SharedModule {}
