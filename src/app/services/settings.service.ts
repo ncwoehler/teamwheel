@@ -10,6 +10,8 @@ const SUPPORTED_LANGS = ["en", "de"];
   providedIn: "root"
 })
 export class SettingsService {
+  appseeActive: boolean;
+
   constructor(
     private storage: Storage,
     private translateService: TranslateService

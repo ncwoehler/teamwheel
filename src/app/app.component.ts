@@ -30,11 +30,15 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      if (environment.production) {
-        Appsee.start("0348edf890704229a089c62fc9e9083e");
-      } else {
-        Appsee.start("e0be93f64d1d419ea0df7491e783032c");
+      const appseeInstalled: boolean = typeof Appsee !== "undefined";
+      if (appseeInstalled) {
+        if (environment.production) {
+          Appsee.start("0348edf890704229a089c62fc9e9083e");
+        } else {
+          Appsee.start("e0be93f64d1d419ea0df7491e783032c");
+        }
       }
+      this.settingsService.appseeActive = appseeInstalled;
     });
     this.settingsService.initialize();
     this.loadAppPages();
