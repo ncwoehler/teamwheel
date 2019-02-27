@@ -38,9 +38,12 @@
                     [data]="draws"
                     text="{{'groupDetails.noDraws' | translate}}">
             </app-missing-data-text>
-            <ion-item *ngFor="let draw of draws">
-                {{draw.name}}
+            <ion-item routerLink="/draws/{{ draw.id }}" *ngFor="let draw of draws" detail>
+                <ion-label>
+                    {{ draw.name }}
+                </ion-label>
             </ion-item>
+
             <ion-item-divider sticky margin-top>
                 <h2>
                     {{'groupDetails.members' | translate}} ({{group.members.length}})

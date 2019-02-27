@@ -70,5 +70,8 @@
     "header": "Result",
     "saveDraw": "Save",
     "reshuffle": "Reshuffle"
+  },
+  "drawDetails": {
+    "header": "Teams"
   }
 }

@@ -92,7 +92,6 @@ export class DrawService {
 
   async loadAllDrawsByGroupId(groupId: string): Promise<Draw[]> {
     const allDraws = await this.loadAllDraws();
-    console.info(allDraws);
     return allDraws.filter(draw => draw.groupId === groupId);
   }
 
@@ -108,6 +107,11 @@ export class DrawService {
     const allDraws = await this.loadAllDraws();
     allDraws.push(newDraw);
     return this.storage.set(STORAGE_KEY, allDraws);
+  }
+
+  async getDrawById(drawId: string): Promise<Draw> {
+    const allDraws = await this.loadAllDraws();
+    return allDraws.find(draw => draw.id === drawId);
   }
 
   private drawByNumberOfTeams(numberOfTeams: number, availableMembers) {
