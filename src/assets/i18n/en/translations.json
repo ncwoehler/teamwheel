@@ -52,7 +52,7 @@
     "deleteMsg": "<b style='color: #dc3545'>WARNING:</b><br/> This CANNOT be reverted.",
     "deleteCancel": "Cancel",
     "deleteConfirm": "Delete group",
-    "draws": "Teams",
+    "draws": "Draws",
     "noDraws": "No teams saved yet."
   },
   "configureDraw": {
@@ -67,11 +67,14 @@
     "shuffle": "Draw teams"
   },
   "generatedTeams": {
-    "header": "Result",
-    "saveDraw": "Save",
-    "reshuffle": "Reshuffle"
+    "header": "Draw result",
+    "saveDraw": "Save"
   },
   "drawDetails": {
-    "header": "Teams"
+    "header": "Draw details",
+    "deleteHeader": "Delete draw",
+    "deleteMsg": "<b style='color: #dc3545'>WARNING:</b><br/> This CANNOT be reverted.",
+    "deleteCancel": "Cancel",
+    "deleteConfirm": "Delete draw"
   }
 }
