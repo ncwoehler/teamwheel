@@ -7,7 +7,6 @@ import { MissingDataTextComponent } from "./missing-data-text/missing-data-text.
 import { MemberComponent } from "./member/member.component";
 import { FormsModule } from "@angular/forms";
 import { TeamCardComponent } from "./team-card/team-card.component";
-import { CardHeaderTitleComponent } from "./card-header-title/card-header-title.component";
 import { TranslateModule } from "@ngx-translate/core";
 import { NoGroupComponent } from "./no-group/no-group.component";
 
@@ -19,7 +18,6 @@ const routes: Routes = [];
     MissingDataTextComponent,
     MemberComponent,
     TeamCardComponent,
-    CardHeaderTitleComponent,
     NoGroupComponent
   ],
   imports: [
@@ -34,7 +32,6 @@ const routes: Routes = [];
     MissingDataTextComponent,
     MemberComponent,
     TeamCardComponent,
-    CardHeaderTitleComponent,
     NoGroupComponent
   ]
 })

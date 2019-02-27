@@ -17,29 +17,29 @@ const routes: Routes = [
   },
   {
     path: "groups/new",
-    loadChildren: "./pages/edit-group/edit-group.module#EditGroupPageModule"
+    loadChildren: "./pages/groups/edit/edit-group.module#EditGroupPageModule"
   },
   {
     path: "groups/all",
-    loadChildren: "./pages/all-groups/all-groups.module#AllGroupsPageModule"
+    loadChildren: "./pages/groups/all/all-groups.module#AllGroupsPageModule"
   },
   {
     path: "groups/:groupId",
     loadChildren:
-      "./pages/group-detail/group-detail.module#GroupDetailPageModule"
+      "./pages/groups/detail/group-detail.module#GroupDetailPageModule"
   },
   {
     path: "groups/:groupId/edit",
-    loadChildren: "./pages/edit-group/edit-group.module#EditGroupPageModule"
+    loadChildren: "./pages/groups/edit/edit-group.module#EditGroupPageModule"
   },
   {
     path: "groups/:groupId/draw",
-    loadChildren: "./pages/teams/new-team/new-team.module#NewTeamPageModule"
+    loadChildren: "./pages/groups/draw/new-team.module#NewTeamPageModule"
   },
   {
     path: "draws/preview",
     loadChildren:
-      "./pages/teams/team-created/team-created.module#TeamCreatedPageModule"
+      "./pages/draws/preview/team-created.module#TeamCreatedPageModule"
   }
 ];
 

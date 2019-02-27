@@ -5,14 +5,14 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { IonicModule } from "@ionic/angular";
 
-import { AllGroupsPage } from "./all-groups.page";
-import { SharedModule } from "../../shared/shared.module";
+import { GroupDetailPage } from "./group-detail-page.component";
+import { SharedModule } from "../../../shared/shared.module";
 import { TranslateModule } from "@ngx-translate/core";
 
 const routes: Routes = [
   {
     path: "",
-    component: AllGroupsPage
+    component: GroupDetailPage
   }
 ];
 
@@ -25,6 +25,6 @@ const routes: Routes = [
     TranslateModule.forChild(),
     RouterModule.forChild(routes)
   ],
-  declarations: [AllGroupsPage]
+  declarations: [GroupDetailPage]
 })
-export class AllGroupsPageModule {}
+export class GroupDetailPageModule {}
