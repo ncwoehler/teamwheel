@@ -9,6 +9,7 @@ import { Group } from "../../domain/Group";
 export class MemberComponent implements OnInit {
   @Input() name: string;
   @Input() disabled: boolean = false;
+  @Input() hasStart: boolean = false;
 
   constructor() {}
 

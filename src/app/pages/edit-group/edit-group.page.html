@@ -87,7 +87,7 @@
             </app-missing-data-text>
             <ion-reorder-group [disabled]="!members.controls?.length" (ionItemReorder)="reorder($event)">
                 <div *ngFor="let member of members.controls; let i = index;">
-                    <app-member [name]="member.value">
+                    <app-member [name]="member.value" hasStart="true">
                         <ion-reorder start></ion-reorder>
                         <ion-button color="danger" expand (click)="removeMember(member.value)">
                             <ion-icon name="trash"></ion-icon>
