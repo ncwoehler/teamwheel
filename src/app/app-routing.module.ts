@@ -40,6 +40,10 @@ const routes: Routes = [
     path: "draws/preview",
     loadChildren:
       "./pages/draws/preview/team-created.module#TeamCreatedPageModule"
+  },
+  {
+    path: "draws/:drawId",
+    loadChildren: "./pages/draws/draw-show/draw-show.module#DrawShowPageModule"
   }
 ];
 
