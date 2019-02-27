@@ -4,10 +4,10 @@
             <ion-back-button defaultHref="groups/all"></ion-back-button>
         </ion-buttons>
         <ion-buttons slot="primary">
-            <ion-button color="primary" routerLink="/groups/{{ group?.id }}/edit">
+            <ion-button routerLink="/groups/{{ group?.id }}/edit">
                 <ion-icon name="create" slot="icon-only"></ion-icon>
             </ion-button>
-            <ion-button color="danger" (click)="initDeletion()">
+            <ion-button (click)="initDeletion()">
                 <ion-icon name="trash" slot="icon-only"></ion-icon>
             </ion-button>
         </ion-buttons>

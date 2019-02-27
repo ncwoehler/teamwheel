@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Draw } from "../../../domain/Draw";
 import { DrawService } from "../../../services/draw.service";
 import {
@@ -6,7 +6,6 @@ import {
   LoadingController,
   NavController
 } from "@ionic/angular";
-import { GroupService } from "../../../services/group.service";
 import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 
@@ -22,6 +21,8 @@ export class DrawShowPage {
   constructor(
     private drawService: DrawService,
     private route: ActivatedRoute,
+    private alertController: AlertController,
+    private navController: NavController,
     private translateService: TranslateService,
     public loadingController: LoadingController
   ) {}
@@ -49,5 +50,34 @@ export class DrawShowPage {
     const drawId: string = this.route.snapshot.paramMap.get("drawId");
     this.draw = await this.drawService.getDrawById(drawId);
     console.info(this.draw);
+  }
+
+  async initDeletion() {
+    const alert = await this.alertController.create({
+      header: this.translateService.instant("drawDetails.deleteHeader"),
+      message: this.translateService.instant("drawDetails.deleteMsg"),
+      buttons: [
+        {
+          text: this.translateService.instant("drawDetails.deleteCancel"),
+          role: "cancel",
+          cssClass: "cancel"
+        },
+        {
+          text: this.translateService.instant("drawDetails.deleteConfirm"),
+          handler: () => {
+            this.drawService
+              .deleteDraw(this.draw.id)
+              .then(value => this.openGroup(this.draw.groupId))
+              .catch(error => console.error(error)); // TODO error handling
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  openGroup(groupId: string) {
+    this.navController.navigateRoot(["groups", groupId]);
   }
 }

@@ -114,6 +114,22 @@ export class DrawService {
     return allDraws.find(draw => draw.id === drawId);
   }
 
+  async deleteDraw(id: string) {
+    const result = await this.loadAllDraws();
+    if (!result) {
+      return; // TODO error handling
+    }
+    const selectedDrawIndex = result
+      ? result.findIndex(group => group.id === id)
+      : -1;
+    if (selectedDrawIndex > -1) {
+      result.splice(selectedDrawIndex, 1);
+      this.storage.set(STORAGE_KEY, result);
+    } else {
+      // TODO error handling
+    }
+  }
+
   private drawByNumberOfTeams(numberOfTeams: number, availableMembers) {
     // create # of teams
     const createdTeams: Team[] = [];
