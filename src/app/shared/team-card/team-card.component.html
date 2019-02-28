@@ -11,6 +11,8 @@
         </ng-container>
     </ion-card-header>
     <ion-card-content>
+        <app-missing-data-text [data]="team?.members" text="{{'generatedTeams.noTeamMembers' | translate}}">
+        </app-missing-data-text>
         <ion-list>
             <ion-reorder-group [disabled]="false" (ionItemReorder)="reorder($event, team)">
                 <div *ngFor="let member of team.members">

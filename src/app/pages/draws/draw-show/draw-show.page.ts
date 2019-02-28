@@ -49,7 +49,6 @@ export class DrawShowPage {
   async loadData() {
     const drawId: string = this.route.snapshot.paramMap.get("drawId");
     this.draw = await this.drawService.getDrawById(drawId);
-    console.info(this.draw);
   }
 
   async initDeletion() {

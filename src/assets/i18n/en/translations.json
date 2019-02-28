@@ -69,6 +69,7 @@
   "generatedTeams": {
     "header": "Draw result",
     "saveDraw": "Save",
+    "noTeamMembers": "No team members available",
     "moveTo": "Move to:"
   },
   "drawDetails": {
