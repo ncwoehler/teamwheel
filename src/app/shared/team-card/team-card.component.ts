@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Team } from "../../domain/Team";
+import { PopoverController } from "@ionic/angular";
+import { TeamCardMemberActionsComponent } from "../team-card-member-actions/team-card-member-actions.component";
+import { Member } from "../../domain/Member";
 
 @Component({
   selector: "app-team-card",
@@ -7,10 +10,11 @@ import { Team } from "../../domain/Team";
   styleUrls: ["./team-card.component.scss"]
 })
 export class TeamCardComponent implements OnInit {
+  @Input() draw;
   @Input() team;
   @Input() allowEdit;
 
-  constructor() {}
+  constructor(public popoverController: PopoverController) {}
 
   ngOnInit() {}
 
@@ -23,5 +27,20 @@ export class TeamCardComponent implements OnInit {
     team.members.splice($event.detail.from, 1);
     team.members.splice($event.detail.to, 0, movedMember);
     $event.detail.complete();
+  }
+
+  async presentPopover(ev: any, member: Member) {
+    const popover = await this.popoverController.create({
+      component: TeamCardMemberActionsComponent,
+      componentProps: {
+        pop: this.popoverController,
+        member: member,
+        currentTeam: this.team,
+        otherTeams: this.draw.teams.filter(t => t.name !== this.team.name)
+      },
+      event: ev,
+      translucent: false
+    });
+    return await popover.present();
   }
 }
