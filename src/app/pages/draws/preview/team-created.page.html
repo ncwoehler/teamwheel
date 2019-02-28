@@ -14,24 +14,14 @@
             <app-inline-edit [value]="draw.name" (valueChanged)="setDrawName($event)">
             </app-inline-edit>
         </h1>
-        <ion-grid>
-            <ng-container *ngFor="let team of draw.teams; let i = index">
-                <ion-row *ngIf="i % 2 ===0">
-                    <ion-col size="6" sizeXs>
+        <ion-grid style="margin-left: 0;">
+                <ion-row>
+                    <ion-col *ngFor="let team of draw.teams;" size="auto">
                         <div class="animated fadeIn">
                             <app-team-card [team]="team" [allowEdit]="true"></app-team-card>
                         </div>
                     </ion-col>
-                    <ng-container *ngIf="i + 1 < draw.teams.length">
-                        <ion-col size="6" sizeXs>
-
-                            <div class="animated fadeIn slower">
-                                <app-team-card [team]="draw.teams[i + 1]" [allowEdit]="true"></app-team-card>
-                            </div>
-                        </ion-col>
-                    </ng-container>
                 </ion-row>
-            </ng-container>
         </ion-grid>
     </div>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" margin *ngIf="draw">
