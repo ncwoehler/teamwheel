@@ -69,6 +69,7 @@
   "generatedTeams" : {
     "header": "Erzeugte Teams",
     "saveDraw": "Speichern",
+    "noTeamMembers": "Keine Teammitglieder vorhanden",
     "moveTo": "Verschieben nach:"
   },
   "drawDetails": {
