@@ -12,6 +12,7 @@ import { NoGroupComponent } from "./no-group/no-group.component";
 import { InlineEditComponent } from "./inline-edit/inline-edit.component";
 import { DrawDisplayComponent } from "./draw-display/draw-display.component";
 import { FixedWidthGridComponent } from "./fixed-width-grid/fixed-width-grid.component";
+import { TeamCardMemberActionsComponent } from "./team-card-member-actions/team-card-member-actions.component";
 
 const routes: Routes = [];
 
@@ -24,8 +25,10 @@ const routes: Routes = [];
     NoGroupComponent,
     InlineEditComponent,
     DrawDisplayComponent,
-    FixedWidthGridComponent
+    FixedWidthGridComponent,
+    TeamCardMemberActionsComponent
   ],
+  entryComponents: [TeamCardMemberActionsComponent],
   imports: [
     CommonModule,
     FormsModule,

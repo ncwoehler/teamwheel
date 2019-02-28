@@ -11,7 +11,7 @@
         <ion-row>
             <ion-col *ngFor="let team of draw.teams;" size="auto">
                 <div class="animated fadeIn">
-                    <app-team-card [team]="team" [allowEdit]="allowEdit"></app-team-card>
+                    <app-team-card [team]="team" [draw]="draw" [allowEdit]="allowEdit"></app-team-card>
                 </div>
             </ion-col>
         </ion-row>

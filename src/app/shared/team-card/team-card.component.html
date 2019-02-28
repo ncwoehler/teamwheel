@@ -16,6 +16,9 @@
                 <div *ngFor="let member of team.members">
                     <app-member [name]="member.name" hasStart="true">
                         <ion-reorder start *ngIf="allowEdit"></ion-reorder>
+                        <ion-button fill="clear" (click)="presentPopover($event, member)">
+                            <ion-icon name="more"></ion-icon>
+                        </ion-button>
                     </app-member>
                 </div>
             </ion-reorder-group>
