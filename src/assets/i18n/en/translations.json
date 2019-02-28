@@ -68,7 +68,8 @@
   },
   "generatedTeams": {
     "header": "Draw result",
-    "saveDraw": "Save"
+    "saveDraw": "Save",
+    "moveTo": "Move to:"
   },
   "drawDetails": {
     "header": "Draw details",

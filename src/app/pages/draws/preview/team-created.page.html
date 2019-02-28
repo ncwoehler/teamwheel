@@ -3,18 +3,17 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="groups/{{draw?.groupId ? draw?.groupId : 'all' }}"></ion-back-button>
         </ion-buttons>
+        <ion-buttons slot="primary">
+            <ion-button (click)="toggleReordering()">
+                <ion-icon [name]="reorderingEnabled ? 'create' : 'list'"></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-title>{{'generatedTeams.header' | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <app-draw-display [draw]="draw" allowEdit="true"></app-draw-display>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed" margin *ngIf="draw">
-        <ion-fab-button color="secondary"
-                        (click)="reshuffle()" margin>
-            <ion-icon name="shuffle"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+    <app-draw-display [draw]="draw" allowEdit="true" [allowReorder]="reorderingEnabled"></app-draw-display>
 </ion-content>
 
 <ion-footer>
