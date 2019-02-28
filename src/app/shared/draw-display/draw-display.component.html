@@ -1,9 +1,9 @@
 <app-no-group [group]="draw"></app-no-group>
 <div *ngIf="draw">
     <h1>
-        <app-inline-edit [value]="draw.name" (valueChanged)="setDrawName($event)" *ngIf="allowEdit">
+        <app-inline-edit [value]="draw.name" (valueChanged)="setDrawName($event)" *ngIf="allowEdit && !allowReorder">
         </app-inline-edit>
-        <ion-text *ngIf="!allowEdit">
+        <ion-text *ngIf="!allowEdit || allowReorder">
             {{draw.name}}
         </ion-text>
     </h1>
@@ -11,7 +11,8 @@
         <ion-row>
             <ion-col *ngFor="let team of draw.teams;" size="auto">
                 <div class="animated fadeIn">
-                    <app-team-card [team]="team" [draw]="draw" [allowEdit]="allowEdit"></app-team-card>
+                    <app-team-card [team]="team" [draw]="draw" [allowEdit]="allowEdit"
+                                   [allowReorder]="allowReorder"></app-team-card>
                 </div>
             </ion-col>
         </ion-row>

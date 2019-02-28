@@ -9,6 +9,7 @@ import { Draw } from "../../domain/Draw";
 export class DrawDisplayComponent implements OnInit {
   @Input() draw: Draw;
   @Input() allowEdit: boolean = false;
+  @Input() allowReorder: boolean = false;
 
   constructor() {}
 

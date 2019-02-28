@@ -12,7 +12,8 @@ import { Member } from "../../domain/Member";
 export class TeamCardComponent implements OnInit {
   @Input() draw;
   @Input() team;
-  @Input() allowEdit;
+  @Input() allowEdit = false;
+  @Input() allowReorder = false;
 
   constructor(public popoverController: PopoverController) {}
 

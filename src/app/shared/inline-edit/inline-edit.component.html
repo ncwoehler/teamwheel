@@ -6,7 +6,7 @@
             </ion-col>
             <ion-col>
                 <ion-button (click)="enterEditMode()" fill="clear" size="small">
-                    <ion-icon name="create" slot="icon-only"></ion-icon>
+                    <ion-icon name="create" slot="icon-only" color="secondary"></ion-icon>
                 </ion-button>
             </ion-col>
         </ng-container>
@@ -14,10 +14,10 @@
             <ion-col size="auto">
                 <ion-item>
                     <ion-input [(ngModel)]="editValue" #editInput class="inputStyle"
-                               (keyup.enter)="saveValue()" required>
+                               (keyup.enter)="editValue && saveValue()" required >
                     </ion-input>
                     <div slot="end">
-                        <ion-button (click)="saveValue()" fill="clear" size="small" style="padding: 0;margin: 0;">
+                        <ion-button (click)="saveValue()" fill="clear" size="small" [disabled]="!editValue" style="padding: 0;margin: 0;">
                             <ion-icon name="checkmark" slot="icon-only"></ion-icon>
                         </ion-button>
                         <ion-button (click)="cancelEdit()" fill="clear" size="small">

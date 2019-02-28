@@ -10,6 +10,7 @@ import { NavController } from "@ionic/angular";
 })
 export class TeamCreatedPage {
   draw: Draw;
+  reorderingEnabled: boolean = false;
 
   constructor(private drawService: DrawService, private nav: NavController) {}
 
@@ -30,5 +31,9 @@ export class TeamCreatedPage {
         animated: true
       })
     );
+  }
+
+  toggleReordering() {
+    this.reorderingEnabled = !this.reorderingEnabled;
   }
 }

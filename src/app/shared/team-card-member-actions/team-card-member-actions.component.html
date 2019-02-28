@@ -1,31 +1,27 @@
-<ion-grid>
-    <ion-row>
-        <ion-col>
-            <ion-list-header>Move to:</ion-list-header>
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col>
-            <ion-select [value]="selectedTeam" (ionChange)="selectedTeamChanged($event)">
-                <ion-select-option *ngFor="let team of otherTeams" [value]="team.name">{{team.name}}</ion-select-option>
-            </ion-select>
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col>
-            <ion-toolbar>
-                <ion-buttons slot="primary">
-                    <ion-button (click)="close()">
-                        <ion-icon name="close"></ion-icon>
-                    </ion-button>
-                    <ion-button (click)="moveToTeam()">
-                        <ion-icon name="checkmark"></ion-icon>
-                    </ion-button>
-                </ion-buttons>
-            </ion-toolbar>
-        </ion-col>
-    </ion-row>
-</ion-grid>
+<ion-content>
+    <ion-radio-group [value]="selectedTeam" (ionChange)="selectedTeamChanged($event)">
+        <ion-list-header>
+            {{'generatedTeams.moveTo' | translate}}
+        </ion-list-header>
+        <ion-item *ngFor="let team of otherTeams">
+            <ion-label>{{team.name}}</ion-label>
+            <ion-radio [value]="team.name"></ion-radio>
+        </ion-item>
+    </ion-radio-group>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="primary">
+            <ion-button (click)="close()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+            <ion-button (click)="moveToTeam()">
+                <ion-icon name="checkmark"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>
+
 
 
 
