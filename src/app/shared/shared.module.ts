@@ -11,6 +11,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { NoGroupComponent } from "./no-group/no-group.component";
 import { InlineEditComponent } from "./inline-edit/inline-edit.component";
 import { DrawDisplayComponent } from "./draw-display/draw-display.component";
+import { FixedWidthGridComponent } from "./fixed-width-grid/fixed-width-grid.component";
 
 const routes: Routes = [];
 
@@ -22,7 +23,8 @@ const routes: Routes = [];
     TeamCardComponent,
     NoGroupComponent,
     InlineEditComponent,
-    DrawDisplayComponent
+    DrawDisplayComponent,
+    FixedWidthGridComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ const routes: Routes = [];
     TeamCardComponent,
     NoGroupComponent,
     InlineEditComponent,
-    DrawDisplayComponent
+    DrawDisplayComponent,
+    FixedWidthGridComponent
   ]
 })
 export class SharedModule {}
