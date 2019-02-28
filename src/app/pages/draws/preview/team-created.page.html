@@ -1,29 +1,14 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="groups/all"></ion-back-button>
+            <ion-back-button defaultHref="groups/{{draw?.groupId ? draw?.groupId : 'all' }}"></ion-back-button>
         </ion-buttons>
         <ion-title>{{'generatedTeams.header' | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <app-no-group [group]="draw"></app-no-group>
-    <div *ngIf="draw">
-        <h1>
-            <app-inline-edit [value]="draw.name" (valueChanged)="setDrawName($event)">
-            </app-inline-edit>
-        </h1>
-        <ion-grid style="margin-left: 0;">
-                <ion-row>
-                    <ion-col *ngFor="let team of draw.teams;" size="auto">
-                        <div class="animated fadeIn">
-                            <app-team-card [team]="team" [allowEdit]="true"></app-team-card>
-                        </div>
-                    </ion-col>
-                </ion-row>
-        </ion-grid>
-    </div>
+    <app-draw-display [draw]="draw" allowEdit="true"></app-draw-display>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" margin *ngIf="draw">
         <ion-fab-button color="secondary"
                         (click)="reshuffle()" margin>

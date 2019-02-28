@@ -1,0 +1,19 @@
+<app-no-group [group]="draw"></app-no-group>
+<div *ngIf="draw">
+    <h1>
+        <app-inline-edit [value]="draw.name" (valueChanged)="setDrawName($event)" *ngIf="allowEdit">
+        </app-inline-edit>
+        <ion-text *ngIf="!allowEdit">
+            {{draw.name}}
+        </ion-text>
+    </h1>
+    <ion-grid style="margin-left: 0;">
+        <ion-row>
+            <ion-col *ngFor="let team of draw.teams;" size="auto">
+                <div class="animated fadeIn">
+                    <app-team-card [team]="team" [allowEdit]="allowEdit"></app-team-card>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</div>

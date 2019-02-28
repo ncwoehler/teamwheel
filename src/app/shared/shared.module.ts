@@ -10,6 +10,7 @@ import { TeamCardComponent } from "./team-card/team-card.component";
 import { TranslateModule } from "@ngx-translate/core";
 import { NoGroupComponent } from "./no-group/no-group.component";
 import { InlineEditComponent } from "./inline-edit/inline-edit.component";
+import { DrawDisplayComponent } from "./draw-display/draw-display.component";
 
 const routes: Routes = [];
 
@@ -20,7 +21,8 @@ const routes: Routes = [];
     MemberComponent,
     TeamCardComponent,
     NoGroupComponent,
-    InlineEditComponent
+    InlineEditComponent,
+    DrawDisplayComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ const routes: Routes = [];
     MemberComponent,
     TeamCardComponent,
     NoGroupComponent,
-    InlineEditComponent
+    InlineEditComponent,
+    DrawDisplayComponent
   ]
 })
 export class SharedModule {}
