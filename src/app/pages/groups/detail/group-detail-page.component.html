@@ -18,44 +18,46 @@
 </ion-header>
 
 <ion-content padding>
-    <app-no-group [group]="group" [loading]="loading"></app-no-group>
-    <ng-container *ngIf="group">
+    <app-fixed-width-grid>
+        <app-no-group [group]="group" [loading]="loading"></app-no-group>
+        <ng-container *ngIf="group">
 
-        <ion-item lines="none">
-            <ion-icon [name]="group.icon" slot="start"></ion-icon>
-            <ion-label>
-                <h1>{{group.name}}</h1>
-            </ion-label>
-        </ion-item>
-
-        <ion-list>
-            <ion-item-divider mode="md">
-                <h2>
-                    {{'groupDetails.draws' | translate}}
-                </h2>
-            </ion-item-divider>
-            <app-missing-data-text
-                    [data]="draws"
-                    text="{{'groupDetails.noDraws' | translate}}">
-            </app-missing-data-text>
-            <ion-item routerLink="/draws/{{ draw.id }}" *ngFor="let draw of draws" detail>
+            <ion-item lines="none">
+                <ion-icon [name]="group.icon" slot="start"></ion-icon>
                 <ion-label>
-                    {{ draw.name }}
+                    <h1>{{group.name}}</h1>
                 </ion-label>
             </ion-item>
 
-            <ion-item-divider sticky margin-top  mode="md">
-                <h2>
-                    {{'groupDetails.members' | translate}} ({{group.members.length}})
-                </h2>
-            </ion-item-divider>
-            <app-missing-data-text
-                    [data]="group.members"
-                    text="{{'groupDetails.noMembers' | translate}}">
-            </app-missing-data-text>
-            <app-member [name]="member.name" *ngFor="let member of group.members"></app-member>
-        </ion-list>
-    </ng-container>
+            <ion-list>
+                <ion-item-divider mode="md">
+                    <h2>
+                        {{'groupDetails.draws' | translate}}
+                    </h2>
+                </ion-item-divider>
+                <app-missing-data-text
+                        [data]="draws"
+                        text="{{'groupDetails.noDraws' | translate}}">
+                </app-missing-data-text>
+                <ion-item routerLink="/draws/{{ draw.id }}" *ngFor="let draw of draws" detail>
+                    <ion-label>
+                        {{ draw.name }}
+                    </ion-label>
+                </ion-item>
+
+                <ion-item-divider sticky margin-top mode="md">
+                    <h2>
+                        {{'groupDetails.members' | translate}} ({{group.members.length}})
+                    </h2>
+                </ion-item-divider>
+                <app-missing-data-text
+                        [data]="group.members"
+                        text="{{'groupDetails.noMembers' | translate}}">
+                </app-missing-data-text>
+                <app-member [name]="member.name" *ngFor="let member of group.members"></app-member>
+            </ion-list>
+        </ng-container>
+    </app-fixed-width-grid>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" margin *ngIf="group">
         <ion-fab-button
                 routerLink="/groups/{{group.id}}/draw"

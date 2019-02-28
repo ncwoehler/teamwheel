@@ -11,37 +11,38 @@
 </ion-header>
 
 <ion-content padding>
-    <img src="/assets/teamwheel.svg" alt="TeamWheel Image" class="welcome-img"/>
-    <ng-container *ngIf="!recentGroups || !recentGroups.length">
-        <h1>{{"home.welcomeTitle" | translate}}</h1>
-        <ion-item lines="none">
-            <ion-text>{{'home.createFirstText' | translate}}</ion-text>
-        </ion-item>
-        <ion-button routerLink="/groups/new">
-            <ion-icon name="add" slot="start"></ion-icon>
-            {{'home.createGroup' | translate}}
-        </ion-button>
-    </ng-container>
-    <ng-container *ngIf="recentGroups && recentGroups.length">
-        <ion-list>
-            <ion-list-header>
-                <ion-label>
-                    <h1>
-                        {{'home.recentGroups' | translate}}
-                    </h1>
-                </ion-label>
-            </ion-list-header>
-            <app-group-row-item
-                    *ngFor="let group of recentGroups"
-                    [group]="group"></app-group-row-item>
-        </ion-list>
-        <ion-toolbar>
-            <ion-buttons slot="primary">
-                <ion-button color="primary" routerLink="/groups/all">
-                    {{'home.toGroupOverview' | translate}}
-                </ion-button>
-            </ion-buttons>
-        </ion-toolbar>
-    </ng-container>
-
+    <app-fixed-width-grid>
+        <img src="/assets/teamwheel.svg" alt="TeamWheel Image" class="welcome-img"/>
+        <ng-container *ngIf="!recentGroups || !recentGroups.length">
+            <h1>{{"home.welcomeTitle" | translate}}</h1>
+            <ion-item lines="none">
+                <ion-text>{{'home.createFirstText' | translate}}</ion-text>
+            </ion-item>
+            <ion-button routerLink="/groups/new">
+                <ion-icon name="add" slot="start"></ion-icon>
+                {{'home.createGroup' | translate}}
+            </ion-button>
+        </ng-container>
+        <ng-container *ngIf="recentGroups && recentGroups.length">
+            <ion-list>
+                <ion-list-header>
+                    <ion-label>
+                        <h1>
+                            {{'home.recentGroups' | translate}}
+                        </h1>
+                    </ion-label>
+                </ion-list-header>
+                <app-group-row-item
+                        *ngFor="let group of recentGroups"
+                        [group]="group"></app-group-row-item>
+            </ion-list>
+            <ion-toolbar>
+                <ion-buttons slot="primary">
+                    <ion-button color="primary" routerLink="/groups/all">
+                        {{'home.toGroupOverview' | translate}}
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ng-container>
+    </app-fixed-width-grid>
 </ion-content>

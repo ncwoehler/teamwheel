@@ -8,55 +8,57 @@
 </ion-header>
 
 <ion-content padding>
-    <app-no-group [group]="group"></app-no-group>
-    <div *ngIf="group">
-        <ion-list lines="none">
-            <ion-item>
-                <ion-text class="setting-title">{{'configureDraw.mode' | translate}}</ion-text>
-                <ion-segment [value]="segmentSelection" (ionChange)="segmentChanged($event)">
-                    <ion-segment-button value="teams">
-                        <ion-label>{{'configureDraw.modeTeams' | translate}}</ion-label>
-                    </ion-segment-button>
-                    <ion-segment-button value="players">
-                        <ion-label>{{'configureDraw.modeMembers' | translate}}</ion-label>
-                    </ion-segment-button>
-                </ion-segment>
-            </ion-item>
-            <ion-item>
-                <ion-label class="setting-title">{{'configureDraw.count' | translate}}</ion-label>
-                <ion-range
-                        (ionChange)="rangeChanged($event)"
-                        color="danger"
-                        pin="true"
-                        [value]="selectedSize"
-                        min="1"
-                        [max]="maxSize">
-                    <ion-label slot="start">1</ion-label>
-                    <ion-label slot="end">{{maxSize}}</ion-label>
-                </ion-range>
-            </ion-item>
-            <ion-item-divider color="none">
-                <ion-label>
-                    <h2>{{'configureDraw.members' | translate}}</h2>
-                    <ion-note>
-                        {{
-                        'configureDraw.membersNote' | translate: {
-                            avbl: group?.members?.length - disabledMembers?.length,
-                            unvbl: disabledMembers?.length
-                        }
-                        }}
-                    </ion-note>
-                </ion-label>
-            </ion-item-divider>
-            <app-member
-                    [name]="member.name"
-                    *ngFor="let member of group.members"
-                    [disabled]="isDisabled(member)">
-                <ion-toggle [checked]="!isDisabled(member)"
-                            (ionChange)="toggleDisable(member)"></ion-toggle>
-            </app-member>
-        </ion-list>
-    </div>
+    <app-fixed-width-grid>
+        <app-no-group [group]="group"></app-no-group>
+        <div *ngIf="group">
+            <ion-list lines="none">
+                <ion-item>
+                    <ion-text class="setting-title">{{'configureDraw.mode' | translate}}</ion-text>
+                    <ion-segment [value]="segmentSelection" (ionChange)="segmentChanged($event)">
+                        <ion-segment-button value="teams">
+                            <ion-label>{{'configureDraw.modeTeams' | translate}}</ion-label>
+                        </ion-segment-button>
+                        <ion-segment-button value="players">
+                            <ion-label>{{'configureDraw.modeMembers' | translate}}</ion-label>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="setting-title">{{'configureDraw.count' | translate}}</ion-label>
+                    <ion-range
+                            (ionChange)="rangeChanged($event)"
+                            color="danger"
+                            pin="true"
+                            [value]="selectedSize"
+                            min="1"
+                            [max]="maxSize">
+                        <ion-label slot="start">1</ion-label>
+                        <ion-label slot="end">{{maxSize}}</ion-label>
+                    </ion-range>
+                </ion-item>
+                <ion-item-divider color="none">
+                    <ion-label>
+                        <h2>{{'configureDraw.members' | translate}}</h2>
+                        <ion-note>
+                            {{
+                            'configureDraw.membersNote' | translate: {
+                                avbl: group?.members?.length - disabledMembers?.length,
+                                unvbl: disabledMembers?.length
+                            }
+                            }}
+                        </ion-note>
+                    </ion-label>
+                </ion-item-divider>
+                <app-member
+                        [name]="member.name"
+                        *ngFor="let member of group.members"
+                        [disabled]="isDisabled(member)">
+                    <ion-toggle [checked]="!isDisabled(member)"
+                                (ionChange)="toggleDisable(member)"></ion-toggle>
+                </app-member>
+            </ion-list>
+        </div>
+    </app-fixed-width-grid>
 </ion-content>
 
 <ion-footer padding>
