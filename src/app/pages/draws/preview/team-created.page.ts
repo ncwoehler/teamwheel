@@ -26,7 +26,7 @@ export class TeamCreatedPage {
 
   saveDraw() {
     this.drawService.saveDraw(this.draw).then(draw =>
-      this.nav.navigateRoot(["groups", this.draw.groupId], {
+      this.nav.navigateRoot(["draws", this.draw.id], {
         animated: true
       })
     );
