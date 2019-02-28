@@ -54,6 +54,9 @@ export class GroupDetailPage {
     const groupId: string = this.route.snapshot.paramMap.get("groupId");
     this.group = await this.groupService.getGroupById(groupId);
     this.draws = await this.drawService.loadAllDrawsByGroupId(groupId);
+    if (this.draws) {
+      this.draws.sort((d1, d2) => d2.createdAt - d1.createdAt);
+    }
   }
 
   async initDeletion() {

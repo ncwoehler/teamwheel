@@ -31,8 +31,4 @@ export class TeamCreatedPage {
       })
     );
   }
-
-  setDrawName(drawName: string) {
-    this.draw.name = drawName;
-  }
 }

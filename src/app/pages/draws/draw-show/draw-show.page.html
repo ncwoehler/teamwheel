@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="groups/all"></ion-back-button>
+            <ion-back-button defaultHref="groups/{{draw?.groupId ? draw?.groupId : 'all' }}"></ion-back-button>
         </ion-buttons>
         <ion-buttons slot="primary">
             <ion-button (click)="initDeletion()">
@@ -13,29 +13,5 @@
 </ion-header>
 
 <ion-content padding>
-    <app-no-group [group]="draw"></app-no-group>
-    <div *ngIf="draw">
-        <h1>
-            {{draw.name}}
-        </h1>
-        <ion-grid>
-            <ng-container *ngFor="let team of draw.teams; let i = index">
-                <ion-row *ngIf="i % 2 === 0">
-                    <ion-col size="6" sizeXs>
-                        <div>
-                            <app-team-card [team]="team"></app-team-card>
-                        </div>
-                    </ion-col>
-                    <ng-container *ngIf="i + 1 < draw.teams.length">
-                        <ion-col size="6" sizeXs>
-                            <div>
-                                <app-team-card [team]="draw.teams[i + 1]"
-                                ></app-team-card>
-                            </div>
-                        </ion-col>
-                    </ng-container>
-                </ion-row>
-            </ng-container>
-        </ion-grid>
-    </div>
+    <app-draw-display [draw]="draw"></app-draw-display>
 </ion-content>
