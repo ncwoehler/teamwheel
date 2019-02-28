@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="122mm"
-   height="120mm"
-   viewBox="0 0 122 120"
+   width="144mm"
+   height="144mm"
+   viewBox="0 0 144 144"
    version="1.1"
    id="svg69"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="teamwheel _logo.svg">
+   sodipodi:docname="teamwheel_logo.svg">
   <defs
      id="defs63" />
   <sodipodi:namedview
@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.9899495"
-     inkscape:cx="350.02896"
+     inkscape:cx="-42.92038"
      inkscape:cy="250.10495"
      inkscape:document-units="mm"
      inkscape:current-layer="layer7"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -52,7 +52,7 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-177)">
+     transform="translate(0,-153)">
     <g
        inkscape:groupmode="layer"
        id="layer3"
@@ -75,7 +75,7 @@
          inkscape:label="Team 2">
         <g
            id="g995"
-           transform="matrix(2.0468633,0,0,2.0827184,-6.8436241,178.31202)">
+           transform="matrix(2.4362179,0,0,2.5500979,-8.5273725,152.94825)">
           <g
              transform="matrix(0.22913589,0.13229166,-0.13229166,0.22913589,48.094008,41.801614)"
              id="g877">
