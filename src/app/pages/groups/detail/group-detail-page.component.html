@@ -54,7 +54,7 @@
                         [data]="group.members"
                         text="{{'groupDetails.noMembers' | translate}}">
                 </app-missing-data-text>
-                <app-member [name]="member.name" *ngFor="let member of group.members"></app-member>
+                <app-member [member]="member" *ngFor="let member of group.members"></app-member>
             </ion-list>
         </ng-container>
     </app-fixed-width-grid>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Group } from "../../domain/Group";
+import { Member } from "../../domain/Member";
 
 @Component({
   selector: "app-member",
@@ -7,7 +8,7 @@ import { Group } from "../../domain/Group";
   styleUrls: ["./member.component.scss"]
 })
 export class MemberComponent implements OnInit {
-  @Input() name: string;
+  @Input() member: Member;
   @Input() disabled: boolean = false;
   @Input() hasStart: boolean = false;
 

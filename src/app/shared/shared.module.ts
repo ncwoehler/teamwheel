@@ -13,6 +13,7 @@ import { InlineEditComponent } from "./inline-edit/inline-edit.component";
 import { DrawDisplayComponent } from "./draw-display/draw-display.component";
 import { FixedWidthGridComponent } from "./fixed-width-grid/fixed-width-grid.component";
 import { TeamCardMemberActionsComponent } from "./team-card-member-actions/team-card-member-actions.component";
+import { AvatarModule } from "ngx-avatar";
 
 const routes: Routes = [];
 
@@ -33,6 +34,7 @@ const routes: Routes = [];
     CommonModule,
     FormsModule,
     IonicModule,
+    AvatarModule.forRoot(),
     TranslateModule.forChild(),
     RouterModule.forChild(routes)
   ],

@@ -1,7 +1,11 @@
 export class Member {
+  id: string;
   name: string;
+  avatar: string;
 
-  constructor(name: string) {
+  constructor(id: string, name: string, avatar: string) {
+    this.id = id;
     this.name = name;
+    this.avatar = avatar;
   }
 }
