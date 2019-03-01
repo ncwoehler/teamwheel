@@ -6,7 +6,6 @@ import { NavController } from "@ionic/angular";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Member } from "../../../domain/Member";
 import nanoid from "nanoid";
-import svgToMiniDataURI from "mini-svg-data-uri";
 
 @Component({
   selector: "app-edit-group",

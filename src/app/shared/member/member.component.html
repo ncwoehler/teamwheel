@@ -20,6 +20,11 @@
         </ion-label>
     </ion-item>
     <div slot="end">
+        <ion-button color="dark" (click)="getAvatarImg()" *ngIf="editable" fill="clear">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+        </ion-button>
+        <input type="file" #imageInput style="display: none;" *ngIf="editable"
+                   (change)="handleInputChange($event)" accept="image/*"/>
         <ng-content></ng-content>
     </div>
 </ion-item>
