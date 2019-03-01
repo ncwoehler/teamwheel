@@ -1,6 +1,10 @@
 PWA:
 * ionic build --prod --service-worker
 
+Add cordova plugins:
+* npm install <cordova plugin>
+* npm install <npm-dep>
+
 Android:
 * ionic build
 * ionic capacitor run android

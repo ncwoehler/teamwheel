@@ -14,6 +14,7 @@ import { DrawDisplayComponent } from "./draw-display/draw-display.component";
 import { FixedWidthGridComponent } from "./fixed-width-grid/fixed-width-grid.component";
 import { TeamCardMemberActionsComponent } from "./team-card-member-actions/team-card-member-actions.component";
 import { AvatarModule } from "ngx-avatar";
+import { Ng2ImgMaxModule } from "ng2-img-max";
 
 const routes: Routes = [];
 
@@ -36,6 +37,7 @@ const routes: Routes = [];
     IonicModule,
     AvatarModule.forRoot(),
     TranslateModule.forChild(),
+    Ng2ImgMaxModule,
     RouterModule.forChild(routes)
   ],
   exports: [

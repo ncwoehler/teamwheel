@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Member } from "../../domain/Member";
 import { Base64 } from "@ionic-native/base64/ngx";
 import { ImagePicker } from "@ionic-native/image-picker/ngx";
+import { Ng2ImgMaxService } from "ng2-img-max";
 
 @Component({
   selector: "app-member",
@@ -16,7 +17,11 @@ export class MemberComponent implements OnInit {
 
   @ViewChild("imageInput") fileInput: ElementRef;
 
-  constructor(private imagePicker: ImagePicker, private base64: Base64) {}
+  constructor(
+    private imagePicker: ImagePicker,
+    private base64: Base64,
+    private ng2ImgMax: Ng2ImgMaxService
+  ) {}
 
   ngOnInit() {}
 
@@ -40,7 +45,19 @@ export class MemberComponent implements OnInit {
 
   handleInputChange($event) {
     const file: File = $event.target.files[0];
-    const reader = new FileReader();
+
+    this.ng2ImgMax.compressImage(file, 0.075).subscribe(
+      result => {
+        this.setAvatarFromFileUpload(new File([result], result.name));
+      },
+      error => {
+        console.log("😢 Oh no!", error); // TODO error handling
+      }
+    );
+  }
+
+  private setAvatarFromFileUpload(file: File) {
+    const reader: FileReader = new FileReader();
     reader.addEventListener("load", (event: any) => {
       this.member.avatar = event.target.result;
     });
