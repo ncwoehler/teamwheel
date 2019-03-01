@@ -13,26 +13,26 @@ const STORAGE_KEY = "drawKey";
 export class DrawService {
   private lastDraw: Draw = new Draw("1", null, "Example Draw Result", [
     new Team("1", "Superhelden", [
-      new Member("Spiderman"),
-      new Member("Ironman"),
-      new Member("Wonder Woman"),
-      new Member("Ultron")
+      new Member(null, "Spiderman", null),
+      new Member(null, "Ironman", null),
+      new Member(null, "Wonder Woman", null),
+      new Member(null, "Ultron", null)
     ]),
     new Team("2", "Dichter", [
-      new Member("Goethe"),
-      new Member("Mozart"),
-      new Member("Bach")
+      new Member(null, "Goethe", null),
+      new Member(null, "Mozart", null),
+      new Member(null, "Bach", null)
     ]),
     new Team("3", "BBT", [
-      new Member("Howard"),
-      new Member("Sheldon"),
-      new Member("Rajid"),
-      new Member("Lennard")
+      new Member(null, "Howard", null),
+      new Member(null, "Sheldon", null),
+      new Member(null, "Rajid", null),
+      new Member(null, "Lennard", null)
     ]),
     new Team("4", "Friends", [
-      new Member("Ross"),
-      new Member("Rachel"),
-      new Member("Phoebe")
+      new Member(null, "Ross", null),
+      new Member(null, "Rachel", null),
+      new Member(null, "Phoebe", null)
     ])
   ]);
 

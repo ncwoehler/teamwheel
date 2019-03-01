@@ -5,6 +5,8 @@ import { ActivatedRoute } from "@angular/router";
 import { NavController } from "@ionic/angular";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Member } from "../../../domain/Member";
+import nanoid from "nanoid";
+import svgToMiniDataURI from "mini-svg-data-uri";
 
 @Component({
   selector: "app-edit-group",
@@ -62,7 +64,7 @@ export class EditGroupPage implements OnInit {
       this.groupForm.patchValue(group);
       const membersValue = group.members || [];
       membersValue
-        .map(member => this.fb.control(member.name, Validators.required))
+        .map(member => this.createMemberGroup(member.name, member.avatar))
         .forEach(m => this.members.push(m));
     }
   }
@@ -75,7 +77,7 @@ export class EditGroupPage implements OnInit {
     return (
       this.newMemberName &&
       this.newMemberName.length > 0 &&
-      this.members.controls.findIndex(c => c.value === this.newMemberName) < 0
+      this.getMemberIndex(this.newMemberName) < 0
     );
   }
 
@@ -83,7 +85,9 @@ export class EditGroupPage implements OnInit {
     if (!this.addMemberValid()) {
       return;
     }
-    this.members.push(this.fb.control(this.newMemberName, Validators.required));
+    const newMemberGroup = this.createMemberGroup(this.newMemberName, null);
+
+    this.members.push(newMemberGroup);
     this.newMemberName = "";
     this.inputEl.setFocus();
     if (this.content) {
@@ -92,12 +96,14 @@ export class EditGroupPage implements OnInit {
   }
 
   async removeMember(name: string) {
-    const index = this.members.controls.findIndex(c => c.value === name);
+    const index = this.getMemberIndex(name);
     this.members.removeAt(index);
   }
 
   onSubmit() {
-    const newMembers = this.members.controls.map(c => new Member(c.value));
+    const newMembers = this.members.controls.map(
+      c => new Member(nanoid(), c.value.name, c.value.avatar)
+    );
     if (this.groupId) {
       this.groupService
         .updateGroup(
@@ -135,5 +141,16 @@ export class EditGroupPage implements OnInit {
     this.members.removeAt($event.detail.from);
     this.members.insert($event.detail.to, movedMember);
     $event.detail.complete();
+  }
+
+  private createMemberGroup(name: string, avatar: string) {
+    return this.fb.group({
+      name: this.fb.control(name, Validators.required),
+      avatar: this.fb.control(avatar)
+    });
+  }
+
+  private getMemberIndex(name: string) {
+    return this.members.controls.findIndex(c => c.value.name === name);
   }
 }

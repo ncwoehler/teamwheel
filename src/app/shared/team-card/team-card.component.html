@@ -16,7 +16,7 @@
         <ion-list>
             <ion-reorder-group [disabled]="false" (ionItemReorder)="reorder($event, team)">
                 <div *ngFor="let member of team.members">
-                    <app-member [name]="member.name" hasStart="true">
+                    <app-member [member]="member" hasStart="true">
                         <ion-reorder start *ngIf="allowReorder"></ion-reorder>
                         <ion-button fill="clear" (click)="presentPopover($event, member)" *ngIf="allowEdit && !allowReorder">
                             <ion-icon name="more" color="secondary"></ion-icon>
