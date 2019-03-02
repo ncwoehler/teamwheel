@@ -11,9 +11,8 @@
         <ng-content select="[start]"></ng-content>
     </div>
     <ion-item class="member" lines="inset" [disabled]="disabled" style="width: 100%; padding-left: 0px;">
-        <ion-avatar *ngIf="member.avatar" slot="start">
-            <ion-img [src]="member.avatar"></ion-img>
-        </ion-avatar>
+        <ngx-avatar *ngIf="member.avatar" slot="start" [src]="member.avatar">
+        </ngx-avatar>
         <ngx-avatar [name]="member.name" style="'circle'" *ngIf="!member.avatar" slot="start"></ngx-avatar>
         <ion-label>
             <h3>{{ member.name }}</h3>
