@@ -3,6 +3,13 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="groups/all"></ion-back-button>
         </ion-buttons>
+        <ion-buttons slot="primary">
+            <ion-button
+                    [disabled]="!groupForm.valid"
+                    (click)="groupForm.valid && onSubmit()">
+                <ion-icon name="save" slot="start"></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-title *ngIf="groupId">
             {{'editGroup.headerEdit' | translate}}
         </ion-title>
@@ -100,16 +107,3 @@
         </form>
     </app-fixed-width-grid>
 </ion-content>
-
-<ion-footer>
-    <ion-toolbar>
-        <ion-button
-                expand="full"
-                color="primary"
-                [disabled]="!groupForm.valid"
-                (click)="groupForm.valid && onSubmit()">
-            <ion-icon name="save" slot="start"></ion-icon>
-            {{'editGroup.save' | translate}}
-        </ion-button>
-    </ion-toolbar>
-</ion-footer>

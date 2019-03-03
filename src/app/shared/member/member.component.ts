@@ -1,8 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Member } from "../../domain/Member";
-import { Base64 } from "@ionic-native/base64/ngx";
-import { ImagePicker } from "@ionic-native/image-picker/ngx";
-import { Ng2ImgMaxService } from "ng2-img-max";
+import { ToastController } from "@ionic/angular";
 
 @Component({
   selector: "app-member",
@@ -17,61 +15,58 @@ export class MemberComponent implements OnInit {
 
   @ViewChild("imageInput") fileInput: ElementRef;
 
-  constructor(
-    private imagePicker: ImagePicker,
-    private base64: Base64,
-    private ng2ImgMax: Ng2ImgMaxService
-  ) {}
+  avatarUpload: boolean = false;
+
+  constructor(private toastController: ToastController) {}
 
   ngOnInit() {}
 
-  getAvatarImg() {
-    let options = {
-      maximumImagesCount: 1
-    };
-    this.imagePicker
-      .getPictures(options)
-      .then(results => {
-        for (var i = 0; i < results.length; i++) {
-          const firstResult = results[i];
-          this.encodeBase64(firstResult);
-        }
-      })
-      .catch(err => {
-        // try opening the hidden file input via click
-        this.fileInput.nativeElement.click();
-      });
+  triggerAvatarChange() {
+    // try opening the hidden file input via click
+    this.fileInput.nativeElement.click();
   }
 
   handleInputChange($event) {
     const file: File = $event.target.files[0];
+    this.avatarUpload = true;
+    this.compressAndSetAvatar(file);
+  }
 
-    this.ng2ImgMax.compressImage(file, 0.075).subscribe(
+  private async compressAndSetAvatar(file) {
+    /* https://github.com/digitalascetic/ngx-pica/blob/master/src/ngx-pica.service.ts
+    this.pica.resizeImage(file, 40, 40).subscribe(
       result => {
         this.setAvatarFromFileUpload(new File([result], result.name));
       },
-      error => {
-        console.log("😢 Oh no!", error); // TODO error handling
+      e => {
+        console.log("😢 Oh no!", e); // TODO error handling
+        this.avatarUpload = false;
+        this.presentToast(e);
       }
-    );
+    );*/
   }
 
   private setAvatarFromFileUpload(file: File) {
     const reader: FileReader = new FileReader();
     reader.addEventListener("load", (event: any) => {
+      this.avatarUpload = false;
       this.member.avatar = event.target.result;
     });
+    reader.onerror = (ev: ProgressEvent) => {
+      this.avatarUpload = false;
+      this.presentToast(ev);
+      console.error(ev);
+    };
+
     reader.readAsDataURL(file);
   }
 
-  private encodeBase64(result) {
-    this.base64.encodeFile(result).then(
-      (base64File: string) => {
-        this.member.avatar = base64File;
-      },
-      err => {
-        console.log(err); // TODO error handling
-      }
-    );
+  async presentToast(msg) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000,
+      color: "danger"
+    });
+    toast.present();
   }
 }
