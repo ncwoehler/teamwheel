@@ -1,15 +1,13 @@
-import { Member } from "./Member";
-import { Draw } from "./Draw";
+import { Idable } from "./Idable";
 
-export class Group {
+export class Group implements Idable {
   id: string;
   name: string;
   icon: string;
   lastUsed: number;
-  members: Member[];
+  members: string[];
 
-  constructor(id: string, name: string, icon: string, members: Member[]) {
-    this.id = id;
+  constructor(name: string, icon: string, members: string[]) {
     this.name = name;
     this.icon = icon;
     this.members = members;

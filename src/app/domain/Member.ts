@@ -1,10 +1,9 @@
-export class Member {
+export class Member implements WithId {
   id: string;
   name: string;
   avatar: string;
 
-  constructor(id: string, name: string, avatar: string) {
-    this.id = id;
+  constructor(name: string, avatar: string) {
     this.name = name;
     this.avatar = avatar;
   }

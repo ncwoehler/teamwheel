@@ -10,6 +10,9 @@ import {
 import { TranslateService } from "@ngx-translate/core";
 import { Draw } from "../../../domain/Draw";
 import { DrawService } from "../../../services/draw.service";
+import { Observable } from "rxjs";
+import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
+import { toArray } from "rxjs/operators";
 
 @Component({
   selector: "app-group",
@@ -40,23 +43,39 @@ export class GroupDetailPage {
         })
         .then(l => {
           l.present();
-          this.loadData()
-            .catch(value => console.error(value)) // TODO error handling
-            .finally(() => {
+          this.loadData().subscribe({
+            complete: () => {
               this.loadingController.dismiss();
               this.loading = false;
-            });
+            }
+          });
         });
     });
   }
 
-  async loadData() {
+  loadData(): Observable<any> {
     const groupId: string = this.route.snapshot.paramMap.get("groupId");
-    this.group = await this.groupService.getGroupById(groupId);
-    this.draws = await this.drawService.loadAllDrawsByGroupId(groupId);
-    if (this.draws) {
-      this.draws.sort((d1, d2) => d2.createdAt - d1.createdAt);
-    }
+    return Observable.create(observer => {
+      this.groupService.getGroupById(groupId).subscribe(
+        group => {
+          this.group = group;
+          this.drawService
+            .loadAllDrawsByGroupId(groupId)
+            .pipe(toArray())
+            .subscribe(
+              draws => {
+                if (draws) {
+                  draws.sort((d1, d2) => d2.createdAt - d1.createdAt);
+                }
+                this.draws = draws;
+              },
+              error1 => console.error(error1), // TODO error handling
+              () => observer.complete()
+            );
+        },
+        error1 => console.error(error1) // TODO error handling
+      );
+    });
   }
 
   async initDeletion() {
@@ -72,10 +91,10 @@ export class GroupDetailPage {
         {
           text: this.translateService.instant("groupDetails.deleteConfirm"),
           handler: () => {
-            this.groupService
-              .deleteGroup(this.group.id)
-              .then(value => this.openGroupsOverview())
-              .catch(error => console.error(error)); // TODO error handling
+            this.groupService.deleteGroup(this.group.id).subscribe(
+              () => this.openGroupsOverview(),
+              error => console.error(error) // TODO error handling
+            );
           }
         }
       ]

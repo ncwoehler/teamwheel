@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Group } from "../../../domain/Group";
 import { RecentGroupService } from "../../../services/recent-group.service";
 import { GroupService } from "../../../services/group.service";
+import { toArray } from "rxjs/operators";
 
 @Component({
   selector: "app-all-groups",
@@ -20,9 +21,12 @@ export class AllGroupsPage {
   getAllGroups(): void {
     this.groupService
       .getAllGroups()
-      .then(data => {
-        this.allGroups = data;
-      })
-      .catch(value => console.error(value)); // TODO error handling
+      .pipe(toArray())
+      .subscribe(
+        data => {
+          this.allGroups = data;
+        },
+        error1 => console.error(error1) // TODO error handling
+      );
   }
 }

@@ -6,6 +6,7 @@ import { NavController } from "@ionic/angular";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Member } from "../../../domain/Member";
 import nanoid from "nanoid";
+import { MemberService } from "../../../services/member.service";
 
 @Component({
   selector: "app-edit-group",
@@ -14,6 +15,7 @@ import nanoid from "nanoid";
 })
 export class EditGroupPage implements OnInit {
   groupId;
+  oldMemberIds: string[] = [];
   groupForm;
   newMemberName: string;
 
@@ -35,6 +37,7 @@ export class EditGroupPage implements OnInit {
 
   constructor(
     private groupService: GroupService,
+    private memberService: MemberService,
     private route: ActivatedRoute,
     private navController: NavController,
     private fb: FormBuilder
@@ -49,22 +52,24 @@ export class EditGroupPage implements OnInit {
   ngOnInit() {
     const groupId: string = this.route.snapshot.paramMap.get("groupId");
     if (groupId) {
-      this.getGroup(groupId).then(group => this.setupGroupFormParams(group));
+      this.groupService.getGroupById(groupId).subscribe(
+        group => this.setupGroupFormParams(group),
+        error => console.error(error) // TODO error handling
+      );
       this.groupId = groupId;
     }
-  }
-
-  async getGroup(groupId: string): Promise<Group> {
-    return await this.groupService.getGroupById(groupId);
   }
 
   setupGroupFormParams(group: Group) {
     if (group) {
       this.groupForm.patchValue(group);
-      const membersValue = group.members || [];
-      membersValue
-        .map(member => this.createMemberGroup(member.name, member.avatar))
-        .forEach(m => this.members.push(m));
+      const membersIds = group.members || [];
+      this.memberService.findAllById(membersIds).subscribe(member => {
+        this.oldMemberIds.push(member.id);
+        this.members.push(
+          this.createMemberGroup(member.id, member.name, member.avatar)
+        );
+      });
     }
   }
 
@@ -84,7 +89,11 @@ export class EditGroupPage implements OnInit {
     if (!this.addMemberValid()) {
       return;
     }
-    const newMemberGroup = this.createMemberGroup(this.newMemberName, null);
+    const newMemberGroup = this.createMemberGroup(
+      null,
+      this.newMemberName,
+      null
+    );
 
     this.members.push(newMemberGroup);
     this.newMemberName = "";
@@ -100,29 +109,30 @@ export class EditGroupPage implements OnInit {
   }
 
   onSubmit() {
-    const newMembers = this.members.controls.map(
-      c => new Member(nanoid(), c.value.name, c.value.avatar)
-    );
-    if (this.groupId) {
-      this.groupService
-        .updateGroup(
-          this.groupId,
-          this.groupForm.value.name,
-          this.groupForm.value.icon,
-          newMembers
-        )
-        .then(g => this.openGroupPage(g.id))
-        .catch(value => console.error(value)); // TODO error handling
-    } else {
-      this.groupService
-        .addGroup(
-          this.groupForm.value.name,
-          this.groupForm.value.icon,
-          newMembers
-        )
-        .then(g => this.openGroupPage(g.id))
-        .catch(value => console.error(value)); // TODO error handling
-    }
+    const memberIds = this.members.controls.map(c => c.value.id);
+    const members = this.members.controls.map(c => {
+      const member = new Member(c.value.name, c.value.avatar);
+      member.id = c.value.id;
+      return member;
+    });
+    this.memberService.saveAll(this.oldMemberIds, members).subscribe({
+      next: () => {
+        this.groupService
+          .save(
+            this.groupForm.value.name,
+            this.groupForm.value.icon,
+            memberIds,
+            this.groupId
+          )
+          .subscribe({
+            next: value => {
+              this.openGroupPage(value.id);
+            },
+            error: err => console.error(err) // TODO error handling
+          });
+      },
+      error: err => console.error(err) // TODO error handling
+    });
   }
 
   openGroupPage(id: string) {
@@ -142,8 +152,9 @@ export class EditGroupPage implements OnInit {
     $event.detail.complete();
   }
 
-  private createMemberGroup(name: string, avatar: string) {
+  private createMemberGroup(id: string, name: string, avatar: string) {
     return this.fb.group({
+      id: this.fb.control(id),
       name: this.fb.control(name, Validators.required),
       avatar: this.fb.control(avatar)
     });

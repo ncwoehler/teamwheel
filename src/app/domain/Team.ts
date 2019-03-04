@@ -1,15 +1,15 @@
-import { Member } from "./Member";
+import { Idable } from "./Idable";
 
-export class Team {
+export class Team implements Idable {
   id: string;
   createdAt: number;
   name: string;
-  members: Member[];
+  memberIds: string[];
 
-  constructor(id: string, name: string, members: Member[]) {
+  constructor(id: string, name: string, memberIds: string[]) {
     this.id = id;
     this.createdAt = new Date().getTime();
     this.name = name;
-    this.members = members;
+    this.memberIds = memberIds;
   }
 }

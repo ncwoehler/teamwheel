@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Storage } from "@ionic/storage";
 import { Group } from "../domain/Group";
-import nanoid from "nanoid";
-import { Member } from "../domain/Member";
+import { RepositoryService } from "./repository.service";
+import { Observable } from "rxjs";
 
-const STORAGE_KEY = "allGroups";
+const STORAGE_KEY = "groups";
 
 @Injectable({
   providedIn: "root"
@@ -14,82 +13,45 @@ export class GroupService {
     group.lastUsed = new Date().getTime();
   }
 
-  constructor(private storage: Storage) {}
+  constructor(private storageService: RepositoryService) {}
 
-  getAllGroups(): Promise<Group[]> {
-    return this.storage.get(STORAGE_KEY);
-  }
-
-  async addGroup(
+  save(
     name: string,
     icon: string,
-    members: Member[]
-  ): Promise<Group> {
-    const id = nanoid();
-    const newGroup = new Group(id, name, icon, members);
-    GroupService.updateLastUsed(newGroup);
-    const result = await this.getAllGroups();
-    if (result) {
-      result.push(newGroup);
-      this.storeGroups(result);
-    } else {
-      this.storeGroups([newGroup]);
+    members: string[],
+    id?: string
+  ): Observable<Group> {
+    const group = new Group(name, icon, members);
+    GroupService.updateLastUsed(group);
+    if (id) {
+      group.id = id;
     }
-    return newGroup;
+    return this.storageService.save(STORAGE_KEY, group);
   }
 
-  async getGroupById(id: string): Promise<Group> {
-    const result = (await this.getAllGroups()) as Group[];
-    const groupById: Group = result
-      ? result.find(group => group.id === id)
-      : undefined;
-    if (groupById) {
-      GroupService.updateLastUsed(groupById);
-      this.storeGroups(result);
-    }
-    return groupById;
+  getAllGroups(): Observable<Group> {
+    return this.storageService.findAll(STORAGE_KEY);
+  }
+  getGroupById(id: string): Observable<Group> {
+    return Observable.create(observer => {
+      this.storageService.findById<Group>(STORAGE_KEY, id).subscribe(
+        groupById => {
+          if (groupById) {
+            GroupService.updateLastUsed(groupById);
+            this.storageService
+              .save(STORAGE_KEY, groupById)
+              .subscribe(
+                group => observer.next(group),
+                error1 => observer.error(error1)
+              );
+          }
+        },
+        error1 => observer.error(error1)
+      );
+    });
   }
 
-  async updateGroup(
-    id: string,
-    name: string,
-    icon: string,
-    members: Member[]
-  ): Promise<Group> {
-    const result = (await this.getAllGroups()) as Group[];
-    const groupById: Group = result
-      ? result.find(group => group.id === id)
-      : undefined;
-    if (groupById) {
-      GroupService.updateLastUsed(groupById);
-      groupById.name = name;
-      groupById.members = members;
-      groupById.icon = icon;
-      this.storeGroups(result);
-    }
-    return groupById;
-  }
-
-  async deleteGroup(id: string) {
-    const result = await this.getAllGroups();
-    if (!result) {
-      return; // TODO error handling
-    }
-    const selectedGroupIndex = result
-      ? result.findIndex(group => group.id === id)
-      : -1;
-    if (selectedGroupIndex > -1) {
-      result.splice(selectedGroupIndex, 1);
-      this.storeGroups(result);
-    } else {
-      // TODO error handling
-    }
-  }
-
-  private storeGroups(groups: Group[]) {
-    if (groups) {
-      groups.sort((a, b) => a.name.localeCompare(b.name));
-    }
-    this.storage.set(STORAGE_KEY, groups);
+  deleteGroup(id: string): Observable<void> {
+    return this.storageService.deleteById(STORAGE_KEY, id);
   }
 }

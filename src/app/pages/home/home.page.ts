@@ -18,9 +18,9 @@ export class HomePage {
   }
 
   getRecentGroups(): void {
-    this.recentGroupService
-      .getRecentGroupsInOrder()
-      .then(data => (this.recentGroups = data))
-      .catch(value => console.error(value)); // TODO error handling
+    this.recentGroupService.getRecentGroupsInOrder().subscribe(
+      next => (this.recentGroups = next),
+      error1 => console.error(error1) // TODO error handling
+    );
   }
 }

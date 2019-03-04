@@ -1,6 +1,7 @@
 import { Team } from "./Team";
+import { Idable } from "./Idable";
 
-export class Draw {
+export class Draw implements Idable {
   id: string;
   groupId: string;
   createdAt: number;

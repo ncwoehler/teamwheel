@@ -3,6 +3,8 @@ import { Team } from "../../domain/Team";
 import { PopoverController } from "@ionic/angular";
 import { TeamCardMemberActionsComponent } from "../team-card-member-actions/team-card-member-actions.component";
 import { Member } from "../../domain/Member";
+import { Draw } from "../../domain/Draw";
+import { Group } from "../../domain/Group";
 
 @Component({
   selector: "app-team-card",
@@ -10,8 +12,9 @@ import { Member } from "../../domain/Member";
   styleUrls: ["./team-card.component.scss"]
 })
 export class TeamCardComponent implements OnInit {
-  @Input() draw;
-  @Input() team;
+  @Input() draw: Draw;
+  @Input() team: Team;
+  @Input() group: Group;
   @Input() allowEdit = false;
   @Input() allowReorder = false;
 
@@ -24,18 +27,18 @@ export class TeamCardComponent implements OnInit {
   }
 
   reorder($event, team: Team) {
-    const movedMember = team.members[$event.detail.from];
-    team.members.splice($event.detail.from, 1);
-    team.members.splice($event.detail.to, 0, movedMember);
+    const movedMember = team.memberIds[$event.detail.from];
+    team.memberIds.splice($event.detail.from, 1);
+    team.memberIds.splice($event.detail.to, 0, movedMember);
     $event.detail.complete();
   }
 
-  async presentPopover(ev: any, member: Member) {
+  async presentPopover(ev: any, memberId: string) {
     const popover = await this.popoverController.create({
       component: TeamCardMemberActionsComponent,
       componentProps: {
         pop: this.popoverController,
-        member: member,
+        memberId: memberId,
         currentTeam: this.team,
         otherTeams: this.draw.teams.filter(t => t.name !== this.team.name)
       },
