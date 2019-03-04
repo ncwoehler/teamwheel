@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { filter, last } from "rxjs/operators";
 import { GroupService } from "../../../services/group.service";
 import { Group } from "../../../domain/Group";
 import { Member } from "../../../domain/Member";

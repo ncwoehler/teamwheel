@@ -1,4 +1,6 @@
-export class Member implements WithId {
+import { Idable } from "./Idable";
+
+export class Member implements Idable {
   id: string;
   name: string;
   avatar: string;
