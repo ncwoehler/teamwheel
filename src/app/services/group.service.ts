@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Group } from "../domain/Group";
 import { RepositoryService } from "./repository.service";
 import { Observable } from "rxjs";
+import { exhaustMap, map } from "rxjs/operators";
 
 const STORAGE_KEY = "groups";
 
@@ -33,25 +34,16 @@ export class GroupService {
     return this.storageService.findAll(STORAGE_KEY);
   }
   getGroupById(id: string): Observable<Group> {
-    return Observable.create(observer => {
-      this.storageService.findById<Group>(STORAGE_KEY, id).subscribe(
-        groupById => {
-          if (groupById) {
-            GroupService.updateLastUsed(groupById);
-            this.storageService
-              .save(STORAGE_KEY, groupById)
-              .subscribe(
-                group => observer.next(group),
-                error1 => observer.error(error1)
-              );
-          }
-        },
-        error1 => observer.error(error1)
-      );
-    });
+    return this.storageService.findById<Group>(STORAGE_KEY, id).pipe(
+      map(groupById => {
+        GroupService.updateLastUsed(groupById);
+        this.storageService.save(STORAGE_KEY, groupById).subscribe(() => {});
+        return groupById;
+      })
+    );
   }
 
-  deleteGroup(id: string): Observable<void> {
+  deleteGroup(id: string): Observable<Group> {
     return this.storageService.deleteById(STORAGE_KEY, id);
   }
 }

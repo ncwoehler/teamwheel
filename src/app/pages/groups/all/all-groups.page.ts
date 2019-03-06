@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Group } from "../../../domain/Group";
 import { RecentGroupService } from "../../../services/recent-group.service";
 import { GroupService } from "../../../services/group.service";
-import { toArray } from "rxjs/operators";
+import { map, toArray } from "rxjs/operators";
 
 @Component({
   selector: "app-all-groups",
@@ -21,7 +21,10 @@ export class AllGroupsPage {
   getAllGroups(): void {
     this.groupService
       .getAllGroups()
-      .pipe(toArray())
+      .pipe(
+        toArray(),
+        map(data => data.sort((a, b) => a.name.localeCompare(b.name)))
+      )
       .subscribe(
         data => {
           this.allGroups = data;
