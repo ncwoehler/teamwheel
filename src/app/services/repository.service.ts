@@ -1,15 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { Idable } from "../domain/Idable";
-import { Observable } from "rxjs";
-import nanoid from "nanoid";
-import { filter } from "rxjs/operators";
+import { concat, Observable } from "rxjs";
+
+import { distinct, filter, map, mergeMap, toArray } from "rxjs/operators";
+import { from } from "rxjs";
+import { IdService } from "./id.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class RepositoryService {
-  constructor(private storage: Storage) {}
+  constructor(private storage: Storage, private idService: IdService) {}
 
   save<T extends Idable>(storageKey: string, newObject: T): Observable<T> {
     return this.saveAll(storageKey, [newObject]);
@@ -19,45 +21,26 @@ export class RepositoryService {
     storageKey: string,
     newObjects: T[]
   ): Observable<T> {
-    return Observable.create(observer => {
-      this.storage
-        .get(storageKey)
-        .then((allValues: T[]) => {
-          const result: T[] = allValues ? allValues : [];
-
-          newObjects.forEach(newObject => {
-            // create new ID if none provided
-            if (!newObject.id) {
-              newObject.id = nanoid();
-            }
-
-            const elementIndex = result.findIndex(
-              value => value.id == newObject.id
-            );
-            if (elementIndex > -1) {
-              result[elementIndex] = newObject;
-            } else {
-              result.push(newObject);
-            }
-          });
-
-          this.storage
-            .set(storageKey, result)
-            .then(values => values.forEach(value => observer.next(value)))
-            .catch(error => observer.error(error));
+    return concat(
+      from(newObjects).pipe(
+        map(newObject => {
+          // create new ID if none provided
+          if (!newObject.id) {
+            newObject.id = this.idService.getId();
+          }
+          return newObject;
         })
-        .catch(error => observer.error(error));
-    });
+      ),
+      this.findAll(storageKey)
+    ).pipe(
+      distinct(obj => obj.id),
+      toArray(),
+      mergeMap(result => from(this.storage.set(storageKey, result)))
+    );
   }
 
   findAll<T extends Idable>(storageKey: string): Observable<T> {
-    return Observable.create(observer => {
-      this.storage
-        .get(storageKey)
-        .then(values => values.forEach(v => observer.next(v)))
-        .catch(e => observer.error(e))
-        .finally(() => observer.complete());
-    });
+    return from(this.storage.get(storageKey));
   }
 
   findById<T extends Idable>(storageKey: string, id: string): Observable<T> {
@@ -69,28 +52,15 @@ export class RepositoryService {
     ids: string[]
   ): Observable<T> {
     return this.findAll<T>(storageKey).pipe(
-      filter(value => ids.findIndex(id => id === value.id) > -1)
+      filter(value => !!ids.find(id => id === value.id))
     );
   }
 
-  deleteById<T extends Idable>(
-    storageKey: string,
-    id: string
-  ): Observable<void> {
-    return Observable.create(observer => {
-      this.storage
-        .get(storageKey)
-        .then((allValues: T[]) => {
-          const elementIndex = allValues.findIndex(value => value.id == id);
-          if (elementIndex > -1) {
-            allValues.splice(elementIndex, 1);
-          }
-          this.storage
-            .set(storageKey, allValues)
-            .then(() => observer.complete())
-            .catch(error => observer.error(error));
-        })
-        .catch(error => observer.error(error));
-    });
+  deleteById<T extends Idable>(storageKey: string, id: string): Observable<T> {
+    return this.findAll(storageKey).pipe(
+      filter(value => value.id !== id),
+      toArray(),
+      mergeMap(result => from(this.storage.set(storageKey, result)))
+    );
   }
 }
