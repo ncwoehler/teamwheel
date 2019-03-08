@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Group } from "../domain/Group";
 import { RepositoryService } from "./repository.service";
 import { Observable } from "rxjs";
-import { exhaustMap, map } from "rxjs/operators";
+import { exhaustMap, map, tap, toArray } from "rxjs/operators";
 
 const STORAGE_KEY = "groups";
 
@@ -31,8 +31,18 @@ export class GroupService {
   }
 
   getAllGroups(): Observable<Group> {
-    return this.storageService.findAll(STORAGE_KEY);
+    return this.storageService
+      .findAll(STORAGE_KEY)
+      .pipe(tap((group: any) => console.info(group)));
   }
+
+  getRecentGroupsInOrder(): Observable<Group[]> {
+    return this.getAllGroups().pipe(
+      toArray(),
+      map(groups => groups.sort((a, b) => b.lastUsed - a.lastUsed).slice(0, 5))
+    );
+  }
+
   getGroupById(id: string): Observable<Group> {
     return this.storageService.findById<Group>(STORAGE_KEY, id).pipe(
       map(groupById => {

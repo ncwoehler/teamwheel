@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { GroupService } from "../../../services/group.service";
 import { Group } from "../../../domain/Group";
 import { ActivatedRoute } from "@angular/router";
@@ -10,9 +10,7 @@ import {
 import { TranslateService } from "@ngx-translate/core";
 import { Draw } from "../../../domain/Draw";
 import { DrawService } from "../../../services/draw.service";
-import { Observable } from "rxjs";
-import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
-import { toArray } from "rxjs/operators";
+import { map, mergeMap, toArray } from "rxjs/operators";
 
 @Component({
   selector: "app-group",
@@ -43,39 +41,25 @@ export class GroupDetailPage {
         })
         .then(l => {
           l.present();
-          this.loadData().subscribe({
-            complete: () => {
-              this.loadingController.dismiss();
-              this.loading = false;
-            }
-          });
+          this.loadData();
         });
     });
   }
 
-  loadData(): Observable<any> {
+  loadData() {
     const groupId: string = this.route.snapshot.paramMap.get("groupId");
-    return Observable.create(observer => {
-      this.groupService.getGroupById(groupId).subscribe(
-        group => {
+    this.groupService
+      .getGroupById(groupId)
+      .pipe(
+        mergeMap(group => {
           this.group = group;
-          this.drawService
-            .loadAllDrawsByGroupId(groupId)
-            .pipe(toArray())
-            .subscribe(
-              draws => {
-                if (draws) {
-                  draws.sort((d1, d2) => d2.createdAt - d1.createdAt);
-                }
-                this.draws = draws;
-              },
-              error1 => console.error(error1), // TODO error handling
-              () => observer.complete()
-            );
-        },
-        error1 => console.error(error1) // TODO error handling
-      );
-    });
+          return this.drawService.loadAllDrawsByGroupId(groupId).pipe(
+            toArray(),
+            map(draws => draws.sort((d1, d2) => d2.createdAt - d1.createdAt))
+          );
+        })
+      )
+      .subscribe(draws => (this.draws = draws));
   }
 
   async initDeletion() {

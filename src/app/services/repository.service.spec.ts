@@ -3,7 +3,8 @@ import { Storage } from "@ionic/storage";
 import { from } from "rxjs";
 import { Member } from "../domain/Member";
 import { toArray } from "rxjs/operators";
-import nanoid from "nanoid";
+import { EMPTY } from "rxjs";
+import { Idable } from "../domain/Idable";
 
 describe("RepositoryService", () => {
   const STORAGE_KEY = "KEY";
@@ -11,21 +12,44 @@ describe("RepositoryService", () => {
   let storageSpy: jasmine.SpyObj<Storage>;
 
   it("#findAll should return stubbed value from a spy", () => {
+    const storageSpy = jasmine.createSpyObj("Storage", ["get"]);
+    const values = [new Member("1"), new Member("2")];
+    storageSpy.get.and.returnValue(from(values.concat([null as Member])));
+
+    repositoryService = new RepositoryService(storageSpy, null);
+
+    repositoryService
+      .findAll(STORAGE_KEY)
+      .pipe(toArray())
+      .subscribe(result => {
+        expect(result).toEqual(values, "service returned stub value");
+        expect(storageSpy.get.calls.count()).toBe(
+          1,
+          "spy method was called once"
+        );
+      });
+  });
+
+  it("#findAll should return nothing on empty value from a spy", () => {
     // create `getValue` spy on an object representing the ValueService
     const storageSpy = jasmine.createSpyObj("Storage", ["get"]);
 
     // set the value to return when the `getValue` spy is called.
-    const stubValue = from([new Member("1"), new Member("2")]);
-    storageSpy.get.and.returnValue(stubValue);
+    const values = [];
+    storageSpy.get.and.returnValue(from(values));
 
     repositoryService = new RepositoryService(storageSpy, null);
 
-    expect(repositoryService.findAll(STORAGE_KEY)).toBe(
-      stubValue,
-      "service returned stub value"
-    );
-    expect(storageSpy.get.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.get.calls.mostRecent().returnValue).toBe(stubValue);
+    repositoryService
+      .findAll(STORAGE_KEY)
+      .pipe(toArray())
+      .subscribe(result => {
+        expect(result).toEqual(values, "service returned stub value");
+        expect(storageSpy.get.calls.count()).toBe(
+          1,
+          "spy method was called once"
+        );
+      });
   });
 
   it("#findById should return stubbed value from a spy", () => {
@@ -46,7 +70,7 @@ describe("RepositoryService", () => {
     repositoryService
       .findById(STORAGE_KEY, "2")
       .subscribe(
-        next => expect(next.id).toEqual("2", "expected member"),
+        (next: Idable) => expect(next.id).toEqual("2", "expected member"),
         error => fail("expected an error, not heroes")
       );
     expect(storageSpy.get.calls.count()).toBe(1, "spy method was called once");
@@ -133,7 +157,7 @@ describe("RepositoryService", () => {
     ];
     const newMembers: Member[] = [
       new Member("4"),
-      { id: "3", name: "5" },
+      { id: "2", name: "5" },
       new Member("4")
     ];
 
@@ -143,11 +167,11 @@ describe("RepositoryService", () => {
     member2WithId.id = "id2";
 
     const expectedResult: Member[] = [
-      member1WithId,
-      { id: "3", name: "5" },
-      member2WithId,
       { id: "1", name: "1" },
-      { id: "2", name: "2" }
+      { id: "2", name: "5" },
+      { id: "3", name: "3" },
+      member1WithId,
+      member2WithId
     ];
 
     const stubValue = from(initialMembers);
@@ -188,10 +212,10 @@ describe("RepositoryService", () => {
     memberWithId.id = "id";
 
     const expectedResult: Member[] = [
-      memberWithId,
       { id: "1", name: "1" },
       { id: "2", name: "2" },
-      { id: "3", name: "3" }
+      { id: "3", name: "3" },
+      memberWithId
     ];
 
     const stubValue = from(initialMembers);
@@ -231,8 +255,8 @@ describe("RepositoryService", () => {
     updatedMember.id = "2";
 
     const expectedResult: Member[] = [
-      updatedMember,
       { id: "1", name: "1" },
+      updatedMember,
       { id: "3", name: "3" }
     ];
 

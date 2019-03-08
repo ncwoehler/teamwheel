@@ -22,25 +22,36 @@ export class RepositoryService {
     newObjects: T[]
   ): Observable<T> {
     return concat(
-      from(newObjects).pipe(
-        map(newObject => {
-          // create new ID if none provided
-          if (!newObject.id) {
-            newObject.id = this.idService.getId();
-          }
-          return newObject;
+      this.findAll(storageKey).pipe(
+        map(obj => {
+          const replacement = newObjects.find(
+            (newObj: Idable) => obj.id === newObj.id
+          );
+          return replacement || obj;
         })
       ),
-      this.findAll(storageKey)
+      from(newObjects).pipe(
+        filter(newObj => !newObj.id),
+        map(newObj => {
+          newObj.id = this.idService.getId();
+          return newObj;
+        })
+      )
     ).pipe(
-      distinct(obj => obj.id),
+      distinct((obj: Idable) => obj.id),
       toArray(),
-      mergeMap(result => from(this.storage.set(storageKey, result)))
+      mergeMap(result =>
+        from(this.storage.set(storageKey, result)).pipe(
+          filter(value => value !== null)
+        )
+      )
     );
   }
 
   findAll<T extends Idable>(storageKey: string): Observable<T> {
-    return from(this.storage.get(storageKey));
+    return from(this.storage.get(storageKey)).pipe(
+      filter(value => value !== null)
+    );
   }
 
   findById<T extends Idable>(storageKey: string, id: string): Observable<T> {
@@ -58,9 +69,13 @@ export class RepositoryService {
 
   deleteById<T extends Idable>(storageKey: string, id: string): Observable<T> {
     return this.findAll(storageKey).pipe(
-      filter(value => value.id !== id),
+      filter((value: Idable) => value.id !== id),
       toArray(),
-      mergeMap(result => from(this.storage.set(storageKey, result)))
+      mergeMap(result =>
+        from(this.storage.set(storageKey, result)).pipe(
+          filter(value => value !== null)
+        )
+      )
     );
   }
 }
