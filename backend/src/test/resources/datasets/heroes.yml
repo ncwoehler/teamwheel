@@ -1,9 +1,0 @@
-heroes:
-  - id: 1
-    hero_name: "Ultra Rogue"
-    first_name: "Lenora"
-    last_name: "Renner"
-  - id: 2
-    hero_name: "Bizarro"
-    first_name: "Lexus"
-    last_name: "Moore"
