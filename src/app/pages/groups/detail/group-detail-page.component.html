@@ -47,14 +47,14 @@
 
                 <ion-item-divider sticky margin-top mode="md">
                     <h2>
-                        {{'groupDetails.members' | translate}} ({{group.members.length}})
+                        {{'groupDetails.members' | translate}} ({{members?.length}})
                     </h2>
                 </ion-item-divider>
                 <app-missing-data-text
-                        [data]="group.members"
+                        [data]="members"
                         text="{{'groupDetails.noMembers' | translate}}">
                 </app-missing-data-text>
-                <app-member [member]="member" *ngFor="let member of group.members"></app-member>
+                <app-member [member]="member" *ngFor="let member of members"></app-member>
             </ion-list>
         </ng-container>
     </app-fixed-width-grid>

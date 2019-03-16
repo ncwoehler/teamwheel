@@ -9,13 +9,13 @@ const STORAGE_KEY = "members";
   providedIn: "root"
 })
 export class MemberService {
-  constructor(private storageService: RepositoryService) {}
+  constructor(private repositoryService: RepositoryService) {}
 
   findAllById(membersIds: string[]): Observable<Member> {
-    return this.storageService.findAllById(STORAGE_KEY, membersIds);
+    return this.repositoryService.findAllById(STORAGE_KEY, membersIds);
   }
 
-  saveAll(oldMemberIds: string[], newMembers: Member[]): Observable<Member> {
-    return null;
+  saveAll(newMembers: Member[]): Observable<Member> {
+    return this.repositoryService.saveAll(STORAGE_KEY, newMembers);
   }
 }

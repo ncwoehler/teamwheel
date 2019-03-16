@@ -18,9 +18,9 @@
                 </ion-label>
             </ion-list-header>
             <app-group-row-item
-                    *ngFor="let group of (allGroups$ | async)"
+                    *ngFor="let group of allGroups"
                     [group]="group"></app-group-row-item>
-            <app-missing-data-text [data]="(allGroups$ | async)"
+            <app-missing-data-text [data]="allGroups"
                                    text="{{'groupOverview.noGroups' | translate}}"></app-missing-data-text>
         </ion-list>
     </app-fixed-width-grid>

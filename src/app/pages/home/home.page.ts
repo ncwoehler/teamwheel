@@ -21,7 +21,6 @@ export class HomePage {
   getRecentGroups(): void {
     this.groupService.getRecentGroupsInOrder().subscribe(recentGroups => {
       this.recentGroups = recentGroups;
-      console.info(recentGroups);
     });
   }
 }

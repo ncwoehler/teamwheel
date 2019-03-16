@@ -7,6 +7,7 @@ import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Member } from "../../../domain/Member";
 import nanoid from "nanoid";
 import { MemberService } from "../../../services/member.service";
+import { flatMap, map, tap, toArray } from "rxjs/operators";
 
 @Component({
   selector: "app-edit-group",
@@ -61,16 +62,14 @@ export class EditGroupPage implements OnInit {
   }
 
   setupGroupFormParams(group: Group) {
-    if (group) {
-      this.groupForm.patchValue(group);
-      const membersIds = group.members || [];
-      this.memberService.findAllById(membersIds).subscribe(member => {
-        this.oldMemberIds.push(member.id);
-        this.members.push(
-          this.createMemberGroup(member.id, member.name, member.avatar)
-        );
-      });
-    }
+    this.groupForm.patchValue(group);
+    const membersIds = group.members || [];
+    this.memberService.findAllById(membersIds).subscribe(member => {
+      this.oldMemberIds.push(member.id);
+      this.members.push(
+        this.createMemberGroup(member.id, member.name, member.avatar)
+      );
+    });
   }
 
   get members(): FormArray {
@@ -109,30 +108,29 @@ export class EditGroupPage implements OnInit {
   }
 
   onSubmit() {
-    const memberIds = this.members.controls.map(c => c.value.id);
-    const members = this.members.controls.map(c => {
-      const member = new Member(c.value.name, c.value.avatar);
-      member.id = c.value.id;
-      return member;
-    });
-    this.memberService.saveAll(this.oldMemberIds, members).subscribe({
-      next: () => {
-        this.groupService
-          .save(
+    const members = this.members.controls.map(
+      c => new Member(c.value.name, c.value.avatar, c.value.id)
+    );
+    this.memberService
+      .saveAll(members)
+      .pipe(
+        map(member => member.id),
+        toArray(),
+        flatMap(members => {
+          return this.groupService.save(
             this.groupForm.value.name,
             this.groupForm.value.icon,
-            memberIds,
+            members,
             this.groupId
-          )
-          .subscribe({
-            next: value => {
-              this.openGroupPage(value.id);
-            },
-            error: err => console.error(err) // TODO error handling
-          });
-      },
-      error: err => console.error(err) // TODO error handling
-    });
+          );
+        })
+      )
+      .subscribe({
+        next: value => {
+          this.openGroupPage("all"); // FIXME
+        },
+        error: err => console.error(err) // TODO error handling
+      });
   }
 
   openGroupPage(id: string) {

@@ -15,6 +15,9 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { ServiceWorkerModule } from "@angular/service-worker";
 
+import { LoggerModule } from "ngx-logger";
+import { environment } from "../environments/environment";
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -22,6 +25,7 @@ import { ServiceWorkerModule } from "@angular/service-worker";
     BrowserModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
+    LoggerModule.forRoot(environment.logging),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

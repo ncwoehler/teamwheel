@@ -2,8 +2,15 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { NgxLoggerLevel } from "ngx-logger";
+
 export const environment = {
-  production: false
+  production: false,
+  logging: {
+    //serverLoggingUrl: "https://devdactic.free.beeceptor.com/logs",
+    level: NgxLoggerLevel.DEBUG,
+    serverLogLevel: NgxLoggerLevel.ERROR
+  }
 };
 
 /*
@@ -13,4 +20,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+import "zone.js/dist/zone-error"; // Included with Angular CLI.

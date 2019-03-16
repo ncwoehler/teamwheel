@@ -1,22 +1,26 @@
 import { RepositoryService } from "./repository.service";
-import { Storage } from "@ionic/storage";
 import { from } from "rxjs";
 import { Member } from "../domain/Member";
 import { toArray } from "rxjs/operators";
-import { EMPTY } from "rxjs";
 import { Idable } from "../domain/Idable";
+import { NGXLogger } from "ngx-logger";
 
 describe("RepositoryService", () => {
   const STORAGE_KEY = "KEY";
   let repositoryService: RepositoryService;
-  let storageSpy: jasmine.SpyObj<Storage>;
+  const loggerSpy: NGXLogger = jasmine.createSpyObj("NGXLogger", ["get"]);
 
+  const mockResult = (members: Member[]) =>
+    new Promise(resolve => {
+      resolve(members);
+    });
   it("#findAll should return stubbed value from a spy", () => {
     const storageSpy = jasmine.createSpyObj("Storage", ["get"]);
-    const values = [new Member("1"), new Member("2")];
-    storageSpy.get.and.returnValue(from(values.concat([null as Member])));
 
-    repositoryService = new RepositoryService(storageSpy, null);
+    const values = [new Member("1"), new Member("2")];
+    storageSpy.get.and.returnValue(mockResult(values.concat([null as Member])));
+
+    repositoryService = new RepositoryService(storageSpy, null, loggerSpy);
 
     repositoryService
       .findAll(STORAGE_KEY)
@@ -36,9 +40,9 @@ describe("RepositoryService", () => {
 
     // set the value to return when the `getValue` spy is called.
     const values = [];
-    storageSpy.get.and.returnValue(from(values));
+    storageSpy.get.and.returnValue(mockResult(values));
 
-    repositoryService = new RepositoryService(storageSpy, null);
+    repositoryService = new RepositoryService(storageSpy, null, loggerSpy);
 
     repositoryService
       .findAll(STORAGE_KEY)
@@ -62,19 +66,20 @@ describe("RepositoryService", () => {
       { id: "2", name: "2" }
     ];
 
-    const stubValue = from(expectedMembers);
-    storageSpy.get.and.returnValue(stubValue);
+    storageSpy.get.and.returnValue(mockResult(expectedMembers));
 
-    repositoryService = new RepositoryService(storageSpy, null);
+    repositoryService = new RepositoryService(storageSpy, null, loggerSpy);
 
-    repositoryService
-      .findById(STORAGE_KEY, "2")
-      .subscribe(
-        (next: Idable) => expect(next.id).toEqual("2", "expected member"),
-        error => fail("expected an error, not heroes")
-      );
-    expect(storageSpy.get.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.get.calls.mostRecent().returnValue).toBe(stubValue);
+    repositoryService.findById(STORAGE_KEY, "2").subscribe(
+      (next: Idable) => {
+        expect(next.id).toEqual("2", "expected member");
+        expect(storageSpy.get.calls.count()).toBe(
+          1,
+          "spy method was called once"
+        );
+      },
+      error => fail("expected an error, not heroes" + error)
+    );
   });
 
   it("#findAllById should return stubbed value from a spy", () => {
@@ -88,10 +93,9 @@ describe("RepositoryService", () => {
       { id: "3", name: "3" }
     ];
 
-    const stubValue = from(initialMembers);
-    storageSpy.get.and.returnValue(stubValue);
+    storageSpy.get.and.returnValue(mockResult(initialMembers));
 
-    repositoryService = new RepositoryService(storageSpy, null);
+    repositoryService = new RepositoryService(storageSpy, null, loggerSpy);
 
     const expectedResult: Member[] = [
       { id: "1", name: "1" },
@@ -105,7 +109,6 @@ describe("RepositoryService", () => {
         error => fail("received an error: " + error)
       );
     expect(storageSpy.get.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.get.calls.mostRecent().returnValue).toBe(stubValue);
   });
 
   it("#deleteById should return stubbed value from a spy", () => {
@@ -127,7 +130,7 @@ describe("RepositoryService", () => {
     storageSpy.get.and.returnValue(stubValue);
     storageSpy.set.and.returnValue(from(expectedResult));
 
-    repositoryService = new RepositoryService(storageSpy, null);
+    repositoryService = new RepositoryService(storageSpy, null, loggerSpy);
 
     repositoryService
       .deleteById(STORAGE_KEY, "2")
@@ -179,7 +182,11 @@ describe("RepositoryService", () => {
     storageSpy.set.and.returnValue(from(expectedResult));
     idServiceSpy.getId.and.returnValues("id", "id2");
 
-    repositoryService = new RepositoryService(storageSpy, idServiceSpy);
+    repositoryService = new RepositoryService(
+      storageSpy,
+      idServiceSpy,
+      loggerSpy
+    );
 
     repositoryService
       .saveAll(STORAGE_KEY, newMembers)
@@ -223,7 +230,11 @@ describe("RepositoryService", () => {
     storageSpy.set.and.returnValue(from(expectedResult));
     idServiceSpy.getId.and.returnValues("id");
 
-    repositoryService = new RepositoryService(storageSpy, idServiceSpy);
+    repositoryService = new RepositoryService(
+      storageSpy,
+      idServiceSpy,
+      loggerSpy
+    );
 
     repositoryService
       .save(STORAGE_KEY, newMember)
@@ -265,7 +276,11 @@ describe("RepositoryService", () => {
     storageSpy.set.and.returnValue(from(expectedResult));
     idServiceSpy.getId.and.returnValues("id");
 
-    repositoryService = new RepositoryService(storageSpy, idServiceSpy);
+    repositoryService = new RepositoryService(
+      storageSpy,
+      idServiceSpy,
+      loggerSpy
+    );
 
     repositoryService
       .save(STORAGE_KEY, updatedMember)

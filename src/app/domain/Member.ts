@@ -5,8 +5,9 @@ export class Member implements Idable {
   name: string;
   avatar?: string;
 
-  constructor(name: string, avatar?: string) {
+  constructor(name: string, avatar?: string, id?: string) {
     this.name = name;
     this.avatar = avatar;
+    this.id = id;
   }
 }

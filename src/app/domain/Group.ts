@@ -7,9 +7,10 @@ export class Group implements Idable {
   lastUsed: number;
   members: string[];
 
-  constructor(name: string, icon: string, members: string[]) {
+  constructor(name: string, icon: string, members: string[], id?: string) {
     this.name = name;
     this.icon = icon;
     this.members = members;
+    this.id = id;
   }
 }
