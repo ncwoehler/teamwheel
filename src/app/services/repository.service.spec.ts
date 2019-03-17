@@ -177,7 +177,7 @@ describe("RepositoryService", () => {
       );
   });
 
-  it("#saveAll should save all", () => {
+  it("#saveAll should save all and return changed", () => {
     const storageSpy = jasmine.createSpyObj("Storage", ["get", "set"]);
     const idServiceSpy = jasmine.createSpyObj("IdService", ["getId"]);
 
@@ -198,7 +198,7 @@ describe("RepositoryService", () => {
     const member2WithId: Member = new Member("4");
     member2WithId.id = "id2";
 
-    const expectedResult: Member[] = [
+    const expectedStoredMembers: Member[] = [
       { id: "1", name: "1" },
       { id: "2", name: "5" },
       { id: "3", name: "3" },
@@ -206,8 +206,14 @@ describe("RepositoryService", () => {
       member2WithId
     ];
 
+    const expectedResult: Member[] = [
+      { id: "2", name: "5" },
+      member1WithId,
+      member2WithId
+    ];
+
     storageSpy.get.and.returnValue(mockResult(initialMembers));
-    storageSpy.set.and.returnValue(mockResult(expectedResult));
+    storageSpy.set.and.returnValue(mockResult(expectedStoredMembers));
     idServiceSpy.getId.and.returnValues("id", "id2");
 
     repositoryService = new RepositoryService(
@@ -232,14 +238,14 @@ describe("RepositoryService", () => {
           );
           expect(storageSpy.set.calls.mostRecent().args).toEqual([
             STORAGE_KEY,
-            expectedResult
+            expectedStoredMembers
           ]);
         },
         error => fail("received an error: " + error)
       );
   });
 
-  it("#save should save one", () => {
+  it("#save should save one and return entity", () => {
     const storageSpy = jasmine.createSpyObj("Storage", ["get", "set"]);
     const idServiceSpy = jasmine.createSpyObj("IdService", ["getId"]);
 
@@ -253,15 +259,17 @@ describe("RepositoryService", () => {
     const memberWithId: Member = new Member("4");
     memberWithId.id = "id";
 
-    const expectedResult: Member[] = [
+    const expectedStoredMembers: Member[] = [
       { id: "1", name: "1" },
       { id: "2", name: "2" },
       { id: "3", name: "3" },
       memberWithId
     ];
 
+    const expectedResult: Member[] = [memberWithId];
+
     storageSpy.get.and.returnValue(mockResult(initialMembers));
-    storageSpy.set.and.returnValue(mockResult(expectedResult));
+    storageSpy.set.and.returnValue(mockResult(expectedStoredMembers));
     idServiceSpy.getId.and.returnValues("id");
 
     repositoryService = new RepositoryService(
@@ -286,7 +294,7 @@ describe("RepositoryService", () => {
           );
           expect(storageSpy.set.calls.mostRecent().args).toEqual([
             STORAGE_KEY,
-            expectedResult
+            expectedStoredMembers
           ]);
         },
         error => fail("received an error: " + error)
@@ -306,14 +314,16 @@ describe("RepositoryService", () => {
     const updatedMember: Member = new Member("4");
     updatedMember.id = "2";
 
-    const expectedResult: Member[] = [
+    const expectedStoredMembers: Member[] = [
       { id: "1", name: "1" },
       updatedMember,
       { id: "3", name: "3" }
     ];
 
-    storageSpy.get.and.returnValue(mockResult(expectedResult));
-    storageSpy.set.and.returnValue(mockResult(expectedResult));
+    const expectedResult: Member[] = [updatedMember];
+
+    storageSpy.get.and.returnValue(mockResult(expectedStoredMembers));
+    storageSpy.set.and.returnValue(mockResult(expectedStoredMembers));
     idServiceSpy.getId.and.returnValues("id");
 
     repositoryService = new RepositoryService(
@@ -338,7 +348,7 @@ describe("RepositoryService", () => {
           );
           expect(storageSpy.set.calls.mostRecent().args).toEqual([
             STORAGE_KEY,
-            expectedResult
+            expectedStoredMembers
           ]);
         },
         error => fail("received an error: " + error)

@@ -34,6 +34,7 @@ export class RepositoryService {
     storageKey: string,
     newObjects: T[]
   ): Observable<T> {
+    let savedIds = [];
     return concat(
       this.get(storageKey).pipe(
         map(obj => {
@@ -41,6 +42,7 @@ export class RepositoryService {
             (newObj: Idable) => obj.id === newObj.id
           );
           if (replacement) {
+            savedIds.push(obj.id);
             this.logger.debug("Updated ", storageKey, replacement);
           }
           return replacement || obj;
@@ -50,14 +52,14 @@ export class RepositoryService {
         filter(newObj => !newObj.id),
         map(newObj => {
           newObj.id = this.idService.getId();
+          savedIds.push(newObj.id);
           this.logger.debug("Created ID for new ", storageKey, newObj);
           return newObj;
         })
       )
     ).pipe(
       toArray(),
-      // FIXME only return provided values
-      mergeMap(result => this.store(storageKey, result))
+      mergeMap(result => this.store(storageKey, result, savedIds))
     );
   }
 
@@ -111,12 +113,20 @@ export class RepositoryService {
     );
   }
 
-  private store<T extends Idable>(storageKey, data): Observable<T> {
+  private store<T extends Idable>(
+    storageKey,
+    data,
+    ids?: string[]
+  ): Observable<T> {
     return from(this.storage.set(storageKey, data)).pipe(
       filter(value => !!value),
       tap(value => this.logger.debug("Stored new ", storageKey, value)),
       flatMap(values => from(values)),
-      filter(value => !!value)
+      filter(value => !!value && this.isInIDs(value, ids))
     );
+  }
+
+  private isInIDs(value: Idable, ids?: string[]): boolean {
+    return !ids || !!ids.find(id => id === value.id);
   }
 }
