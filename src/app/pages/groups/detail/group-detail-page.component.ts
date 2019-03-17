@@ -10,10 +10,11 @@ import {
 import { TranslateService } from "@ngx-translate/core";
 import { Draw } from "../../../domain/Draw";
 import { DrawService } from "../../../services/draw.service";
-import { map, mergeMap, tap, toArray } from "rxjs/operators";
+import { flatMap, map, mergeMap, tap, toArray } from "rxjs/operators";
 import { Member } from "../../../domain/Member";
 import { MemberService } from "../../../services/member.service";
 import { NGXLogger } from "ngx-logger";
+import { merge } from "rxjs";
 
 @Component({
   selector: "app-group",
@@ -89,10 +90,13 @@ export class GroupDetailPage {
         {
           text: this.translateService.instant("groupDetails.deleteConfirm"),
           handler: () => {
-            this.groupService.deleteGroup(this.group.id).subscribe(
-              () => this.openGroupsOverview(),
-              error => console.error(error) // TODO error handling
-            );
+            merge(
+              this.groupService.deleteGroup(this.group.id),
+              this.memberService.deleteAll(this.group.members)
+            ).subscribe({
+              error: error => this.logger.error(error), // FIXME
+              complete: () => this.openGroupsOverview()
+            });
           }
         }
       ]

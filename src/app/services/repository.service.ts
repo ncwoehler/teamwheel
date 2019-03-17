@@ -105,6 +105,7 @@ export class RepositoryService {
     return this.get(storageKey).pipe(
       filter((value: Idable) => !ids.find(id => value.id === id)),
       toArray(),
+      defaultIfEmpty([] as T[]),
       mergeMap(result => this.store(storageKey, result))
     );
   }
@@ -127,9 +128,12 @@ export class RepositoryService {
   ): Observable<T> {
     return from(this.storage.set(storageKey, data)).pipe(
       filter(value => !!value),
+      defaultIfEmpty([] as T[]),
       tap(value => this.logger.debug("Stored new ", storageKey, value)),
       flatMap(values => from(values)),
-      filter(value => !!value && this.isInIDs(value, ids))
+      tap(value => this.logger.debug("Stored single ", storageKey, value)),
+      filter(value => !!value && this.isInIDs(value, ids)),
+      tap(value => this.logger.debug("Filtered single ", storageKey, value))
     );
   }
 
