@@ -56,6 +56,7 @@ export class RepositoryService {
       )
     ).pipe(
       toArray(),
+      // FIXME only return provided values
       mergeMap(result => this.store(storageKey, result))
     );
   }
@@ -105,6 +106,7 @@ export class RepositoryService {
       defaultIfEmpty([] as T[]),
       tap(values => this.logger.debug("Loaded all", storageKey, values)),
       flatMap(values => from(values)),
+      filter(value => !!value),
       tap(values => this.logger.debug("Loaded single", storageKey, values))
     );
   }
@@ -113,7 +115,8 @@ export class RepositoryService {
     return from(this.storage.set(storageKey, data)).pipe(
       filter(value => !!value),
       tap(value => this.logger.debug("Stored new ", storageKey, value)),
-      flatMap(values => from(values))
+      flatMap(values => from(values)),
+      filter(value => !!value)
     );
   }
 }

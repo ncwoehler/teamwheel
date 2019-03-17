@@ -8,13 +8,14 @@ import { NGXLogger } from "ngx-logger";
 describe("RepositoryService", () => {
   const STORAGE_KEY = "KEY";
   let repositoryService: RepositoryService;
-  const loggerSpy: NGXLogger = jasmine.createSpyObj("NGXLogger", ["get"]);
+  const loggerSpy: NGXLogger = jasmine.createSpyObj("NGXLogger", ["debug"]);
 
   const mockResult = (members: Member[]) =>
     new Promise(resolve => {
       resolve(members);
     });
-  it("#findAll should return stubbed value from a spy", () => {
+
+  it("#findAll should return values from a spy", () => {
     const storageSpy = jasmine.createSpyObj("Storage", ["get"]);
 
     const values = [new Member("1"), new Member("2")];
@@ -49,6 +50,28 @@ describe("RepositoryService", () => {
       .pipe(toArray())
       .subscribe(result => {
         expect(result).toEqual(values, "service returned stub value");
+        expect(storageSpy.get.calls.count()).toBe(
+          1,
+          "spy method was called once"
+        );
+      });
+  });
+
+  it("#findAll should return nothing on null value from a spy", () => {
+    // create `getValue` spy on an object representing the ValueService
+    const storageSpy = jasmine.createSpyObj("Storage", ["get"]);
+
+    // set the value to return when the `getValue` spy is called.
+    const values = null;
+    storageSpy.get.and.returnValue(mockResult(values));
+
+    repositoryService = new RepositoryService(storageSpy, null, loggerSpy);
+
+    repositoryService
+      .findAll(STORAGE_KEY)
+      .pipe(toArray())
+      .subscribe(result => {
+        expect(result).toEqual([], "service returned stub value");
         expect(storageSpy.get.calls.count()).toBe(
           1,
           "spy method was called once"
@@ -126,9 +149,8 @@ describe("RepositoryService", () => {
       { id: "3", name: "3" }
     ];
 
-    const stubValue = from(initialMembers);
-    storageSpy.get.and.returnValue(stubValue);
-    storageSpy.set.and.returnValue(from(expectedResult));
+    storageSpy.get.and.returnValue(mockResult(initialMembers));
+    storageSpy.set.and.returnValue(mockResult(expectedResult));
 
     repositoryService = new RepositoryService(storageSpy, null, loggerSpy);
 
@@ -136,16 +158,23 @@ describe("RepositoryService", () => {
       .deleteById(STORAGE_KEY, "2")
       .pipe(toArray())
       .subscribe(
-        next => expect(next).toEqual(expectedResult, "expected member"),
+        next => {
+          expect(next).toEqual(expectedResult, "expected member");
+          expect(storageSpy.get.calls.count()).toBe(
+            1,
+            "spy method was called once"
+          );
+          expect(storageSpy.set.calls.count()).toBe(
+            1,
+            "spy method was called once"
+          );
+          expect(storageSpy.set.calls.mostRecent().args).toEqual([
+            STORAGE_KEY,
+            expectedResult
+          ]);
+        },
         error => fail("received an error: " + error)
       );
-    expect(storageSpy.get.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.get.calls.mostRecent().returnValue).toBe(stubValue);
-    expect(storageSpy.set.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.set.calls.mostRecent().args).toEqual([
-      STORAGE_KEY,
-      expectedResult
-    ]);
   });
 
   it("#saveAll should save all", () => {
@@ -177,9 +206,8 @@ describe("RepositoryService", () => {
       member2WithId
     ];
 
-    const stubValue = from(initialMembers);
-    storageSpy.get.and.returnValue(stubValue);
-    storageSpy.set.and.returnValue(from(expectedResult));
+    storageSpy.get.and.returnValue(mockResult(initialMembers));
+    storageSpy.set.and.returnValue(mockResult(expectedResult));
     idServiceSpy.getId.and.returnValues("id", "id2");
 
     repositoryService = new RepositoryService(
@@ -192,16 +220,23 @@ describe("RepositoryService", () => {
       .saveAll(STORAGE_KEY, newMembers)
       .pipe(toArray())
       .subscribe(
-        next => expect(next).toEqual(expectedResult, "expected member"),
+        next => {
+          expect(next).toEqual(expectedResult, "expected member");
+          expect(storageSpy.get.calls.count()).toBe(
+            1,
+            "spy method was called once"
+          );
+          expect(storageSpy.set.calls.count()).toBe(
+            1,
+            "spy method was called once"
+          );
+          expect(storageSpy.set.calls.mostRecent().args).toEqual([
+            STORAGE_KEY,
+            expectedResult
+          ]);
+        },
         error => fail("received an error: " + error)
       );
-    expect(storageSpy.get.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.get.calls.mostRecent().returnValue).toBe(stubValue);
-    expect(storageSpy.set.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.set.calls.mostRecent().args).toEqual([
-      STORAGE_KEY,
-      expectedResult
-    ]);
   });
 
   it("#save should save one", () => {
@@ -225,9 +260,8 @@ describe("RepositoryService", () => {
       memberWithId
     ];
 
-    const stubValue = from(initialMembers);
-    storageSpy.get.and.returnValue(stubValue);
-    storageSpy.set.and.returnValue(from(expectedResult));
+    storageSpy.get.and.returnValue(mockResult(initialMembers));
+    storageSpy.set.and.returnValue(mockResult(expectedResult));
     idServiceSpy.getId.and.returnValues("id");
 
     repositoryService = new RepositoryService(
@@ -240,16 +274,23 @@ describe("RepositoryService", () => {
       .save(STORAGE_KEY, newMember)
       .pipe(toArray())
       .subscribe(
-        next => expect(next).toEqual(expectedResult, "expected member"),
+        next => {
+          expect(next).toEqual(expectedResult, "expected member");
+          expect(storageSpy.get.calls.count()).toBe(
+            1,
+            "spy method was called once"
+          );
+          expect(storageSpy.set.calls.count()).toBe(
+            1,
+            "spy method was called once"
+          );
+          expect(storageSpy.set.calls.mostRecent().args).toEqual([
+            STORAGE_KEY,
+            expectedResult
+          ]);
+        },
         error => fail("received an error: " + error)
       );
-    expect(storageSpy.get.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.get.calls.mostRecent().returnValue).toBe(stubValue);
-    expect(storageSpy.set.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.set.calls.mostRecent().args).toEqual([
-      STORAGE_KEY,
-      expectedResult
-    ]);
   });
 
   it("#save should update one", () => {
@@ -271,9 +312,8 @@ describe("RepositoryService", () => {
       { id: "3", name: "3" }
     ];
 
-    const stubValue = from(initialMembers);
-    storageSpy.get.and.returnValue(stubValue);
-    storageSpy.set.and.returnValue(from(expectedResult));
+    storageSpy.get.and.returnValue(mockResult(expectedResult));
+    storageSpy.set.and.returnValue(mockResult(expectedResult));
     idServiceSpy.getId.and.returnValues("id");
 
     repositoryService = new RepositoryService(
@@ -286,15 +326,22 @@ describe("RepositoryService", () => {
       .save(STORAGE_KEY, updatedMember)
       .pipe(toArray())
       .subscribe(
-        next => expect(next).toEqual(expectedResult, "expected member"),
+        next => {
+          expect(next).toEqual(expectedResult, "expected member");
+          expect(storageSpy.get.calls.count()).toBe(
+            1,
+            "spy method was called once"
+          );
+          expect(storageSpy.set.calls.count()).toBe(
+            1,
+            "spy method was called once"
+          );
+          expect(storageSpy.set.calls.mostRecent().args).toEqual([
+            STORAGE_KEY,
+            expectedResult
+          ]);
+        },
         error => fail("received an error: " + error)
       );
-    expect(storageSpy.get.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.get.calls.mostRecent().returnValue).toBe(stubValue);
-    expect(storageSpy.set.calls.count()).toBe(1, "spy method was called once");
-    expect(storageSpy.set.calls.mostRecent().args).toEqual([
-      STORAGE_KEY,
-      expectedResult
-    ]);
   });
 });
