@@ -7,7 +7,7 @@ import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Member } from "../../../domain/Member";
 import nanoid from "nanoid";
 import { MemberService } from "../../../services/member.service";
-import { flatMap, map, tap, toArray } from "rxjs/operators";
+import { flatMap, map, mergeMap, tap, toArray } from "rxjs/operators";
 
 @Component({
   selector: "app-edit-group",
@@ -17,6 +17,7 @@ import { flatMap, map, tap, toArray } from "rxjs/operators";
 export class EditGroupPage implements OnInit {
   groupId;
   oldMemberIds: string[] = [];
+  deletedMemberIds: string[] = [];
   groupForm;
   newMemberName: string;
 
@@ -104,6 +105,9 @@ export class EditGroupPage implements OnInit {
 
   async removeMember(name: string) {
     const index = this.getMemberIndex(name);
+    this.deletedMemberIds.push(
+      this.members.controls.find(c => c.value.name === name).value.id
+    );
     this.members.removeAt(index);
   }
 
@@ -111,23 +115,29 @@ export class EditGroupPage implements OnInit {
     const members = this.members.controls.map(
       c => new Member(c.value.name, c.value.avatar, c.value.id)
     );
+
     this.memberService
-      .saveAll(members)
+      .deleteAll(this.deletedMemberIds)
       .pipe(
-        map(member => member.id),
         toArray(),
-        flatMap(members => {
-          return this.groupService.save(
-            this.groupForm.value.name,
-            this.groupForm.value.icon,
-            members,
-            this.groupId
+        flatMap(() => {
+          return this.memberService.saveAll(members).pipe(
+            map(member => member.id),
+            toArray(),
+            flatMap(members => {
+              return this.groupService.save(
+                this.groupForm.value.name,
+                this.groupForm.value.icon,
+                members,
+                this.groupId
+              );
+            })
           );
         })
       )
       .subscribe({
-        next: value => {
-          this.openGroupPage("all"); // FIXME
+        next: group => {
+          this.openGroupPage(group.id);
         },
         error: err => console.error(err) // TODO error handling
       });

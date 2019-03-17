@@ -21,7 +21,6 @@ export class AllGroupsPage {
     this.groupService
       .getAllGroups()
       .pipe(
-        tap(values => console.info(values)),
         toArray(),
         map(data => data.sort((a, b) => a.name.localeCompare(b.name)))
       )

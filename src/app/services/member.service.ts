@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { RepositoryService } from "./repository.service";
-import { Observable } from "rxjs";
+import { merge, Observable } from "rxjs";
 import { Member } from "../domain/Member";
 
 const STORAGE_KEY = "members";
@@ -17,5 +17,9 @@ export class MemberService {
 
   saveAll(newMembers: Member[]): Observable<Member> {
     return this.repositoryService.saveAll(STORAGE_KEY, newMembers);
+  }
+
+  deleteAll(memeberIds: string[]) {
+    return this.repositoryService.deleteAllById(STORAGE_KEY, memeberIds);
   }
 }

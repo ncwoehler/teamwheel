@@ -95,8 +95,15 @@ export class RepositoryService {
   }
 
   deleteById<T extends Idable>(storageKey: string, id: string): Observable<T> {
+    return this.deleteAllById(storageKey, [id]);
+  }
+
+  deleteAllById<T extends Idable>(
+    storageKey: string,
+    ids: string[]
+  ): Observable<T> {
     return this.get(storageKey).pipe(
-      filter((value: Idable) => value.id !== id),
+      filter((value: Idable) => !ids.find(id => value.id === id)),
       toArray(),
       mergeMap(result => this.store(storageKey, result))
     );
