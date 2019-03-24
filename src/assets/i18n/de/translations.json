@@ -78,5 +78,8 @@
     "deleteMsg": "<b style='color: #dc3545'>WARNUNG:</b><br/> Dieser Schritt kann NICHT rückgängig gemacht werden.",
     "deleteCancel": "Abbrechen",
     "deleteConfirm": "Teams löschen"
+  },
+  "member":{
+    "deleted": "Gelöschtes Mitglied"
   }
 }

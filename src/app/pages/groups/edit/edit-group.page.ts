@@ -63,7 +63,9 @@ export class EditGroupPage implements OnInit {
       this.groupForm.patchValue(group);
       const membersValue = group.members || [];
       membersValue
-        .map(member => this.createMemberGroup(member.name, member.avatar))
+        .map(member =>
+          this.createMemberGroup(member.id, member.name, member.avatar)
+        )
         .forEach(m => this.members.push(m));
     }
   }
@@ -84,7 +86,11 @@ export class EditGroupPage implements OnInit {
     if (!this.addMemberValid()) {
       return;
     }
-    const newMemberGroup = this.createMemberGroup(this.newMemberName, null);
+    const newMemberGroup = this.createMemberGroup(
+      null,
+      this.newMemberName,
+      null
+    );
 
     this.members.push(newMemberGroup);
     this.newMemberName = "";
@@ -100,8 +106,8 @@ export class EditGroupPage implements OnInit {
   }
 
   onSubmit() {
-    const newMembers = this.members.controls.map(
-      c => new Member(nanoid(), c.value.name, c.value.avatar)
+    const groupMembers = this.members.controls.map(
+      c => new Member(c.value.id || nanoid(), c.value.name, c.value.avatar)
     );
     if (this.groupId) {
       this.groupService
@@ -109,7 +115,7 @@ export class EditGroupPage implements OnInit {
           this.groupId,
           this.groupForm.value.name,
           this.groupForm.value.icon,
-          newMembers
+          groupMembers
         )
         .then(g => this.openGroupPage(g.id))
         .catch(value => console.error(value)); // TODO error handling
@@ -118,7 +124,7 @@ export class EditGroupPage implements OnInit {
         .addGroup(
           this.groupForm.value.name,
           this.groupForm.value.icon,
-          newMembers
+          groupMembers
         )
         .then(g => this.openGroupPage(g.id))
         .catch(value => console.error(value)); // TODO error handling
@@ -142,8 +148,9 @@ export class EditGroupPage implements OnInit {
     $event.detail.complete();
   }
 
-  private createMemberGroup(name: string, avatar: string) {
+  private createMemberGroup(id: string, name: string, avatar: string) {
     return this.fb.group({
+      id: this.fb.control(id),
       name: this.fb.control(name, Validators.required),
       avatar: this.fb.control(avatar)
     });

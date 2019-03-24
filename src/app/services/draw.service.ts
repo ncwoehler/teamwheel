@@ -5,7 +5,7 @@ import { Team } from "../domain/Team";
 import { Draw } from "../domain/Draw";
 import { Storage } from "@ionic/storage";
 
-const STORAGE_KEY = "drawKey";
+const STORAGE_KEY = "_draws";
 
 @Injectable({
   providedIn: "root"
@@ -43,16 +43,16 @@ export class DrawService {
 
   async drawTeam(
     groupId: string,
-    members: Member[],
-    disabledMembers: Member[],
+    memberIds: string[],
+    disabledMemberIds: string[],
     selectedSize: number,
     segmentSelection: string
   ): Promise<Draw> {
     this.lastSegmentOption = segmentSelection;
     this.lastSelectedSize = selectedSize;
 
-    const availableMembers = members.filter(
-      m => disabledMembers.findIndex(d => d.name == m.name) < 0
+    const availableMembers = memberIds.filter(
+      m => !disabledMemberIds.find(d => d === m)
     );
 
     // shuffle members
@@ -77,8 +77,8 @@ export class DrawService {
   }
 
   async reshuffle(): Promise<Draw> {
-    const members: Member[] = this.lastDraw.teams
-      .map(team => team.members)
+    const members: string[] = this.lastDraw.teams
+      .map(team => team.memberIds)
       .reduce((prev, curr) => prev.concat(curr));
 
     return await this.drawTeam(
@@ -130,7 +130,10 @@ export class DrawService {
     }
   }
 
-  private drawByNumberOfTeams(numberOfTeams: number, availableMembers) {
+  private drawByNumberOfTeams(
+    numberOfTeams: number,
+    availableMembers: string[]
+  ) {
     // create # of teams
     const createdTeams: Team[] = [];
     for (var _i = 0; _i < numberOfTeams; _i++) {
@@ -141,8 +144,8 @@ export class DrawService {
     }
 
     // add available members to teams
-    availableMembers.forEach((member, index) => {
-      createdTeams[index % numberOfTeams].members.push(member);
+    availableMembers.forEach((memberId, index) => {
+      createdTeams[index % numberOfTeams].memberIds.push(memberId);
     });
 
     // filter all teams without a member and create a new draw
@@ -151,11 +154,14 @@ export class DrawService {
       nanoid(),
       null,
       newDate,
-      createdTeams.filter(team => team.members.length > 0)
+      createdTeams.filter(team => team.memberIds.length > 0)
     );
   }
 
-  private drawByNumberOfMembers(selectedSize: number, availableMembers) {
+  private drawByNumberOfMembers(
+    selectedSize: number,
+    availableMembers: string[]
+  ) {
     const numberOfTeams = Math.round(availableMembers.length / selectedSize);
     return this.drawByNumberOfTeams(numberOfTeams, availableMembers);
   }

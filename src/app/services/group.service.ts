@@ -4,7 +4,7 @@ import { Group } from "../domain/Group";
 import nanoid from "nanoid";
 import { Member } from "../domain/Member";
 
-const STORAGE_KEY = "allGroups";
+const STORAGE_KEY = "'_groups";
 
 @Injectable({
   providedIn: "root"
@@ -84,6 +84,11 @@ export class GroupService {
     } else {
       // TODO error handling
     }
+  }
+
+  async getRecentGroupsInOrder(): Promise<Group[]> {
+    const allGroups = await this.getAllGroups();
+    return allGroups.sort((a, b) => b.lastUsed - a.lastUsed).slice(0, 5);
   }
 
   private storeGroups(groups: Group[]) {
