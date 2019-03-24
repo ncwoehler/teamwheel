@@ -5,6 +5,7 @@ import { SettingsService } from "../../services/settings.service";
 import { Settings } from "../../domain/Settings";
 import set = Reflect.set;
 import { TranslateService } from "@ngx-translate/core";
+import { DrawService } from "../../services/draw.service";
 
 @Component({
   selector: "app-settings",
@@ -17,6 +18,7 @@ export class SettingsPage implements OnInit {
   constructor(
     private settingsService: SettingsService,
     private groupService: GroupService,
+    private drawService: DrawService,
     private nav: NavController,
     private alertController: AlertController,
     private translateService: TranslateService
@@ -49,11 +51,17 @@ export class SettingsPage implements OnInit {
   }
 
   private async deleteAll() {
+    // delete groups
     const allGroups = await this.groupService.getAllGroups();
+    await Promise.all(
+      allGroups.map(group => this.groupService.deleteGroup(group.id))
+    );
 
-    for (let group of allGroups) {
-      await this.groupService.deleteGroup(group.id);
-    }
+    // delete draws
+    const allDraws = await this.drawService.loadAllDraws();
+    await Promise.all(
+      allDraws.map(draw => this.drawService.deleteDraw(draw.id))
+    );
 
     await this.settingsService.deleteSettings();
     this.nav.navigateRoot("home");

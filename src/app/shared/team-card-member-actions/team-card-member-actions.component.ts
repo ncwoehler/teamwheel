@@ -9,7 +9,7 @@ import { PopoverController } from "@ionic/angular";
   styleUrls: ["./team-card-member-actions.component.scss"]
 })
 export class TeamCardMemberActionsComponent implements OnInit {
-  @Input() member: Member;
+  @Input() memberId: string;
   @Input() currentTeam: Team;
   @Input() otherTeams: Team[];
   @Input() pop: PopoverController;
@@ -30,14 +30,14 @@ export class TeamCardMemberActionsComponent implements OnInit {
   }
 
   moveToTeam() {
-    const oldIndex = this.currentTeam.members.findIndex(
-      m => m.name === this.member.name
+    const oldIndex = this.currentTeam.memberIds.findIndex(
+      m => m === this.memberId
     );
-    this.currentTeam.members.splice(oldIndex, 1);
+    this.currentTeam.memberIds.splice(oldIndex, 1);
 
     this.otherTeams
       .find(t => t.name === this.selectedTeam)
-      .members.push(this.member);
+      .memberIds.push(this.memberId);
     this.pop.dismiss();
   }
 

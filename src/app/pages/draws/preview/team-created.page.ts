@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { DrawService } from "../../../services/draw.service";
 import { Draw } from "../../../domain/Draw";
 import { NavController } from "@ionic/angular";
+import { Group } from "../../../domain/Group";
+import { GroupService } from "../../../services/group.service";
 
 @Component({
   selector: "app-team-created",
@@ -10,12 +12,21 @@ import { NavController } from "@ionic/angular";
 })
 export class TeamCreatedPage {
   draw: Draw;
+  group: Group;
   reorderingEnabled: boolean = false;
 
-  constructor(private drawService: DrawService, private nav: NavController) {}
+  constructor(
+    private drawService: DrawService,
+    private groupService: GroupService,
+    private nav: NavController
+  ) {}
 
   ionViewWillEnter() {
     this.draw = this.drawService.getLastDraw();
+    this.groupService
+      .getGroupById(this.draw.groupId)
+      .then(group => (this.group = group))
+      .catch(error => console.error(error)); // TODO error handling
   }
 
   reshuffle() {

@@ -72,8 +72,12 @@ export class GroupDetailPage {
         {
           text: this.translateService.instant("groupDetails.deleteConfirm"),
           handler: () => {
-            this.groupService
-              .deleteGroup(this.group.id)
+            Promise.all([
+              Promise.all(
+                this.draws.map(draw => this.drawService.deleteDraw(draw.id))
+              ),
+              this.groupService.deleteGroup(this.group.id)
+            ])
               .then(value => this.openGroupsOverview())
               .catch(error => console.error(error)); // TODO error handling
           }
