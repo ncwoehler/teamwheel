@@ -3,6 +3,8 @@ import { Team } from "../../domain/Team";
 import { PopoverController } from "@ionic/angular";
 import { TeamCardMemberActionsComponent } from "../team-card-member-actions/team-card-member-actions.component";
 import { Member } from "../../domain/Member";
+import { Draw } from "../../domain/Draw";
+import { Group } from "../../domain/Group";
 
 @Component({
   selector: "app-team-card",
@@ -10,8 +12,9 @@ import { Member } from "../../domain/Member";
   styleUrls: ["./team-card.component.scss"]
 })
 export class TeamCardComponent implements OnInit {
-  @Input() draw;
-  @Input() team;
+  @Input() group: Group;
+  @Input() draw: Draw;
+  @Input() team: Team;
   @Input() allowEdit = false;
   @Input() allowReorder = false;
 
@@ -23,10 +26,15 @@ export class TeamCardComponent implements OnInit {
     this.team.name = $event;
   }
 
+  getMemberFromGroup(memberId: string): Member {
+    let member1 = this.group.members.find(member => member.id === memberId);
+    return member1;
+  }
+
   reorder($event, team: Team) {
-    const movedMember = team.members[$event.detail.from];
-    team.members.splice($event.detail.from, 1);
-    team.members.splice($event.detail.to, 0, movedMember);
+    const movedMember = team.memberIds[$event.detail.from];
+    team.memberIds.splice($event.detail.from, 1);
+    team.memberIds.splice($event.detail.to, 0, movedMember);
     $event.detail.complete();
   }
 

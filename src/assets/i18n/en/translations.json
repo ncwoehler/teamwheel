@@ -78,5 +78,8 @@
     "deleteMsg": "<b style='color: #dc3545'>WARNING:</b><br/> This CANNOT be reverted.",
     "deleteCancel": "Cancel",
     "deleteConfirm": "Delete draw"
+  },
+  "member":{
+    "deleted": "Deleted member"
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Draw } from "../../domain/Draw";
+import { Group } from "../../domain/Group";
 
 @Component({
   selector: "app-draw-display",
@@ -8,6 +9,7 @@ import { Draw } from "../../domain/Draw";
 })
 export class DrawDisplayComponent implements OnInit {
   @Input() draw: Draw;
+  @Input() group: Group;
   @Input() allowEdit: boolean = false;
   @Input() allowReorder: boolean = false;
 

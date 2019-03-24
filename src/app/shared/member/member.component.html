@@ -11,15 +11,22 @@
         <ng-content select="[start]"></ng-content>
     </div>
     <ion-item class="member" lines="inset" [disabled]="disabled" style="width: 100%; padding-left: 0px;">
-        <ngx-avatar [name]="member.name" style="'circle'" slot="start" *ngIf="!member.avatar" size="40"
-                    style="margin-right: 16px; margin-top: 8px; margin-bottom: 8px;"></ngx-avatar>
-        <ion-avatar *ngIf="member.avatar" slot="start">
-            <ion-spinner *ngIf="avatarUpload" name="bubbles"></ion-spinner>
-            <ion-img [src]="member.avatar" *ngIf="!avatarUpload"></ion-img>
-        </ion-avatar>
-        <ion-label>
-            <h3>{{ member.name }}</h3>
-        </ion-label>
+        <ng-container *ngIf="!member">
+            <ion-label>
+                <h3>{{'member.deleted' | translate}}</h3>
+            </ion-label>
+        </ng-container>
+        <ng-container *ngIf="member">
+            <ngx-avatar [name]="member.name" style="'circle'" slot="start" *ngIf="!member.avatar" size="40"
+                        style="margin-right: 16px; margin-top: 8px; margin-bottom: 8px;"></ngx-avatar>
+            <ion-avatar *ngIf="member.avatar" slot="start">
+                <ion-spinner *ngIf="avatarUpload" name="bubbles"></ion-spinner>
+                <ion-img [src]="member.avatar" *ngIf="!avatarUpload"></ion-img>
+            </ion-avatar>
+            <ion-label>
+                <h3>{{ member.name }}</h3>
+            </ion-label>
+        </ng-container>
     </ion-item>
     <div slot="end">
         <!--<ion-button color="dark" (click)="triggerAvatarChange()" *ngIf="editable" fill="clear">
