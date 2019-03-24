@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 import { Group } from "../../domain/Group";
-import { RecentGroupService } from "../../services/recent-group.service";
+import { GroupService } from "../../services/group.service";
 
 @Component({
   selector: "app-home",
@@ -11,14 +11,14 @@ import { RecentGroupService } from "../../services/recent-group.service";
 export class HomePage {
   recentGroups: Group[];
 
-  constructor(private recentGroupService: RecentGroupService) {}
+  constructor(private groupService: GroupService) {}
 
   ionViewWillEnter() {
     this.getRecentGroups();
   }
 
   getRecentGroups(): void {
-    this.recentGroupService
+    this.groupService
       .getRecentGroupsInOrder()
       .then(data => (this.recentGroups = data))
       .catch(value => console.error(value)); // TODO error handling

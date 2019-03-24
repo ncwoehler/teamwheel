@@ -14,6 +14,8 @@ import { DrawDisplayComponent } from "./draw-display/draw-display.component";
 import { FixedWidthGridComponent } from "./fixed-width-grid/fixed-width-grid.component";
 import { TeamCardMemberActionsComponent } from "./team-card-member-actions/team-card-member-actions.component";
 import { AvatarModule } from "ngx-avatar";
+import { ImageResizer } from "@ionic-native/image-resizer/ngx";
+import { Ng2ImgMaxModule } from "ng2-img-max";
 
 const routes: Routes = [];
 
@@ -34,6 +36,7 @@ const routes: Routes = [];
     CommonModule,
     FormsModule,
     IonicModule,
+    Ng2ImgMaxModule,
     AvatarModule.forRoot(),
     TranslateModule.forChild(),
     RouterModule.forChild(routes)
@@ -47,6 +50,7 @@ const routes: Routes = [];
     InlineEditComponent,
     DrawDisplayComponent,
     FixedWidthGridComponent
-  ]
+  ],
+  providers: [ImageResizer]
 })
 export class SharedModule {}

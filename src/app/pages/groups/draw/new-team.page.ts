@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { filter, last } from "rxjs/operators";
 import { GroupService } from "../../../services/group.service";
 import { Group } from "../../../domain/Group";
 import { Member } from "../../../domain/Member";
@@ -72,14 +71,14 @@ export class NewTeamPage implements OnInit {
   async updateFakeResults() {
     const fakeDraw = await this.drawService.drawTeam(
       null,
-      this.group.members,
-      this.disabledMembers,
+      this.getMemberIds(this.group.members),
+      this.getMemberIds(this.disabledMembers),
       this.selectedSize,
       this.segmentSelection
     );
     this.fakeDrawResultTeams = fakeDraw.teams.length;
     this.fakeDrawResultMembers = fakeDraw.teams
-      .map(t => t.members.length)
+      .map(t => t.memberIds.length)
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => a - b);
     if (this.fakeDrawResultMembers.length > 2) {
@@ -97,8 +96,8 @@ export class NewTeamPage implements OnInit {
   async drawTeams() {
     const lastDraw = await this.drawService.drawTeam(
       this.group.id,
-      this.group.members,
-      this.disabledMembers,
+      this.getMemberIds(this.group.members),
+      this.getMemberIds(this.disabledMembers),
       this.selectedSize,
       this.segmentSelection
     );
@@ -111,6 +110,11 @@ export class NewTeamPage implements OnInit {
       this.maxSize = this.group.members.length;
       this.selectedSize = Math.min(4, Math.round(this.maxSize / 2));
     }
+  }
+
+  private getMemberIds(members: Member[]): string[] {
+    let memberIds = members.map(member => member.id);
+    return memberIds;
   }
 
   private findDisabledMember(member: Member) {

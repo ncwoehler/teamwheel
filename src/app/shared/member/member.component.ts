@@ -1,6 +1,14 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Member } from "../../domain/Member";
-import { ToastController } from "@ionic/angular";
+import { Platform, ToastController } from "@ionic/angular";
+import {
+  ImageResizer,
+  ImageResizerOptions
+} from "@ionic-native/image-resizer/ngx";
+import { Ng2ImgMaxService } from "ng2-img-max";
+
+const MAX_WIDTH = 100;
+const MAX_HEIGHT = 100;
 
 @Component({
   selector: "app-member",
@@ -17,7 +25,12 @@ export class MemberComponent implements OnInit {
 
   avatarUpload: boolean = false;
 
-  constructor(private toastController: ToastController) {}
+  constructor(
+    private toastController: ToastController,
+    private imageResizer: ImageResizer,
+    private ng2ImgMax: Ng2ImgMaxService,
+    private platform: Platform
+  ) {}
 
   ngOnInit() {}
 
@@ -29,39 +42,62 @@ export class MemberComponent implements OnInit {
   handleInputChange($event) {
     const file: File = $event.target.files[0];
     this.avatarUpload = true;
-    this.compressAndSetAvatar(file);
+    if (this.platform.is("cordova")) {
+      this.compressAndSetAvatarNative(file);
+    } else {
+      this.compressAndSetAvatarWeb(file);
+    }
   }
 
-  private async compressAndSetAvatar(file) {
-    /* https://github.com/digitalascetic/ngx-pica/blob/master/src/ngx-pica.service.ts
-    this.pica.resizeImage(file, 40, 40).subscribe(
+  private async compressAndSetAvatarWeb(file: File) {
+    this.ng2ImgMax.resizeImage(file, MAX_WIDTH, MAX_HEIGHT).subscribe(
       result => {
-        this.setAvatarFromFileUpload(new File([result], result.name));
+        const reader: FileReader = new FileReader();
+        reader.onload = (ev: ProgressEvent) => {
+          this.member.avatar = reader.result as string;
+          this.avatarUpload = false;
+        };
+        reader.onerror = (ev: ProgressEvent) => {
+          this.presentToast(ev);
+        };
+        reader.readAsDataURL(result);
       },
-      e => {
-        console.log("😢 Oh no!", e); // TODO error handling
-        this.avatarUpload = false;
-        this.presentToast(e);
+      error => {
+        this.presentToast(error);
       }
-    );*/
+    );
   }
 
-  private setAvatarFromFileUpload(file: File) {
+  private async compressAndSetAvatarNative(file: File) {
     const reader: FileReader = new FileReader();
-    reader.addEventListener("load", (event: any) => {
-      this.avatarUpload = false;
-      this.member.avatar = event.target.result;
-    });
-    reader.onerror = (ev: ProgressEvent) => {
-      this.avatarUpload = false;
-      this.presentToast(ev);
-      console.error(ev);
-    };
+    reader.onload = (ev: ProgressEvent) => {
+      const imageContent = reader.result;
+      let options = {
+        uri: imageContent,
+        width: MAX_WIDTH,
+        height: MAX_HEIGHT,
+        base64: true
+      } as ImageResizerOptions;
 
+      this.imageResizer
+        .resize(options)
+        .then((imageContent: string) => {
+          this.member.avatar = imageContent;
+          this.avatarUpload = false;
+        })
+        .catch(e => {
+          this.presentToast(e);
+        });
+    };
+    reader.onerror = (ev: ProgressEvent) => {
+      this.presentToast(ev);
+    };
     reader.readAsDataURL(file);
   }
 
   async presentToast(msg) {
+    this.avatarUpload = false;
+    console.error(msg);
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,

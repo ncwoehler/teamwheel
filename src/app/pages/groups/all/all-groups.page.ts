@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Group } from "../../../domain/Group";
-import { RecentGroupService } from "../../../services/recent-group.service";
 import { GroupService } from "../../../services/group.service";
 
 @Component({

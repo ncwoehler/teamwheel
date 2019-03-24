@@ -8,6 +8,8 @@ import {
 } from "@ionic/angular";
 import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
+import { GroupService } from "../../../services/group.service";
+import { Group } from "../../../domain/Group";
 
 @Component({
   selector: "app-draw-show",
@@ -16,10 +18,12 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class DrawShowPage {
   draw: Draw;
+  group: Group;
   loading: boolean;
 
   constructor(
     private drawService: DrawService,
+    private groupService: GroupService,
     private route: ActivatedRoute,
     private alertController: AlertController,
     private navController: NavController,
@@ -49,6 +53,7 @@ export class DrawShowPage {
   async loadData() {
     const drawId: string = this.route.snapshot.paramMap.get("drawId");
     this.draw = await this.drawService.getDrawById(drawId);
+    this.group = await this.groupService.getGroupById(this.draw.groupId);
   }
 
   async initDeletion() {

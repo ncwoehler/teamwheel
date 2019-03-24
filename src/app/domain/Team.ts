@@ -4,12 +4,12 @@ export class Team {
   id: string;
   createdAt: number;
   name: string;
-  members: Member[];
+  memberIds: string[];
 
   constructor(id: string, name: string, members: Member[]) {
     this.id = id;
     this.createdAt = new Date().getTime();
     this.name = name;
-    this.members = members;
+    this.memberIds = members.map(member => member.id);
   }
 }
