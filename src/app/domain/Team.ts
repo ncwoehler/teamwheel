@@ -10,6 +10,6 @@ export class Team {
     this.id = id;
     this.createdAt = new Date().getTime();
     this.name = name;
-    this.memberIds = members.map(member => member.id);
+    this.memberIds = members && members.map(member => member.id);
   }
 }
