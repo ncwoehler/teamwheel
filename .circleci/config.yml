@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/project
     docker:
-      - image: beevelop/ionic:v4.10.4
+      - image: beevelop/ionic:v4.12.0
     steps:
       # Checkout the code from the branch into the working_directory
       - checkout
@@ -48,7 +48,7 @@ jobs:
   deploy:
     working_directory: ~/project
     docker:
-      - image: beevelop/ionic:v4.10.4
+      - image: beevelop/ionic:v4.12.0
     steps:
       # Log the current branch
       - run:
