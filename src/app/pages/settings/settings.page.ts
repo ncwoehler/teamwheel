@@ -3,7 +3,6 @@ import { GroupService } from "../../services/group.service";
 import { AlertController, NavController } from "@ionic/angular";
 import { SettingsService } from "../../services/settings.service";
 import { Settings } from "../../domain/Settings";
-import set = Reflect.set;
 import { TranslateService } from "@ngx-translate/core";
 import { DrawService } from "../../services/draw.service";
 
