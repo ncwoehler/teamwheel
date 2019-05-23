@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/project
     docker:
-      - image: beevelop/ionic:v4.12.0
+      - image: circleci/node:11.15.0-browsers
     steps:
       # Checkout the code from the branch into the working_directory
       - checkout
@@ -33,22 +33,22 @@ jobs:
       # Test the source code
       - run:
           name: Testing
-          command: npm run test
+          command: npm run test.ci
       # Build project with different configuration based on
       # the current branch
       - run:
           name: Building
           command: |
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-                npm run build-qa
+                ionic build --prod
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                npm run build-prod
+                ionic build --prod
             fi
   # The deploy job
   deploy:
     working_directory: ~/project
     docker:
-      - image: beevelop/ionic:v4.12.0
+      - image: circleci/node:11.15.0-browsers
     steps:
       # Log the current branch
       - run:
