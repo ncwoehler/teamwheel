@@ -1,20 +1,20 @@
-import { Component } from "@angular/core";
-import { Draw } from "../../../domain/Draw";
-import { DrawService } from "../../../services/draw.service";
+import { Component } from '@angular/core';
+import { Draw } from '../../../domain/Draw';
+import { DrawService } from '../../../services/draw.service';
 import {
   AlertController,
   LoadingController,
   NavController
-} from "@ionic/angular";
-import { ActivatedRoute } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import { GroupService } from "../../../services/group.service";
-import { Group } from "../../../domain/Group";
+} from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { GroupService } from '../../../services/group.service';
+import { Group } from '../../../domain/Group';
 
 @Component({
-  selector: "app-draw-show",
-  templateUrl: "./draw-show.page.html",
-  styleUrls: ["./draw-show.page.scss"]
+  selector: 'app-draw-show',
+  templateUrl: './draw-show.page.html',
+  styleUrls: ['./draw-show.page.scss']
 })
 export class DrawShowPage {
   draw: Draw;
@@ -33,7 +33,7 @@ export class DrawShowPage {
 
   ionViewWillEnter() {
     this.loading = true;
-    this.translateService.get("loading").subscribe(translation => {
+    this.translateService.get('loading').subscribe(translation => {
       this.loadingController
         .create({
           message: translation
@@ -51,23 +51,23 @@ export class DrawShowPage {
   }
 
   async loadData() {
-    const drawId: string = this.route.snapshot.paramMap.get("drawId");
+    const drawId: string = this.route.snapshot.paramMap.get('drawId');
     this.draw = await this.drawService.getDrawById(drawId);
     this.group = await this.groupService.getGroupById(this.draw.groupId);
   }
 
   async initDeletion() {
     const alert = await this.alertController.create({
-      header: this.translateService.instant("drawDetails.deleteHeader"),
-      message: this.translateService.instant("drawDetails.deleteMsg"),
+      header: this.translateService.instant('drawDetails.deleteHeader'),
+      message: this.translateService.instant('drawDetails.deleteMsg'),
       buttons: [
         {
-          text: this.translateService.instant("drawDetails.deleteCancel"),
-          role: "cancel",
-          cssClass: "cancel"
+          text: this.translateService.instant('drawDetails.deleteCancel'),
+          role: 'cancel',
+          cssClass: 'cancel'
         },
         {
-          text: this.translateService.instant("drawDetails.deleteConfirm"),
+          text: this.translateService.instant('drawDetails.deleteConfirm'),
           handler: () => {
             this.drawService
               .deleteDraw(this.draw.id)
@@ -82,6 +82,6 @@ export class DrawShowPage {
   }
 
   openGroup(groupId: string) {
-    this.navController.navigateRoot(["groups", groupId]);
+    this.navController.navigateRoot(['groups', groupId]);
   }
 }

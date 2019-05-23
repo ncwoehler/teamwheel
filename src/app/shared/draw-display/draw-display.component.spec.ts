@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { DrawDisplayComponent } from "./draw-display.component";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
-import { AvatarModule } from "ngx-avatar";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DrawDisplayComponent } from './draw-display.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { AvatarModule } from 'ngx-avatar';
 import {
   TranslateCompiler,
   TranslateFakeLoader,
@@ -11,12 +11,12 @@ import {
   TranslateModule,
   TranslateService,
   TranslateStore
-} from "@ngx-translate/core";
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { RouterTestingModule } from "@angular/router/testing";
+} from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
-describe("DrawDisplayComponent", () => {
+describe('DrawDisplayComponent', () => {
   let component: DrawDisplayComponent;
   let fixture: ComponentFixture<DrawDisplayComponent>;
 
@@ -46,7 +46,7 @@ describe("DrawDisplayComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

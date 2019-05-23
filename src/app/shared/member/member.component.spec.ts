@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MemberComponent } from './member.component';
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
-import { AvatarModule } from "ngx-avatar";
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { AvatarModule } from 'ngx-avatar';
 import {
   TranslateCompiler,
   TranslateFakeLoader,
@@ -12,11 +12,11 @@ import {
   TranslateModule,
   TranslateService,
   TranslateStore
-} from "@ngx-translate/core";
-import { RouterModule } from "@angular/router";
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { Ng2ImgMaxModule } from "ng2-img-max";
-import { ImageResizer } from "@ionic-native/image-resizer/ngx";
+} from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { ImageResizer } from '@ionic-native/image-resizer/ngx';
 
 describe('MemberComponent', () => {
   let component: MemberComponent;

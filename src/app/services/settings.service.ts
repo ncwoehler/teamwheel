@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { Storage } from "@ionic/storage";
-import { Settings } from "../domain/Settings";
+import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage';
+import { Settings } from '../domain/Settings';
 
-const STORAGE_KEY = "settings";
-const SUPPORTED_LANGS = ["en", "de"];
+const STORAGE_KEY = 'settings';
+const SUPPORTED_LANGS = ['en', 'de'];
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SettingsService {
   appseeActive: boolean;
@@ -18,12 +18,12 @@ export class SettingsService {
   ) {}
 
   initialize() {
-    this.translateService.setDefaultLang("en");
+    this.translateService.setDefaultLang('en');
     this.storage.ready().then(() => {
       this.storage.get(STORAGE_KEY).then(settings => {
         if (!settings || !settings.language) {
-          this.storeDefaultSettings().then(settings =>
-            this.translateService.use(settings.language)
+          this.storeDefaultSettings().then(storedSettings =>
+            this.translateService.use(storedSettings.language)
           );
         } else {
           this.translateService.use(settings.language);

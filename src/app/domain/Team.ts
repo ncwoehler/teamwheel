@@ -1,4 +1,4 @@
-import { Member } from "./Member";
+import { Member } from './Member';
 
 export class Team {
   id: string;

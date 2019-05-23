@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
-import { Storage } from "@ionic/storage";
-import { Group } from "../domain/Group";
-import nanoid from "nanoid";
-import { Member } from "../domain/Member";
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { Group } from '../domain/Group';
+import nanoid from 'nanoid';
+import { Member } from '../domain/Member';
 
-const STORAGE_KEY = "'_groups";
+const STORAGE_KEY = '\'_groups';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class GroupService {
   private static updateLastUsed(group: Group) {

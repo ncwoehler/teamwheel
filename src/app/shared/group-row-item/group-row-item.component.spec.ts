@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroupRowItemComponent } from "./group-row-item.component";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
-import { AvatarModule } from "ngx-avatar";
+import { GroupRowItemComponent } from './group-row-item.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { AvatarModule } from 'ngx-avatar';
 import {
   TranslateCompiler,
   TranslateFakeLoader,
@@ -12,10 +12,10 @@ import {
   TranslateModule,
   TranslateService,
   TranslateStore
-} from "@ngx-translate/core";
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { RouterTestingModule } from "@angular/router/testing";
-import { Group } from "../../domain/Group";
+} from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Group } from '../../domain/Group';
 
 describe('GroupRowItemComponent', () => {
   let component: GroupRowItemComponent;
@@ -45,7 +45,7 @@ describe('GroupRowItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GroupRowItemComponent);
     component = fixture.componentInstance;
-    component.group = new Group("id", "Name", "icon", []);
+    component.group = new Group('id', 'Name', 'icon', []);
     fixture.detectChanges();
   });
 

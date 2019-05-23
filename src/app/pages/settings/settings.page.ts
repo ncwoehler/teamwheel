@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { GroupService } from "../../services/group.service";
-import { AlertController, NavController } from "@ionic/angular";
-import { SettingsService } from "../../services/settings.service";
-import { Settings } from "../../domain/Settings";
-import { TranslateService } from "@ngx-translate/core";
-import { DrawService } from "../../services/draw.service";
+import { Component, OnInit } from '@angular/core';
+import { GroupService } from '../../services/group.service';
+import { AlertController, NavController } from '@ionic/angular';
+import { SettingsService } from '../../services/settings.service';
+import { Settings } from '../../domain/Settings';
+import { TranslateService } from '@ngx-translate/core';
+import { DrawService } from '../../services/draw.service';
 
 @Component({
-  selector: "app-settings",
-  templateUrl: "./settings.page.html",
-  styleUrls: ["./settings.page.scss"]
+  selector: 'app-settings',
+  templateUrl: './settings.page.html',
+  styleUrls: ['./settings.page.scss']
 })
 export class SettingsPage implements OnInit {
   settings: Settings;
@@ -31,16 +31,16 @@ export class SettingsPage implements OnInit {
 
   async deleteAllData() {
     const alert = await this.alertController.create({
-      header: this.translateService.instant("settings.deleteAllHeader"),
-      message: this.translateService.instant("settings.deleteAllMsg"),
+      header: this.translateService.instant('settings.deleteAllHeader'),
+      message: this.translateService.instant('settings.deleteAllMsg'),
       buttons: [
         {
-          text: this.translateService.instant("settings.deleteCancel"),
-          role: "cancel",
-          cssClass: "cancel"
+          text: this.translateService.instant('settings.deleteCancel'),
+          role: 'cancel',
+          cssClass: 'cancel'
         },
         {
-          text: this.translateService.instant("settings.deleteConfirm"),
+          text: this.translateService.instant('settings.deleteConfirm'),
           handler: () => this.deleteAll()
         }
       ]
@@ -63,7 +63,7 @@ export class SettingsPage implements OnInit {
     );
 
     await this.settingsService.deleteSettings();
-    this.nav.navigateRoot("home");
+    this.nav.navigateRoot('home');
   }
 
   languageChanged($event) {

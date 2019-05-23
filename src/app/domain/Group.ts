@@ -1,5 +1,5 @@
-import { Member } from "./Member";
-import { Draw } from "./Draw";
+import { Member } from './Member';
+import { Draw } from './Draw';
 
 export class Group {
   id: string;

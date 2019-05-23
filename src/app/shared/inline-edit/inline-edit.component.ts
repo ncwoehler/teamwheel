@@ -6,20 +6,20 @@ import {
   OnInit,
   Output,
   ViewChild
-} from "@angular/core";
+} from '@angular/core';
 
 @Component({
-  selector: "app-inline-edit",
-  templateUrl: "./inline-edit.component.html",
-  styleUrls: ["./inline-edit.component.scss"]
+  selector: 'app-inline-edit',
+  templateUrl: './inline-edit.component.html',
+  styleUrls: ['./inline-edit.component.scss']
 })
 export class InlineEditComponent implements OnInit {
-  editMode: boolean = false;
+  editMode = false;
   editValue: string;
   @Input() value: string;
   @Output() valueChanged: EventEmitter<string> = new EventEmitter();
 
-  @ViewChild("editInput") inputEl;
+  @ViewChild('editInput') inputEl;
 
   constructor(private changeDetector: ChangeDetectorRef) {}
 

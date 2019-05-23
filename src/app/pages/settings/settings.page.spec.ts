@@ -1,10 +1,10 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettingsPage } from "./settings.page";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
+import { SettingsPage } from './settings.page';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import {
   TranslateCompiler,
   TranslateFakeLoader,
@@ -12,10 +12,10 @@ import {
   TranslateModule,
   TranslateService,
   TranslateStore
-} from "@ngx-translate/core";
-import { IonicStorageModule } from "@ionic/storage";
-import { SharedModule } from "../../shared/shared.module";
-import { RouterTestingModule } from "@angular/router/testing";
+} from '@ngx-translate/core';
+import { IonicStorageModule } from '@ionic/storage';
+import { SharedModule } from '../../shared/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SettingsPage', () => {
   let component: SettingsPage;

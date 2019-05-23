@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { Group } from "../../../domain/Group";
-import { GroupService } from "../../../services/group.service";
-import { ActivatedRoute } from "@angular/router";
-import { NavController } from "@ionic/angular";
-import { FormArray, FormBuilder, Validators } from "@angular/forms";
-import { Member } from "../../../domain/Member";
-import nanoid from "nanoid";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Group } from '../../../domain/Group';
+import { GroupService } from '../../../services/group.service';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Member } from '../../../domain/Member';
+import nanoid from 'nanoid';
 
 @Component({
-  selector: "app-edit-group",
-  templateUrl: "./edit-group.page.html",
-  styleUrls: ["./edit-group.page.scss"]
+  selector: 'app-edit-group',
+  templateUrl: './edit-group.page.html',
+  styleUrls: ['./edit-group.page.scss']
 })
 export class EditGroupPage implements OnInit {
   groupId;
@@ -18,20 +18,20 @@ export class EditGroupPage implements OnInit {
   newMemberName: string;
 
   iconOptions: string[] = [
-    "people",
-    "bonfire",
-    "contacts",
-    "heart",
-    "paw",
-    "rainy",
-    "rocket",
-    "ribbon",
-    "flask",
-    "book"
+    'people',
+    'bonfire',
+    'contacts',
+    'heart',
+    'paw',
+    'rainy',
+    'rocket',
+    'ribbon',
+    'flask',
+    'book'
   ];
 
-  @ViewChild("memberInput") inputEl;
-  @ViewChild("content") content;
+  @ViewChild('memberInput') inputEl;
+  @ViewChild('content') content;
 
   constructor(
     private groupService: GroupService,
@@ -40,14 +40,14 @@ export class EditGroupPage implements OnInit {
     private fb: FormBuilder
   ) {
     this.groupForm = this.fb.group({
-      name: ["", Validators.required],
-      icon: ["people"],
+      name: ['', Validators.required],
+      icon: ['people'],
       members: this.fb.array([], Validators.minLength(1))
     });
   }
 
   ngOnInit() {
-    const groupId: string = this.route.snapshot.paramMap.get("groupId");
+    const groupId: string = this.route.snapshot.paramMap.get('groupId');
     if (groupId) {
       this.getGroup(groupId).then(group => this.setupGroupFormParams(group));
       this.groupId = groupId;
@@ -71,7 +71,7 @@ export class EditGroupPage implements OnInit {
   }
 
   get members(): FormArray {
-    return this.groupForm.get("members") as FormArray;
+    return this.groupForm.get('members') as FormArray;
   }
 
   addMemberValid() {
@@ -93,7 +93,7 @@ export class EditGroupPage implements OnInit {
     );
 
     this.members.push(newMemberGroup);
-    this.newMemberName = "";
+    this.newMemberName = '';
     this.inputEl.setFocus();
     if (this.content) {
       this.content.scrollToBottom();
@@ -133,9 +133,9 @@ export class EditGroupPage implements OnInit {
 
   openGroupPage(id: string) {
     if (this.groupId) {
-      this.navController.navigateBack(["groups", id]);
+      this.navController.navigateBack(['groups', id]);
     } else {
-      this.navController.navigateRoot(["groups", id], {
+      this.navController.navigateRoot(['groups', id], {
         animated: true
       });
     }

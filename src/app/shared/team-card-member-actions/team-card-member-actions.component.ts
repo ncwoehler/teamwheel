@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { Team } from "../../domain/Team";
-import { Member } from "../../domain/Member";
-import { PopoverController } from "@ionic/angular";
+import { Component, Input, OnInit } from '@angular/core';
+import { Team } from '../../domain/Team';
+import { Member } from '../../domain/Member';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
-  selector: "app-team-card-member-actions",
-  templateUrl: "./team-card-member-actions.component.html",
-  styleUrls: ["./team-card-member-actions.component.scss"]
+  selector: 'app-team-card-member-actions',
+  templateUrl: './team-card-member-actions.component.html',
+  styleUrls: ['./team-card-member-actions.component.scss']
 })
 export class TeamCardMemberActionsComponent implements OnInit {
   @Input() memberId: string;
@@ -19,7 +19,7 @@ export class TeamCardMemberActionsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    let teamIterator = this.otherTeams.entries().next();
+    const teamIterator = this.otherTeams.entries().next();
     const firstTeam: Team = teamIterator.value && teamIterator.value[1];
     this.selectedTeam = firstTeam && firstTeam.name || '';
   }

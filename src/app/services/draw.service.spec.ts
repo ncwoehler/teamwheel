@@ -1,16 +1,16 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { DrawService } from "./draw.service";
-import { IonicStorageModule } from "@ionic/storage";
+import { DrawService } from './draw.service';
+import { IonicStorageModule } from '@ionic/storage';
 
-describe("DrawService", () => {
+describe('DrawService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       IonicStorageModule.forRoot(),
     ]
   }));
 
-  it("should be created", () => {
+  it('should be created', () => {
     const service: DrawService = TestBed.get(DrawService);
     expect(service).toBeTruthy();
   });

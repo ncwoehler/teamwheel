@@ -1,7 +1,7 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { SettingsService } from "./settings.service";
-import { IonicStorageModule } from "@ionic/storage";
+import { SettingsService } from './settings.service';
+import { IonicStorageModule } from '@ionic/storage';
 import {
   TranslateCompiler,
   TranslateFakeLoader,
@@ -9,9 +9,9 @@ import {
   TranslateModule,
   TranslateService,
   TranslateStore
-} from "@ngx-translate/core";
+} from '@ngx-translate/core';
 
-describe("SettingsService", () => {
+describe('SettingsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       IonicStorageModule.forRoot(),
@@ -24,7 +24,7 @@ describe("SettingsService", () => {
     providers: [TranslateService, TranslateStore, TranslateLoader, TranslateCompiler]
   }));
 
-  it("should be created", () => {
+  it('should be created', () => {
     const service: SettingsService = TestBed.get(SettingsService);
     expect(service).toBeTruthy();
   });

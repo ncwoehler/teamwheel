@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { Team } from "../../domain/Team";
-import { PopoverController } from "@ionic/angular";
-import { TeamCardMemberActionsComponent } from "../team-card-member-actions/team-card-member-actions.component";
-import { Member } from "../../domain/Member";
-import { Draw } from "../../domain/Draw";
-import { Group } from "../../domain/Group";
+import { Component, Input, OnInit } from '@angular/core';
+import { Team } from '../../domain/Team';
+import { PopoverController } from '@ionic/angular';
+import { TeamCardMemberActionsComponent } from '../team-card-member-actions/team-card-member-actions.component';
+import { Member } from '../../domain/Member';
+import { Draw } from '../../domain/Draw';
+import { Group } from '../../domain/Group';
 
 @Component({
-  selector: "app-team-card",
-  templateUrl: "./team-card.component.html",
-  styleUrls: ["./team-card.component.scss"]
+  selector: 'app-team-card',
+  templateUrl: './team-card.component.html',
+  styleUrls: ['./team-card.component.scss']
 })
 export class TeamCardComponent implements OnInit {
   @Input() group: Group;
