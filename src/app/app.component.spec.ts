@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { TestBed, async } from "@angular/core/testing";
+import { async, TestBed } from "@angular/core/testing";
 
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
@@ -7,6 +7,8 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { RouterTestingModule } from "@angular/router/testing";
 
 import { AppComponent } from "./app.component";
+import { TranslateModule } from "@ngx-translate/core";
+import { IonicStorageModule } from "@ionic/storage";
 
 describe("AppComponent", () => {
   let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
@@ -23,9 +25,13 @@ describe("AppComponent", () => {
       providers: [
         { provide: StatusBar, useValue: statusBarSpy },
         { provide: SplashScreen, useValue: splashScreenSpy },
-        { provide: Platform, useValue: platformSpy }
+        { provide: Platform, useValue: platformSpy },
       ],
-      imports: [RouterTestingModule.withRoutes([])]
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        IonicStorageModule.forRoot(),
+        TranslateModule.forRoot(),
+      ],
     }).compileComponents();
   }));
 
@@ -48,9 +54,9 @@ describe("AppComponent", () => {
     await fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll("ion-label");
-    expect(menuItems.length).toEqual(2);
-    expect(menuItems[0].textContent).toContain("Home");
-    expect(menuItems[1].textContent).toContain("List");
+    expect(menuItems.length).toEqual(3);
+    expect(menuItems[0].textContent).toContain("menuHome");
+    expect(menuItems[1].textContent).toContain("menuGroups");
   });
 
   it("should have urls", async () => {
@@ -58,12 +64,12 @@ describe("AppComponent", () => {
     await fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll("ion-item");
-    expect(menuItems.length).toEqual(2);
+    expect(menuItems.length).toEqual(3);
     expect(menuItems[0].getAttribute("ng-reflect-router-link")).toEqual(
       "/home"
     );
     expect(menuItems[1].getAttribute("ng-reflect-router-link")).toEqual(
-      "/list"
+      "/groups/all"
     );
   });
 });

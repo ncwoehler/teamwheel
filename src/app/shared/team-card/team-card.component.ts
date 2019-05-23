@@ -27,8 +27,7 @@ export class TeamCardComponent implements OnInit {
   }
 
   getMemberFromGroup(memberId: string): Member {
-    let member1 = this.group.members.find(member => member.id === memberId);
-    return member1;
+    return this.group.members.find(member => member.id === memberId);
   }
 
   reorder($event, team: Team) {
