@@ -1,19 +1,19 @@
-import { Component } from "@angular/core";
-import { DrawService } from "../../../services/draw.service";
-import { Draw } from "../../../domain/Draw";
-import { NavController } from "@ionic/angular";
-import { Group } from "../../../domain/Group";
-import { GroupService } from "../../../services/group.service";
+import { Component } from '@angular/core';
+import { DrawService } from '../../../services/draw.service';
+import { Draw } from '../../../domain/Draw';
+import { NavController } from '@ionic/angular';
+import { Group } from '../../../domain/Group';
+import { GroupService } from '../../../services/group.service';
 
 @Component({
-  selector: "app-team-created",
-  templateUrl: "./team-created.page.html",
-  styleUrls: ["./team-created.page.scss"]
+  selector: 'app-team-created',
+  templateUrl: './team-created.page.html',
+  styleUrls: ['./team-created.page.scss']
 })
 export class TeamCreatedPage {
   draw: Draw;
   group: Group;
-  reorderingEnabled: boolean = false;
+  reorderingEnabled = false;
 
   constructor(
     private drawService: DrawService,
@@ -38,7 +38,7 @@ export class TeamCreatedPage {
 
   saveDraw() {
     this.drawService.saveDraw(this.draw).then(draw =>
-      this.nav.navigateRoot(["draws", this.draw.id], {
+      this.nav.navigateRoot(['draws', this.draw.id], {
         animated: true
       })
     );

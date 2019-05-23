@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { GroupService } from "../../../services/group.service";
-import { Group } from "../../../domain/Group";
-import { Member } from "../../../domain/Member";
-import { DrawService } from "../../../services/draw.service";
-import { NavController } from "@ionic/angular";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { GroupService } from '../../../services/group.service';
+import { Group } from '../../../domain/Group';
+import { Member } from '../../../domain/Member';
+import { DrawService } from '../../../services/draw.service';
+import { NavController } from '@ionic/angular';
 
-const TEAMS = "teams";
+const TEAMS = 'teams';
 
 @Component({
-  selector: "app-new-team",
-  templateUrl: "./new-team.page.html",
-  styleUrls: ["./new-team.page.scss"]
+  selector: 'app-new-team',
+  templateUrl: './new-team.page.html',
+  styleUrls: ['./new-team.page.scss']
 })
 export class NewTeamPage implements OnInit {
   group: Group;
@@ -34,7 +34,7 @@ export class NewTeamPage implements OnInit {
   }
 
   ngOnInit() {
-    const groupId: string = this.route.snapshot.paramMap.get("groupId");
+    const groupId: string = this.route.snapshot.paramMap.get('groupId');
     this.getGroup(groupId).then(() => {
       this.setDefaultSettingsForGroup();
       this.updateFakeResults();
@@ -102,7 +102,7 @@ export class NewTeamPage implements OnInit {
       this.segmentSelection
     );
     this.drawService.setLastDraw(lastDraw);
-    this.nav.navigateForward(["draws", "preview"]);
+    this.nav.navigateForward(['draws', 'preview']);
   }
 
   private setDefaultSettingsForGroup() {
@@ -113,7 +113,7 @@ export class NewTeamPage implements OnInit {
   }
 
   private getMemberIds(members: Member[]): string[] {
-    let memberIds = members.map(member => member.id);
+    const memberIds = members.map(member => member.id);
     return memberIds;
   }
 

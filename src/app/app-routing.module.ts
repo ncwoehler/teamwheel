@@ -1,49 +1,49 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo: "home",
-    pathMatch: "full"
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
-    path: "home",
-    loadChildren: "./pages/home/home.module#HomePageModule"
+    path: 'home',
+    loadChildren: './pages/home/home.module#HomePageModule'
   },
   {
-    path: "settings",
-    loadChildren: "./pages/settings/settings.module#SettingsPageModule"
+    path: 'settings',
+    loadChildren: './pages/settings/settings.module#SettingsPageModule'
   },
   {
-    path: "groups/new",
-    loadChildren: "./pages/groups/edit/edit-group.module#EditGroupPageModule"
+    path: 'groups/new',
+    loadChildren: './pages/groups/edit/edit-group.module#EditGroupPageModule'
   },
   {
-    path: "groups/all",
-    loadChildren: "./pages/groups/all/all-groups.module#AllGroupsPageModule"
+    path: 'groups/all',
+    loadChildren: './pages/groups/all/all-groups.module#AllGroupsPageModule'
   },
   {
-    path: "groups/:groupId",
+    path: 'groups/:groupId',
     loadChildren:
-      "./pages/groups/detail/group-detail.module#GroupDetailPageModule"
+      './pages/groups/detail/group-detail.module#GroupDetailPageModule'
   },
   {
-    path: "groups/:groupId/edit",
-    loadChildren: "./pages/groups/edit/edit-group.module#EditGroupPageModule"
+    path: 'groups/:groupId/edit',
+    loadChildren: './pages/groups/edit/edit-group.module#EditGroupPageModule'
   },
   {
-    path: "groups/:groupId/draw",
-    loadChildren: "./pages/groups/draw/new-team.module#NewTeamPageModule"
+    path: 'groups/:groupId/draw',
+    loadChildren: './pages/groups/draw/new-team.module#NewTeamPageModule'
   },
   {
-    path: "draws/preview",
+    path: 'draws/preview',
     loadChildren:
-      "./pages/draws/preview/team-created.module#TeamCreatedPageModule"
+      './pages/draws/preview/team-created.module#TeamCreatedPageModule'
   },
   {
-    path: "draws/:drawId",
-    loadChildren: "./pages/draws/draw-show/draw-show.module#DrawShowPageModule"
+    path: 'draws/:drawId',
+    loadChildren: './pages/draws/draw-show/draw-show.module#DrawShowPageModule'
   }
 ];
 

@@ -1,43 +1,43 @@
-import { Injectable } from "@angular/core";
-import { Member } from "../domain/Member";
-import nanoid from "nanoid";
-import { Team } from "../domain/Team";
-import { Draw } from "../domain/Draw";
-import { Storage } from "@ionic/storage";
+import { Injectable } from '@angular/core';
+import { Member } from '../domain/Member';
+import nanoid from 'nanoid';
+import { Team } from '../domain/Team';
+import { Draw } from '../domain/Draw';
+import { Storage } from '@ionic/storage';
 
-const STORAGE_KEY = "_draws";
+const STORAGE_KEY = '_draws';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class DrawService {
-  private lastDraw: Draw = new Draw("1", null, "Example Draw Result", [
-    new Team("1", "Superhelden", [
-      new Member(null, "Spiderman", null),
-      new Member(null, "Ironman", null),
-      new Member(null, "Wonder Woman", null),
-      new Member(null, "Ultron", null)
+  private lastDraw: Draw = new Draw('1', null, 'Example Draw Result', [
+    new Team('1', 'Superhelden', [
+      new Member(null, 'Spiderman', null),
+      new Member(null, 'Ironman', null),
+      new Member(null, 'Wonder Woman', null),
+      new Member(null, 'Ultron', null)
     ]),
-    new Team("2", "Dichter", [
-      new Member(null, "Goethe", null),
-      new Member(null, "Mozart", null),
-      new Member(null, "Bach", null)
+    new Team('2', 'Dichter', [
+      new Member(null, 'Goethe', null),
+      new Member(null, 'Mozart', null),
+      new Member(null, 'Bach', null)
     ]),
-    new Team("3", "BBT", [
-      new Member(null, "Howard", null),
-      new Member(null, "Sheldon", null),
-      new Member(null, "Rajid", null),
-      new Member(null, "Lennard", null)
+    new Team('3', 'BBT', [
+      new Member(null, 'Howard', null),
+      new Member(null, 'Sheldon', null),
+      new Member(null, 'Rajid', null),
+      new Member(null, 'Lennard', null)
     ]),
-    new Team("4", "Friends", [
-      new Member(null, "Ross", null),
-      new Member(null, "Rachel", null),
-      new Member(null, "Phoebe", null)
+    new Team('4', 'Friends', [
+      new Member(null, 'Ross', null),
+      new Member(null, 'Rachel', null),
+      new Member(null, 'Phoebe', null)
     ])
   ]);
 
-  private lastSegmentOption: string = "teams";
-  private lastSelectedSize: number = 4;
+  private lastSegmentOption = 'teams';
+  private lastSelectedSize = 4;
 
   constructor(private storage: Storage) {}
 
@@ -59,7 +59,7 @@ export class DrawService {
     availableMembers.sort(() => Math.random() - 0.5);
 
     let drawResult: Draw;
-    if (!segmentSelection || segmentSelection === "teams") {
+    if (!segmentSelection || segmentSelection === 'teams') {
       drawResult = this.drawByNumberOfTeams(selectedSize, availableMembers);
     } else {
       drawResult = this.drawByNumberOfMembers(selectedSize, availableMembers);
@@ -136,10 +136,10 @@ export class DrawService {
   ) {
     // create # of teams
     const createdTeams: Team[] = [];
-    for (var _i = 0; _i < numberOfTeams; _i++) {
+    for (let _i = 0; _i < numberOfTeams; _i++) {
       const id = nanoid();
       const teamMembers = [];
-      var newTeam: Team = new Team(id, `Team ${_i + 1}`, teamMembers);
+      const newTeam: Team = new Team(id, `Team ${_i + 1}`, teamMembers);
       createdTeams.push(newTeam);
     }
 
@@ -149,7 +149,7 @@ export class DrawService {
     });
 
     // filter all teams without a member and create a new draw
-    let newDate = new Date().toLocaleString();
+    const newDate = new Date().toLocaleString();
     return new Draw(
       nanoid(),
       null,

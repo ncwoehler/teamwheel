@@ -1,11 +1,11 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DrawShowPage } from "./draw-show.page";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
-import { AvatarModule } from "ngx-avatar";
+import { DrawShowPage } from './draw-show.page';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { AvatarModule } from 'ngx-avatar';
 import {
   TranslateCompiler,
   TranslateFakeLoader,
@@ -13,11 +13,11 @@ import {
   TranslateModule,
   TranslateService,
   TranslateStore
-} from "@ngx-translate/core";
-import { IonicStorageModule } from "@ionic/storage";
-import { RouterTestingModule } from "@angular/router/testing";
+} from '@ngx-translate/core';
+import { IonicStorageModule } from '@ionic/storage';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe("DrawShowPage", () => {
+describe('DrawShowPage', () => {
   let component: DrawShowPage;
   let fixture: ComponentFixture<DrawShowPage>;
 
@@ -48,7 +48,7 @@ describe("DrawShowPage", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

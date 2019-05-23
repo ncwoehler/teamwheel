@@ -1,29 +1,29 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { Member } from "../../domain/Member";
-import { Platform, ToastController } from "@ionic/angular";
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Member } from '../../domain/Member';
+import { Platform, ToastController } from '@ionic/angular';
 import {
   ImageResizer,
   ImageResizerOptions
-} from "@ionic-native/image-resizer/ngx";
-import { Ng2ImgMaxService } from "ng2-img-max";
+} from '@ionic-native/image-resizer/ngx';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 const MAX_WIDTH = 100;
 const MAX_HEIGHT = 100;
 
 @Component({
-  selector: "app-member",
-  templateUrl: "./member.component.html",
-  styleUrls: ["./member.component.scss"]
+  selector: 'app-member',
+  templateUrl: './member.component.html',
+  styleUrls: ['./member.component.scss']
 })
 export class MemberComponent implements OnInit {
   @Input() member: Member;
-  @Input() disabled: boolean = false;
-  @Input() hasStart: boolean = false;
-  @Input() editable: boolean = false;
+  @Input() disabled = false;
+  @Input() hasStart = false;
+  @Input() editable = false;
 
-  @ViewChild("imageInput") fileInput: ElementRef;
+  @ViewChild('imageInput') fileInput: ElementRef;
 
-  avatarUpload: boolean = false;
+  avatarUpload = false;
 
   constructor(
     private toastController: ToastController,
@@ -42,7 +42,7 @@ export class MemberComponent implements OnInit {
   handleInputChange($event) {
     const file: File = $event.target.files[0];
     this.avatarUpload = true;
-    if (this.platform.is("cordova")) {
+    if (this.platform.is('cordova')) {
       this.compressAndSetAvatarNative(file);
     } else {
       this.compressAndSetAvatarWeb(file);
@@ -72,7 +72,7 @@ export class MemberComponent implements OnInit {
     const reader: FileReader = new FileReader();
     reader.onload = (ev: ProgressEvent) => {
       const imageContent = reader.result;
-      let options = {
+      const options = {
         uri: imageContent,
         width: MAX_WIDTH,
         height: MAX_HEIGHT,
@@ -81,8 +81,8 @@ export class MemberComponent implements OnInit {
 
       this.imageResizer
         .resize(options)
-        .then((imageContent: string) => {
-          this.member.avatar = imageContent;
+        .then((resizedContent: string) => {
+          this.member.avatar = resizedContent;
           this.avatarUpload = false;
         })
         .catch(e => {
@@ -101,7 +101,7 @@ export class MemberComponent implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,
-      color: "danger"
+      color: 'danger'
     });
     toast.present();
   }

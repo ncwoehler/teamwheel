@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Group } from "../../../domain/Group";
-import { GroupService } from "../../../services/group.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Group } from '../../../domain/Group';
+import { GroupService } from '../../../services/group.service';
 
 @Component({
-  selector: "app-all-groups",
-  templateUrl: "./all-groups.page.html",
-  styleUrls: ["./all-groups.page.scss"]
+  selector: 'app-all-groups',
+  templateUrl: './all-groups.page.html',
+  styleUrls: ['./all-groups.page.scss']
 })
 export class AllGroupsPage {
   allGroups: Group[];

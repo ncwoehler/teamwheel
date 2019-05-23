@@ -1,11 +1,11 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditGroupPage } from "./edit-group.page";
-import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
-import { AvatarModule } from "ngx-avatar";
+import { EditGroupPage } from './edit-group.page';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { AvatarModule } from 'ngx-avatar';
 import {
   TranslateCompiler,
   TranslateFakeLoader,
@@ -13,9 +13,9 @@ import {
   TranslateModule,
   TranslateService,
   TranslateStore
-} from "@ngx-translate/core";
-import { RouterTestingModule } from "@angular/router/testing";
-import { IonicStorageModule } from "@ionic/storage";
+} from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { IonicStorageModule } from '@ionic/storage';
 
 describe('EditGroupPage', () => {
   let component: EditGroupPage;

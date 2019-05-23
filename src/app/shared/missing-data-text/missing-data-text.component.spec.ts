@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MissingDataTextComponent } from './missing-data-text.component';
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
-import { AvatarModule } from "ngx-avatar";
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { AvatarModule } from 'ngx-avatar';
 import {
   TranslateCompiler,
   TranslateFakeLoader,
@@ -12,9 +12,9 @@ import {
   TranslateModule,
   TranslateService,
   TranslateStore
-} from "@ngx-translate/core";
-import { RouterModule } from "@angular/router";
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+} from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('MissingDataTextComponent', () => {
   let component: MissingDataTextComponent;

@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InlineEditComponent } from "./inline-edit.component";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
-import { AvatarModule } from "ngx-avatar";
+import { InlineEditComponent } from './inline-edit.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { AvatarModule } from 'ngx-avatar';
 import {
   TranslateCompiler,
   TranslateFakeLoader,
@@ -12,11 +12,11 @@ import {
   TranslateModule,
   TranslateService,
   TranslateStore
-} from "@ngx-translate/core";
-import { RouterModule } from "@angular/router";
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+} from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-describe("InlineEditComponent", () => {
+describe('InlineEditComponent', () => {
   let component: InlineEditComponent;
   let fixture: ComponentFixture<InlineEditComponent>;
 
@@ -46,7 +46,7 @@ describe("InlineEditComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
