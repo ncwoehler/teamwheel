@@ -19,10 +19,9 @@ export class TeamCardMemberActionsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    const firstTeam: Team = this.otherTeams.entries().next().value[1];
-    if (firstTeam) {
-      this.selectedTeam = firstTeam.name;
-    }
+    let teamIterator = this.otherTeams.entries().next();
+    const firstTeam: Team = teamIterator.value && teamIterator.value[1];
+    this.selectedTeam = firstTeam && firstTeam.name || '';
   }
 
   selectedTeamChanged($event) {
