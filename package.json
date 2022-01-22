@@ -38,7 +38,7 @@
     "cordova-plugin-appsee": "^2.6.0",
     "cordova-sqlite-storage": "^3.2.0",
     "core-js": "^2.6.8",
-    "nanoid": "^2.0.3",
+    "nanoid": "^3.1.31",
     "ng2-img-max": "^2.1.18",
     "ngx-avatar": "^3.2.0",
     "rxjs": "~6.5.1",
